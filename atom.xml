@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>Aquariuslt Home</title>
+  <title>BB Home</title>
   <subtitle>Coding as Calling</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="http://blog.aquariuslt.com/"/>
+  <link href="http://nogirlfriendexception.github.io/"/>
   <updated>2016-07-26T14:02:17.000Z</updated>
-  <id>http://blog.aquariuslt.com/</id>
+  <id>http://nogirlfriendexception.github.io/</id>
   
   <author>
-    <name>Aquariuslt</name>
+    <name>bb</name>
     
   </author>
   
@@ -17,8 +17,8 @@
   
   <entry>
     <title>感谢小A的无私帮助</title>
-    <link href="http://blog.aquariuslt.com/2014/06/15/aliyun-server-management/"/>
-    <id>http://blog.aquariuslt.com/2014/06/15/aliyun-server-management/</id>
+    <link href="http://nogirlfriendexception.github.io/2014/06/15/aliyun-server-management/"/>
+    <id>http://nogirlfriendexception.github.io/2014/06/15/aliyun-server-management/</id>
     <published>2014-06-15T03:42:30.000Z</published>
     <updated>2016-07-26T14:02:17.000Z</updated>
     
@@ -33,9 +33,9 @@
     </summary>
     
     
-      <category term="VPS" scheme="http://blog.aquariuslt.com/tags/VPS/"/>
+      <category term="VPS" scheme="http://nogirlfriendexception.github.io/tags/VPS/"/>
     
-      <category term="Linux" scheme="http://blog.aquariuslt.com/tags/Linux/"/>
+      <category term="Linux" scheme="http://nogirlfriendexception.github.io/tags/Linux/"/>
     
   </entry>
   
