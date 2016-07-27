@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nogirlfriendexception.github.io/"/>
-  <updated>2016-07-27T02:34:38.000Z</updated>
+  <updated>2016-07-27T02:37:09.000Z</updated>
   <id>http://nogirlfriendexception.github.io/</id>
   
   <author>
@@ -17,10 +17,10 @@
   
   <entry>
     <title>上传Android Library 到 bintray</title>
-    <link href="http://nogirlfriendexception.github.io/0201/06/15/upload-androidlib-bintray/"/>
-    <id>http://nogirlfriendexception.github.io/0201/06/15/upload-androidlib-bintray/</id>
-    <published>0201-06-15T03:42:30.000Z</published>
-    <updated>2016-07-27T02:34:38.000Z</updated>
+    <link href="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/"/>
+    <id>http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/</id>
+    <published>2015-11-09T03:42:30.000Z</published>
+    <updated>2016-07-27T02:37:09.000Z</updated>
     
     <content type="html"><![CDATA[<p>上传Android Library 到 bintray.</p>
 <p>给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.</p>
