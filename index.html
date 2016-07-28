@@ -145,12 +145,12 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                2
+                3
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                1
-                <span>tag</span>
+                2
+                <span>tags</span>
             </div>
         </div>
         
@@ -177,6 +177,130 @@ ga('send', 'pageview');
 
             
             <section id="main">
+    <article id="post-summary" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/07/28/summary/">从前, 现在, 未来</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/07/28/summary/">
+            <time datetime="2016-07-28T10:47:30.000Z" itemprop="datePublished">2016-07-28</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Life/">Life</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://nogirlfriendexception.github.io/2016/07/28/summary/" data-id="cir5rkrja0000vwfy52xa2aoa" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="/2016/07/28/summary/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/07/28/summary/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-mediaplayer-rebuild" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -215,14 +339,18 @@ ga('send', 'pageview');
             
             <p>播放器重构中遇见的坑</p>
 <p>最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.<br>(android mediaplayer, exoplayer, ijkplayer.)<br>rendenview 与 Mediaplayer 层面 隔离开.</p>
-<p>在开发过程中遇见了两个小坑.<br>1 简单的来说, mediaplayer 和ijkplayer 在进入Preparing的状态中时, 是不会对视频本身进行缓冲的, 而仅仅是做了初始化播放器的工作, 也就是说在prepared完成之前, 是不会有buffer的生命周期回调的, 而是在prepared 之后, 才会开始进入buffering state. 但是exoplayer的理念和 这两者有一点小小的不同,<br>exoplayer在 进入 preparing状态之后 初始化完成播放器以后,<br>会对视频本身开始buffer, buffer到足够开始进行播放以后, 才会<br>回掉 STATE_READY(Prepared)的状态.<br>这会给上层做整套生命周期 造成一定的影响.</p>
-<p>如图:<br>androidmediaplayer/ ijkplayer 的初始化生命周期</p>
-<p>IDLE –&gt; Preparing –&gt; Prepared –&gt; buffering –&gt; playing.</p>
-<p>exoplayer的 初始化生命周期<br>IDLE –&gt; preparing –&gt; buffering –&gt; prepared(ready)</p>
-<ol>
-<li>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.</li>
-</ol>
-<p>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="external">issue</a>;<br>作者也承认了这个错误, 但是 not on plan.</p>
+<p>在开发过程中遇见了几个小坑.</p>
+<ul>
+<li><p>播放器状态相关<br>简单的来说, mediaplayer 和ijkplayer 在进入Preparing的状态中时, 是不会对视频本身进行缓冲的, 而仅仅是做了初始化播放器的工作, 也就是说在prepared完成之前, 是不会有buffer的生命周期回调的, 而是在prepared 之后, 才会开始进入buffering state. 但是exoplayer的理念和 这两者有一点小小的不同,<br>exoplayer在 进入 preparing状态之后 初始化完成播放器以后,<br>会对视频本身开始buffer, buffer到足够开始进行播放以后, 才会<br>回掉 STATE_READY(Prepared)的状态.<br>这会给上层做整套生命周期 造成一定的影响.</p>
+<p>  如图:<br>  androidmediaplayer/ ijkplayer 的初始化生命周期<br>  IDLE –&gt; Preparing –&gt; Prepared –&gt; buffering –&gt; playing.<br>  exoplayer的 初始化生命周期<br>  IDLE –&gt; preparing –&gt; buffering –&gt; prepared(ready)</p>
+</li>
+</ul>
+<ul>
+<li><p>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.<br>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="external">issue</a>;<br>作者也承认了这个错误, 但是 他说 这并不重要, not on plan.</p>
+</li>
+<li><p>SeekTo 相关<br>android mediaplayer seekTo 到 mediaplayer.getDuration(); 也就是说 seek到最后 正常来说 是没有什么问题的.<br>可以正常seek, 然后成功进入completed状态. 然后这个时候调用start. 也不会有什么问题 会进入Playing状态<br>但是你如果再次seekTo mediaplayer.getDuration(); 再点播放 就会出问题了, Mediaplayer 内部状态已经混乱了.<br>对于这件事 我不知道为什么网上搜不到很多相关的问题, 可能是我太无聊了或者我使用方法不恰当的问题把.<br>总而言之最后我做了WorkAround.<br>每次执行seekTo的时候 我都会判断1下 是不是seekTo到最后 如果是 我就seekTo到getDuration() - 2000;<br>然后 问题解决了</p>
+</li>
+</ul>
 <p>不过还好 这些问题如果理解的好,可以在上层进行规避.把三套播放器的生命周期 可以整合一套的。</p>
 
         
@@ -234,7 +362,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cir4b168f0002tgfyutnrlvgv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cir4hip6i00004ffyzer1bmad" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -376,7 +504,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cir4b16860000tgfy1sq3lhqd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cir4hip6o00024ffyild8e6kr" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -466,6 +594,24 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2016/07/28/summary/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/07/28/summary/" class="title">从前, 现在, 未来</a></p>
+                            <p class="item-date"><time datetime="2016-07-28T10:47:30.000Z" itemprop="datePublished">2016-07-28</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2016/06/06/mediaplayer-rebuild/" class="thumbnail">
     
     
@@ -510,7 +656,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -519,7 +665,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">2</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -528,7 +674,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Android/" style="font-size: 10px;">Android</a>
+            <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a>
         </div>
     </div>
 
