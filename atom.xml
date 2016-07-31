@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://nogirlfriendexception.github.io/"/>
-  <updated>2016-07-28T02:59:17.000Z</updated>
+  <updated>2016-07-31T10:20:28.000Z</updated>
   <id>http://nogirlfriendexception.github.io/</id>
   
   <author>
@@ -16,13 +16,49 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>从前, 现在, 未来</title>
-    <link href="http://nogirlfriendexception.github.io/2016/07/28/summary/"/>
-    <id>http://nogirlfriendexception.github.io/2016/07/28/summary/</id>
-    <published>2016-07-28T10:47:30.000Z</published>
-    <updated>2016-07-28T02:59:17.000Z</updated>
+    <title>三步学习计划</title>
+    <link href="http://nogirlfriendexception.github.io/2016/07/31/summary/"/>
+    <id>http://nogirlfriendexception.github.io/2016/07/31/summary/</id>
+    <published>2016-07-31T10:03:30.000Z</published>
+    <updated>2016-07-31T10:20:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>感觉自从一年前离开闪动以后,学习进度和劲头就降下来了,一方面因为公司的业务挺忙,一直有活干,<br>当然这都是一些托辞吧,主要还是自己比较懒,之前学的东西可以应付工作中的大部分内容了,让自己开始松懈<br>起来. 最近决定结束这种精神状态,开始恢复每天都能保持学习的日子.</p>
+<h4 id="第一个三月"><a href="#第一个三月" class="headerlink" title="第一个三月"></a>第一个三月</h4><h5 id="计划读完的书"><a href="#计划读完的书" class="headerlink" title="计划读完的书"></a>计划读完的书</h5><ol>
+<li>android开发艺术探索</li>
+<li>代码整洁之道</li>
+<li>重构改善既有代码的设计</li>
+<li>HeadFirst 设计模式</li>
+<li>android 内核剖析</li>
+<li>java并发编程实战</li>
+<li>java 网络编程</li>
+</ol>
+<h5 id="需要掌握的知识点"><a href="#需要掌握的知识点" class="headerlink" title="需要掌握的知识点"></a>需要掌握的知识点</h5><ol>
+<li>android 自定义View相关</li>
+<li>设计模式</li>
+<li>android 动画</li>
+<li>深刻理解 SurfaceView</li>
+<li>java 多线程</li>
+<li>java 网络相关</li>
+<li>java io相关</li>
+</ol>
+<h4 id="第二个三月"><a href="#第二个三月" class="headerlink" title="第二个三月"></a>第二个三月</h4><h5 id="计划读完的书-1"><a href="#计划读完的书-1" class="headerlink" title="计划读完的书"></a>计划读完的书</h5><ol>
+<li>算法</li>
+<li>linux 私房菜</li>
+<li>gradle 实战</li>
+<li>暂定</li>
+</ol>
+<h5 id="需要掌握的知识点-1"><a href="#需要掌握的知识点-1" class="headerlink" title="需要掌握的知识点"></a>需要掌握的知识点</h5><ol>
+<li>gradle 相关知识</li>
+<li>数据结构算法 学习</li>
+<li>linux 学习</li>
+<li>暂停</li>
+</ol>
+<p>我知道自己不可能像戒烟一样那样决绝的戒掉游戏,但是我总是去做点什么证明自己努力过.<br>就从现在开始把.</p>
+]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;感觉自从一年前离开闪动以后,学习进度和劲头就降下来了,一方面因为公司的业务挺忙,一直有活干,&lt;br&gt;当然这都是一些托辞吧,主要还是自己比较懒,之前学的东西可以应付工作中的大部分内容了,让自己开始松懈&lt;br&gt;起来. 最近决定结束这种精神状态,开始恢复每天都能保持学习的日子.&lt;
     
     </summary>
     
@@ -72,7 +108,7 @@
     <link href="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/"/>
     <id>http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/</id>
     <published>2015-11-09T03:42:30.000Z</published>
-    <updated>2016-07-31T09:36:54.000Z</updated>
+    <updated>2016-07-31T09:38:28.000Z</updated>
     
     <content type="html"><![CDATA[<p>上传Android Library 到 bintray.</p>
 <p>给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.</p>
@@ -91,7 +127,6 @@
 <p>#哦 对了<br>有可能会报一个 :lint 什么什么找不到的错误 我在这卡了好一会儿.<br>需要在android中添加这么一句  如图 就是那个lintOptions什么什么的</p>
 <p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ddd18d7641602ae2.png" alt="Paste_Image.png"></p>
 <p>哦哦我想起来了 有可能会出现什么tools.jar找不到的 bug<br>这个解决比较简单 有可能是你机器的JAVA_HOME没有指对<br>比如我是rmbp 最初的JAVA_HOME是指向的mac 自带的1.6 jdk.<br>修改成 androidstudio 指向的1.7的jdk 后就好了！！！</p>
-<p>后续如果我发现有新的问题  我会后续更新这个文章</p>
 ]]></content>
     
     <summary type="html">
