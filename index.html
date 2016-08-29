@@ -74,7 +74,7 @@ ga('send', 'pageview');
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -93,10 +93,10 @@ ga('send', 'pageview');
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Entradas',
+            POSTS: 'Posts',
             PAGES: 'Pages',
-            CATEGORIES: 'Categorias',
-            TAGS: 'Etiquetas',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -121,7 +121,7 @@ ga('send', 'pageview');
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
     </div>
 
                 </td>
@@ -141,16 +141,16 @@ ga('send', 'pageview');
             <h2 id="name">bb</h2>
             <h3 id="title">Android dev &amp;&amp; WoWer &amp;&amp; Cser.</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Beijing</span>
-            <a id="follow" target="_blank" href="https://github.com/NoGirlFriendException">SEGUIR</a>
+            <a id="follow" target="_blank" href="https://github.com/NoGirlFriendException">FOLLOW</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                4
-                <span>Entradas</span>
+                5
+                <span>posts</span>
             </div>
             <div class="article-info-block">
                 2
-                <span>Etiquetas</span>
+                <span>tags</span>
             </div>
         </div>
         
@@ -177,7 +177,7 @@ ga('send', 'pageview');
 
             
             <section id="main">
-    <article id="post-lib-experience" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-life" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -186,7 +186,7 @@ ga('send', 'pageview');
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/2016/08/03/lib-experience/">做lib的时候学习到的一种思路.</a>
+            <a class="article-title" href="/2016/08/29/life/">你就是我的天使.</a>
         </h1>
     
 
@@ -194,8 +194,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/08/03/lib-experience/">
-            <time datetime="2016-08-03T11:31:30.000Z" itemprop="datePublished">2016-08-03</time>
+        <a href="/2016/08/29/life/">
+            <time datetime="2016-08-29T11:31:30.000Z" itemprop="datePublished">2016-08-29</time>
         </a>
     </div>
 
@@ -204,7 +204,7 @@ ga('send', 'pageview');
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/Life/">Life</a>
     </div>
 
                 </div>
@@ -213,16 +213,14 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>废话不多说,前几天我在我的支付lib 中,提交了一段很简单的代码,可是cto却指出了有严重的问题.<br>代码是这样的.</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_error.png" alt="Paste_Image.png"></p>
-<p>代码很简单也很容易理解, 我这是一个支付lib, 然后这个类提供了1个发起支付的函数,<br>我拿到外部传给我的Charge 进行检验,检验完毕后,我会调用Ping++ 发起支付.<br>其中那个Callback 就是对各种支付结果进行反馈的.<br>是不是看起来没有什么问题?</p>
-<p>但是我的cto 看到后 立马就指出来了一个非常严重的问题 是这样的.</p>
-<p>当外部调用这个方法的时候, 外部一般是这样的</p>
-<p>show a loading Dialog –&gt; xx.createPayment(xx, xx, Callback);<br>然后在 Callback{<br>    onPaySuccess();<br>    onPayFailed();<br>} 的回调中, 隐藏掉这个dialog.</p>
-<p>ok 看起来一切都是正常的.<br>但是cto说,你要明白你是做lib的, 你是无法控制外部何时显示dialog的, 你需要做的是保证无论什么情况都能让调用者<br>收到callback.<br>但是你这样写法的话, 如果外部是这样写的<br>xx.createPayment(xx, xx, Callback); –&gt; show a loading Dialog ;<br>然后它恰巧OrderId 不符合规定,那么 他就会出现先收到错误的回调 然后显示dialog的情况.<br>然后他的那个dialog 就再也不会消失了…</p>
-<p>然后正确的写法应该是这样的.<br><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_success.png" alt="Paste_Image.png"></p>
-<p>相信你已经看懂了问题所在,通过post到队列的最后,来保证时序是正确的.</p>
-<p>感谢烨哥,学到了很多.</p>
+            <h5 id="相识"><a href="#相识" class="headerlink" title="相识"></a>相识</h5><p>  相识皆是偶然,几年前因为游戏的缘故和你相识, 最初因为天各一方,加上这样那样的原因,一直只是远远的和你沟通过,沟通的内容也大多是与游戏相关.</p>
+<h5 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h5><p>  第一次对你产生兴趣竟然是偶尔的一次深夜, 你推荐给我了一首歌, 名字叫唉声叹气; 应该算是一个很冷门的歌曲了,并且是听不懂的粤语,但是不知道为什么深得我心.<br>  在单曲循环了很多很多个夜晚以后, 开始对你这个小姑娘产生了兴趣, 然后你又陆续给我介绍了好几首歌曲, 都是我喜欢的那种. 陆陆续续发现了很多和你聊的来的地方<br>  以及三观出乎意料的一致.<br>  但是依然是由于这样那样的原因,并没有让我往前走出那一步. 每一次动心都默默的只是动心而已.</p>
+<p>  记着有一天晚上和你聊天,聊到双方所期望的对方是什么样的,说到深处突然发现你我或许有一点合适. 但是因为分隔两地,这个话题也就戛然而止了.<br>  时间就这样一天天的过, 转眼认识了两年多, 有一天你突然跟我说, 想离开家乡来北京闯一闯,看看外面的世界, 说真的, 当时我内心是激动的开心的,<br>  但是很快冷静下来,沉住了气, 开始帮你分析利弊,以及如何说服家里.<br>  内心是充满着期待和好奇的, 开始盼着你的到来.<br>  但是我也告诉了自己,其实一切很难, 无论是 你摆脱家里的一切来到北京, 还是我摆脱一切的束缚,迈出那一步.</p>
+<h5 id="相见"><a href="#相见" class="headerlink" title="相见"></a>相见</h5><p>  等待是煎熬的,漫长的.<br>  你说明天就要来北京了, 嘴上说着好啊好啊, 但是心里还是不敢彻底相信, 担心着这样那样的变数.<br>  直到那个午后, 你如同一个小天使一样蹦蹦哒哒的出现在我面前,<br>  我嘴上说着hi. 心里却说着 终于等来了你.</p>
+<p>  很快一切的一切都变得脆弱不堪一击, 我的世界里全部的打算 计划 担忧 迷茫 都变成一句话<br>  我爱你,我要不顾一切和你在一起.<br>  你让我明白了这世界上最美好的事, 就是我爱上了你,你也爱我.</p>
+<p>  你让我奋斗变得更有意义.<br>  你让我对明天充满着期待.<br>  你让我变得不可自拔.<br>  你让我明白,你就是那个陪我走到最后的人,让我可以付出一切的人.</p>
+<p>  此生只求与你相伴终老.</p>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/8C8B168614ACA2AD69D0394BE1C110D1.jpg" alt="Paste_Image.png"><br><img src="http://oaym3d44d.bkt.clouddn.com/3228256117F7D758326263419E6D9F4C.jpg" alt="Paste_Image.png"></p>
 
         
         </div>
@@ -233,7 +231,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cireu4igw0004n9kp1k6ntbxp" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/29/life/" data-id="cisffu0070002e7kptojvsqdd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -301,7 +299,141 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/08/03/lib-experience/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/08/03/lib-experience/">Comentarios</a>
+        <a href="/2016/08/29/life/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/08/29/life/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
+    <article id="post-lib-experience" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/08/03/lib-experience/">做lib的时候学习到的一种思路.</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/08/03/lib-experience/">
+            <time datetime="2016-08-03T11:31:30.000Z" itemprop="datePublished">2016-08-03</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>废话不多说,前几天我在我的支付lib 中,提交了一段很简单的代码,可是cto却指出了有严重的问题.<br>代码是这样的.</p>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_error.png" alt="Paste_Image.png"></p>
+<p>代码很简单也很容易理解, 我这是一个支付lib, 然后这个类提供了1个发起支付的函数,<br>我拿到外部传给我的Charge 进行检验,检验完毕后,我会调用Ping++ 发起支付.<br>其中那个Callback 就是对各种支付结果进行反馈的.<br>是不是看起来没有什么问题?</p>
+<p>但是我的cto 看到后 立马就指出来了一个非常严重的问题 是这样的.</p>
+<p>当外部调用这个方法的时候, 外部一般是这样的</p>
+<p>show a loading Dialog –&gt; xx.createPayment(xx, xx, Callback);<br>然后在 Callback{<br>    onPaySuccess();<br>    onPayFailed();<br>} 的回调中, 隐藏掉这个dialog.</p>
+<p>ok 看起来一切都是正常的.<br>但是cto说,你要明白你是做lib的, 你是无法控制外部何时显示dialog的, 你需要做的是保证无论什么情况都能让调用者<br>收到callback.<br>但是你这样写法的话, 如果外部是这样写的<br>xx.createPayment(xx, xx, Callback); –&gt; show a loading Dialog ;<br>然后它恰巧OrderId 不符合规定,那么 他就会出现先收到错误的回调 然后显示dialog的情况.<br>然后他的那个dialog 就再也不会消失了…</p>
+<p>然后正确的写法应该是这样的.<br><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_success.png" alt="Paste_Image.png"></p>
+<p>相信你已经看懂了问题所在,通过post到队列的最后,来保证时序是正确的.</p>
+<p>感谢烨哥,学到了很多.</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cisfftzzr0000e7kpe8wligc9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="/2016/08/03/lib-experience/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/08/03/lib-experience/">Comments</a>
     
 
         </footer>
@@ -389,7 +521,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/07/31/summary/" data-id="cireu4igr0002n9kpsu8xdi5h" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/07/31/summary/" data-id="cisffu00m0005e7kphjqrp88w" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -457,7 +589,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/07/31/summary/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/07/31/summary/">Comentarios</a>
+        <a href="/2016/07/31/summary/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/07/31/summary/">Comments</a>
     
 
         </footer>
@@ -528,7 +660,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cireu4igm0001n9kp8ez1uypj" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cisffu00g0004e7kp4ycvfv7l" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -596,7 +728,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/06/06/mediaplayer-rebuild/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/06/06/mediaplayer-rebuild/">Comentarios</a>
+        <a href="/2016/06/06/mediaplayer-rebuild/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/06/06/mediaplayer-rebuild/">Comments</a>
     
 
         </footer>
@@ -669,7 +801,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cireu4igz0005n9kp3qw1sg26" class="article-share-link"><i class="fa fa-share"></i>Compartir</a>
+    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cisffu00q0007e7kpixq2bmvk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -737,7 +869,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2015/11/09/upload-androidlib-bintray/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2015/11/09/upload-androidlib-bintray/">Comentarios</a>
+        <a href="/2015/11/09/upload-androidlib-bintray/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2015/11/09/upload-androidlib-bintray/">Comments</a>
     
 
         </footer>
@@ -752,9 +884,27 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">Recientes</h3>
+        <h3 class="widget-title">recent</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/08/29/life/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/8C8B168614ACA2AD69D0394BE1C110D1.jpg)" alt="你就是我的天使." class="thumbnail-image"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/08/29/life/" class="title">你就是我的天使.</a></p>
+                            <p class="item-date"><time datetime="2016-08-29T11:31:30.000Z" itemprop="datePublished">2016-08-29</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -837,25 +987,25 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">Archivos</h3>
+        <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">Etiquetas</h3>
+        <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">Nube de etiquetas</h3>
+        <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
             <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a>
         </div>
@@ -864,7 +1014,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">Links</h3>
+        <h3 class="widget-title">links</h3>
         <div class="widget">
             <ul>
                 
