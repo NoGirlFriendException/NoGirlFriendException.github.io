@@ -145,7 +145,7 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                5
+                6
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -177,6 +177,158 @@ ga('send', 'pageview');
 
             
             <section id="main">
+    <article id="post-playerscroll" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2016/09/12/playerscroll/">聊一聊播放器控制层的Scroll吧</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/09/12/playerscroll/">
+            <time datetime="2016-09-12T03:23:30.000Z" itemprop="datePublished">2016-09-12</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>从开始做android开发,一晃就两年十个月了, 算上实习的公司已经经历了三家公司, 不知道是巧合还是怎么<br>三家都是做跟视频有关系的. 今天的记录跟视频有关系但是关系不打,主要是讲视频的控制层.<br>现在回头想想之前做播放器控制层的时候,基本都是没有动过脑子的, 关于MotionEvent 也是一知半解,写出来的控制层的代码,<br>都是从网上搜索到的.然后我看了看几家公司的代码, 基本上大家都是雷同的…</p>
+<p>下面贴出来一个 示范代码, 网上随处可见.<br><img src="http://oaym3d44d.bkt.clouddn.com/normal_Scroll.png" alt="Paste_Image.png"></p>
+<p>反正这代码的逻辑就是算touch Down 下时的Event xy 坐标 然后看当前的Event 坐标 来判断用户 是做的什么操作<br>以及滑动了多少.  这段代码 大部分时间应该都是没问题的, 大家也都是这样做的.<br>但是在用户做一些特殊操作的时候 就会有问题. 我举个例子:<br>用户touch 到了屏幕中间,然后向右滑动, 然后滑动到最右面, 不要松手 往左滑动.再滑动到中间继续往左滑.<br>你就会发现touch事件有断层, 并且滑动距离与 视频进退的比例不好设定. (这点尤为突出)</p>
+<h5 id="这些缺点-以及一些不如意的地方-由于我描述能力不行-可能说的不是太清楚-只有实际开发碰见过这些问题的同学才会明白我说的是什么"><a href="#这些缺点-以及一些不如意的地方-由于我描述能力不行-可能说的不是太清楚-只有实际开发碰见过这些问题的同学才会明白我说的是什么" class="headerlink" title="这些缺点 以及一些不如意的地方, 由于我描述能力不行, 可能说的不是太清楚, 只有实际开发碰见过这些问题的同学才会明白我说的是什么.."></a>这些缺点 以及一些不如意的地方, 由于我描述能力不行, 可能说的不是太清楚, 只有实际开发碰见过这些问题的同学才会明白我说的是什么..</h5><p>之前自己也一直没有注意到这些细节上的问题, 偶尔的一次机会发现了这个体验问题, 决心要解决它. 重新去搞一套<br>比较舒服的Scroll 算法. 最后在烨哥+飞哥的共同帮助下, 完成了一套暂时看起来还不错的Scroll算法.<br>所以写下了这篇文章来记录一下想法和实现.</p>
+<p>首先 我们要明确一件事情,</p>
+<h5 id="当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕"><a href="#当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕" class="headerlink" title="当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕."></a>当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕.</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/test.png" alt="Paste_Image.png"></p>
+<p>看图 上面这条线是影片的时间线, 0 就是视频起点, d 就是影片的总长度 Y 当前currentPosition<br>下面这条线是用户touch在屏幕上的位置 p是触摸左侧X坐标 q 触摸右侧X坐标  X touchDown的X坐标<br>其中需要说明的是 这里有个小细节, 很多人算触摸界限的时候,都习惯性设置0 和 ScreenWidth. 但是其实真正使用的时候<br>是没有人会从0开始滑 或者滑到屏幕最右面的, 除非你是测试.<br>所以 p 是设置的1个padding值,并不是 0, q 也不是ScreenWidth. 一般是ScreenWidth - padding.</p>
+<h5 id="这套代码的整体思想很简单-x-随着用户的滑动不停的在改变-我们要用x-来算出相应的y-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值"><a href="#这套代码的整体思想很简单-x-随着用户的滑动不停的在改变-我们要用x-来算出相应的y-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值" class="headerlink" title="这套代码的整体思想很简单, x 随着用户的滑动不停的在改变, 我们要用x 来算出相应的y, 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值."></a>这套代码的整体思想很简单, x 随着用户的滑动不停的在改变, 我们要用x 来算出相应的y, 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值.</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/inited.png" alt="Paste_Image.png"><br>首先是一些常量的初始化, 注释也都有说明, 其中leftTouch 就是手指x坐标离左面的值, rightTouch 是离右面的值.<br>touchRange 是总的触摸长度, rightDuration 是影片剩余的时间.</p>
+<p>接着上面的说, 我们既然要算出a 和 b, 那么就需要 得到两组合适的 xy 值 代入公式.<br>其中已经确定好的一组值 就是 X 和 Y 就是手指刚落下的时候 那一组. 我们需要做的就是找出另外一组x y 值.</p>
+<p>情况其实只有四种</p>
+<ol>
+<li>以屏幕触摸终点 对应影片的Duration.</li>
+<li>以屏幕触摸中点 对应影片的Duration.</li>
+<li>以屏幕触摸起点 对应影片的起点</li>
+<li>以屏幕触摸中点 对应影片的起点</li>
+</ol>
+<p>可以根据比较 x 与touchRange的比值 与 y 与duration的比值的大小,来确定具体使用哪种情况.<br>比较口头的来说,也是有四种情况, 可以涵盖全部情况</p>
+<ol>
+<li>影片已经播放的时间 比较短, 触摸的位置特别靠右.</li>
+<li>影片已经播放的时间 比较短, 触摸的位置靠右,但是不是特别靠右</li>
+<li>影片已经播放的时间 比较长, 触摸的位置特别靠左,</li>
+<li>影片已经播放的时间 比较长, 触摸的位置靠左,但是不是特别靠左》</li>
+</ol>
+<p>具体代码如下,也是最核心的代码.</p>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/hexin.png" alt="Paste_Image.png"></p>
+<p>这个地方如果理解起来有点困难, 可以画一些图来感受一下,就能明白为什么这样对应了.<br>得到 两组 xy 值以后, 代入二元一次方程, 算出 ab 以后就好说拉！</p>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/final.png" alt="Paste_Image.png"></p>
+<p>以上就是整套Scroll的代码和解析了, 实际跑起来的效果特别好! 顺滑无比! 怎么滑动都不会有断层,而且无论用户触摸在哪里开始滑动,<br>滑动距离与影片改变的时间都很舒服.</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="ciszhnfnf000092kp9y3mu7pb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="/2016/09/12/playerscroll/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/09/12/playerscroll/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-life" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -231,7 +383,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/29/life/" data-id="cisfkzpmz0004nukpmmasgpuq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/29/life/" data-id="cisfwul7p0005gnfyulqub9ip" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -365,7 +517,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cisfkzpmo0000nukpfjib140i" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cisfwul790000gnfyg9vw199l" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -521,7 +673,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/07/31/summary/" data-id="cisfkzpn20005nukp1vn50vlk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/07/31/summary/" data-id="cisfwul7l0004gnfyxwjq6tqj" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -660,7 +812,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cisfkzpmu0002nukp1y2crmea" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cisfwul7f0002gnfyf1qjqgqd" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -801,7 +953,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cisfkzpn70007nukphrgey8yg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cisfwul7s0007gnfyoo77t19j" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -891,6 +1043,24 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2016/09/12/playerscroll/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/normal_Scroll.png)" alt="聊一聊播放器控制层的Scroll吧" class="thumbnail-image"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/09/12/playerscroll/" class="title">聊一聊播放器控制层的Scroll吧</a></p>
+                            <p class="item-date"><time datetime="2016-09-12T03:23:30.000Z" itemprop="datePublished">2016-09-12</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2016/08/29/life/" class="thumbnail">
     
     
@@ -960,24 +1130,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2015/11/09/upload-androidlib-bintray/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png)" alt="上传Android Library 到 bintray" class="thumbnail-image"></span>
-    
-</a>
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2015/11/09/upload-androidlib-bintray/" class="title">上传Android Library 到 bintray</a></p>
-                            <p class="item-date"><time datetime="2015-11-09T03:42:30.000Z" itemprop="datePublished">2015-11-09</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -989,7 +1141,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -998,7 +1150,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li></ul>
         </div>
     </div>
 

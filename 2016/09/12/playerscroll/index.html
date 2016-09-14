@@ -3,26 +3,23 @@
 <head>
     <meta charset="utf-8">
     
-    <title>上传Android Library 到 bintray | Hello, I&#39;m bb</title>
+    <title>聊一聊播放器控制层的Scroll吧 | Hello, I&#39;m bb</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="上传Android Library 到 bintray.
-给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.
-说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就">
+    <meta name="description" content="从开始做android开发,一晃就两年十个月了, 算上实习的公司已经经历了三家公司, 不知道是巧合还是怎么三家都是做跟视频有关系的. 今天的记录跟视频有关系但是关系不打,主要是讲视频的控制层.现在回头想想之前做播放器控制层的时候,基本都是没有动过脑子的, 关于MotionEvent 也是一知半解,写出来的控制层的代码,都是从网上搜索到的.然后我看了看几家公司的代码, 基本上大家都是雷同的…
+下面贴">
 <meta property="og:type" content="article">
-<meta property="og:title" content="上传Android Library 到 bintray">
-<meta property="og:url" content="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/index.html">
+<meta property="og:title" content="聊一聊播放器控制层的Scroll吧">
+<meta property="og:url" content="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/index.html">
 <meta property="og:site_name" content="Hello, I'm bb">
-<meta property="og:description" content="上传Android Library 到 bintray.
-给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.
-说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就">
-<meta property="og:image" content="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png">
-<meta property="og:updated_time" content="2016-07-31T09:38:28.000Z">
+<meta property="og:description" content="从开始做android开发,一晃就两年十个月了, 算上实习的公司已经经历了三家公司, 不知道是巧合还是怎么三家都是做跟视频有关系的. 今天的记录跟视频有关系但是关系不打,主要是讲视频的控制层.现在回头想想之前做播放器控制层的时候,基本都是没有动过脑子的, 关于MotionEvent 也是一知半解,写出来的控制层的代码,都是从网上搜索到的.然后我看了看几家公司的代码, 基本上大家都是雷同的…
+下面贴">
+<meta property="og:image" content="http://oaym3d44d.bkt.clouddn.com/normal_Scroll.png">
+<meta property="og:updated_time" content="2016-09-14T03:27:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="上传Android Library 到 bintray">
-<meta name="twitter:description" content="上传Android Library 到 bintray.
-给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.
-说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就">
-<meta name="twitter:image" content="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png">
+<meta name="twitter:title" content="聊一聊播放器控制层的Scroll吧">
+<meta name="twitter:description" content="从开始做android开发,一晃就两年十个月了, 算上实习的公司已经经历了三家公司, 不知道是巧合还是怎么三家都是做跟视频有关系的. 今天的记录跟视频有关系但是关系不打,主要是讲视频的控制层.现在回头想想之前做播放器控制层的时候,基本都是没有动过脑子的, 关于MotionEvent 也是一知半解,写出来的控制层的代码,都是从网上搜索到的.然后我看了看几家公司的代码, 基本上大家都是雷同的…
+下面贴">
+<meta name="twitter:image" content="http://oaym3d44d.bkt.clouddn.com/normal_Scroll.png">
     
 
     
@@ -188,7 +185,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-upload-androidlib-bintray" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-playerscroll" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -197,7 +194,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            上传Android Library 到 bintray
+            聊一聊播放器控制层的Scroll吧
         </h1>
     
 
@@ -205,8 +202,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2015/11/09/upload-androidlib-bintray/">
-            <time datetime="2015-11-09T03:42:30.000Z" itemprop="datePublished">2015-11-09</time>
+        <a href="/2016/09/12/playerscroll/">
+            <time datetime="2016-09-12T03:23:30.000Z" itemprop="datePublished">2016-09-12</time>
         </a>
     </div>
 
@@ -224,23 +221,34 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>上传Android Library 到 bintray.</p>
-<p>给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.</p>
-<p>说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就对着svn和eclipse, 什么maven,git,As,jcenter,bintray 等等完全没接触过. 谢谢公司给了机会去学习这些,但由于英语不好,在学习使用的途中踩了很多坑.<br>这篇文章就是记录我把这个模块传到 bintray上 整个过程踩过的坑.</p>
-<h1 id="第一步-注册"><a href="#第一步-注册" class="headerlink" title="第一步 注册"></a>第一步 注册</h1><p>首先你需要 去<a href="https://bintray.com/" target="_blank" rel="external">bintray官网</a> 注册个账号,这里就不过多描述了.你可以的.<br>注册完毕以后 点击这里 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png" alt="Paste_Image.png"><br>进入maven管理界面<br>然后 点击 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-de836fe22fd42639.png" alt="Paste_Image.png"><br>创建新的package</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ea744876bf5965e3.png" alt="Paste_Image.png"></p>
-<p>name 就是项目的名称<br>licenses 我选择的是apache-2.0<br>version control 我填的是github上的地址<br>然后一切ok, 点击create package. 创建完毕.</p>
-<p>#第二步 寻找好用的publisher<br>作者一开始不懂这个是干什么的,是公司的cto给我推荐了1个github地址,让我去学习那个,并且告诉我这个是最简单的上传方式.<br>地址是 <a href="https://github.com/novoda/bintray-release" target="_blank" rel="external">novoda</a><br>其实英语好的哥们看到这应该已经知道怎么弄了</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-bfeabd995b2e403b.png" alt="Paste_Image.png"></p>
-<p>第一步 把这些配置到 你要发布的项目的 build.gradle文件中 这里需要注意的是<br>apply plugin: ‘com.novoda.bintray-release’ 这句话 需要放在com.android.library 下面<br>如图</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-8ca40a91dfff276a.png" alt="Paste_Image.png"></p>
-<p>第二步<br><img src="http://oaym3d44d.bkt.clouddn.com/1097102-7c60c4378bf4a0c0.png" alt="Paste_Image.png"><br>在build.gradle 文件中添加这个方法块。<br>其中userorg 就是你的用户id<br>groupid 就是你的唯一包名<br>artifactId 是你之前最初在bintary的maven中创建的那个package的名字,这里需要对应上 否则会上传失败.<br>publishVersion 就是你的版本id咯<br>下面2个随意填了</p>
-<p>第三步<br>$ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false<br>在命令行中输出这些,其中需要把BINTRAY_USERNAME 替换成你的bintary的名字<br>BINTRAY_KEY 替换成你的 BIntray的key ,其中key 可以点击你bintary中头像旁边的edit.<br>进入API-Key 可以看到你的key,然后 copy进来就好了！<br>这个时候打回车！ 然后就run起来了就好了.<br>上传成功以后 你可以在你bintary 那个项目中 的管理页面看到这个</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-d6ad4a6950425695.png" alt="Paste_Image.png"></p>
-<p>如果看到1.0.0 恭喜你 那就是上传成功, 但是这只是1个私人的,还不能让别人都用<br>这个时候你需要点下面那个add to jcenter 然后申请加入jcenter<br>用英语写几句描述 然后 提交 然后 就耐心等待就好了！！</p>
-<p>#哦 对了<br>有可能会报一个 :lint 什么什么找不到的错误 我在这卡了好一会儿.<br>需要在android中添加这么一句  如图 就是那个lintOptions什么什么的</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ddd18d7641602ae2.png" alt="Paste_Image.png"></p>
-<p>哦哦我想起来了 有可能会出现什么tools.jar找不到的 bug<br>这个解决比较简单 有可能是你机器的JAVA_HOME没有指对<br>比如我是rmbp 最初的JAVA_HOME是指向的mac 自带的1.6 jdk.<br>修改成 androidstudio 指向的1.7的jdk 后就好了！！！</p>
+            <p>从开始做android开发,一晃就两年十个月了, 算上实习的公司已经经历了三家公司, 不知道是巧合还是怎么<br>三家都是做跟视频有关系的. 今天的记录跟视频有关系但是关系不打,主要是讲视频的控制层.<br>现在回头想想之前做播放器控制层的时候,基本都是没有动过脑子的, 关于MotionEvent 也是一知半解,写出来的控制层的代码,<br>都是从网上搜索到的.然后我看了看几家公司的代码, 基本上大家都是雷同的…</p>
+<p>下面贴出来一个 示范代码, 网上随处可见.<br><img src="http://oaym3d44d.bkt.clouddn.com/normal_Scroll.png" alt="Paste_Image.png"></p>
+<p>反正这代码的逻辑就是算touch Down 下时的Event xy 坐标 然后看当前的Event 坐标 来判断用户 是做的什么操作<br>以及滑动了多少.  这段代码 大部分时间应该都是没问题的, 大家也都是这样做的.<br>但是在用户做一些特殊操作的时候 就会有问题. 我举个例子:<br>用户touch 到了屏幕中间,然后向右滑动, 然后滑动到最右面, 不要松手 往左滑动.再滑动到中间继续往左滑.<br>你就会发现touch事件有断层, 并且滑动距离与 视频进退的比例不好设定. (这点尤为突出)</p>
+<h5 id="这些缺点-以及一些不如意的地方-由于我描述能力不行-可能说的不是太清楚-只有实际开发碰见过这些问题的同学才会明白我说的是什么"><a href="#这些缺点-以及一些不如意的地方-由于我描述能力不行-可能说的不是太清楚-只有实际开发碰见过这些问题的同学才会明白我说的是什么" class="headerlink" title="这些缺点 以及一些不如意的地方, 由于我描述能力不行, 可能说的不是太清楚, 只有实际开发碰见过这些问题的同学才会明白我说的是什么.."></a>这些缺点 以及一些不如意的地方, 由于我描述能力不行, 可能说的不是太清楚, 只有实际开发碰见过这些问题的同学才会明白我说的是什么..</h5><p>之前自己也一直没有注意到这些细节上的问题, 偶尔的一次机会发现了这个体验问题, 决心要解决它. 重新去搞一套<br>比较舒服的Scroll 算法. 最后在烨哥+飞哥的共同帮助下, 完成了一套暂时看起来还不错的Scroll算法.<br>所以写下了这篇文章来记录一下想法和实现.</p>
+<p>首先 我们要明确一件事情,</p>
+<h5 id="当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕"><a href="#当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕" class="headerlink" title="当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕."></a>当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕.</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/test.png" alt="Paste_Image.png"></p>
+<p>看图 上面这条线是影片的时间线, 0 就是视频起点, d 就是影片的总长度 Y 当前currentPosition<br>下面这条线是用户touch在屏幕上的位置 p是触摸左侧X坐标 q 触摸右侧X坐标  X touchDown的X坐标<br>其中需要说明的是 这里有个小细节, 很多人算触摸界限的时候,都习惯性设置0 和 ScreenWidth. 但是其实真正使用的时候<br>是没有人会从0开始滑 或者滑到屏幕最右面的, 除非你是测试.<br>所以 p 是设置的1个padding值,并不是 0, q 也不是ScreenWidth. 一般是ScreenWidth - padding.</p>
+<h5 id="这套代码的整体思想很简单-x-随着用户的滑动不停的在改变-我们要用x-来算出相应的y-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值"><a href="#这套代码的整体思想很简单-x-随着用户的滑动不停的在改变-我们要用x-来算出相应的y-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值" class="headerlink" title="这套代码的整体思想很简单, x 随着用户的滑动不停的在改变, 我们要用x 来算出相应的y, 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值."></a>这套代码的整体思想很简单, x 随着用户的滑动不停的在改变, 我们要用x 来算出相应的y, 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值.</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/inited.png" alt="Paste_Image.png"><br>首先是一些常量的初始化, 注释也都有说明, 其中leftTouch 就是手指x坐标离左面的值, rightTouch 是离右面的值.<br>touchRange 是总的触摸长度, rightDuration 是影片剩余的时间.</p>
+<p>接着上面的说, 我们既然要算出a 和 b, 那么就需要 得到两组合适的 xy 值 代入公式.<br>其中已经确定好的一组值 就是 X 和 Y 就是手指刚落下的时候 那一组. 我们需要做的就是找出另外一组x y 值.</p>
+<p>情况其实只有四种</p>
+<ol>
+<li>以屏幕触摸终点 对应影片的Duration.</li>
+<li>以屏幕触摸中点 对应影片的Duration.</li>
+<li>以屏幕触摸起点 对应影片的起点</li>
+<li>以屏幕触摸中点 对应影片的起点</li>
+</ol>
+<p>可以根据比较 x 与touchRange的比值 与 y 与duration的比值的大小,来确定具体使用哪种情况.<br>比较口头的来说,也是有四种情况, 可以涵盖全部情况</p>
+<ol>
+<li>影片已经播放的时间 比较短, 触摸的位置特别靠右.</li>
+<li>影片已经播放的时间 比较短, 触摸的位置靠右,但是不是特别靠右</li>
+<li>影片已经播放的时间 比较长, 触摸的位置特别靠左,</li>
+<li>影片已经播放的时间 比较长, 触摸的位置靠左,但是不是特别靠左》</li>
+</ol>
+<p>具体代码如下,也是最核心的代码.</p>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/hexin.png" alt="Paste_Image.png"></p>
+<p>这个地方如果理解起来有点困难, 可以画一些图来感受一下,就能明白为什么这样对应了.<br>得到 两组 xy 值以后, 代入二元一次方程, 算出 ab 以后就好说拉！</p>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/final.png" alt="Paste_Image.png"></p>
+<p>以上就是整套Scroll的代码和解析了, 实际跑起来的效果特别好! 顺滑无比! 怎么滑动都不会有断层,而且无论用户触摸在哪里开始滑动,<br>滑动距离与影片改变的时间都很舒服.</p>
 
         
         </div>
@@ -251,7 +259,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cisfwul7s0007gnfyoo77t19j" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="ciszhnfnf000092kp9y3mu7pb" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -319,7 +327,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2015/11/09/upload-androidlib-bintray/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2015/11/09/upload-androidlib-bintray/">Comments</a>
+        <a href="/2016/09/12/playerscroll/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/09/12/playerscroll/">Comments</a>
     
 
         </footer>
@@ -328,15 +336,11 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2016/06/06/mediaplayer-rebuild/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    播放器重构中遇见的坑
-                
-            </div>
-        </a>
     
+        <a href="/2016/08/29/life/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">你就是我的天使.</div>
+        </a>
     
 </nav>
 
@@ -528,7 +532,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'aquariuslt';
     
     
-    var disqus_url = 'http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/';
+    var disqus_url = 'http://nogirlfriendexception.github.io/2016/09/12/playerscroll/';
     
     (function() {
     var dsq = document.createElement('script');
