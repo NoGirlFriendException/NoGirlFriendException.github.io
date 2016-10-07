@@ -18,7 +18,7 @@
 代码很简单也很容易理解, 我这是一个支付lib, 然后这个类提供了1个发起支付的函数,我拿到外部传给我的Charge 进行检验,检验完毕后,我会调用Ping++ 发起支付.其中那个Callback 就是对各种支付结果进行反馈的.是不是看起来没有什么问题?
 但是我的cto 看到后 立马">
 <meta property="og:image" content="http://oaym3d44d.bkt.clouddn.com/payhelper_error.png">
-<meta property="og:updated_time" content="2016-08-03T11:53:13.000Z">
+<meta property="og:updated_time" content="2016-10-07T13:28:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="做lib的时候学习到的一种思路.">
 <meta name="twitter:description" content="废话不多说,前几天我在我的支付lib 中,提交了一段很简单的代码,可是cto却指出了有严重的问题.代码是这样的.
@@ -228,13 +228,13 @@ ga('send', 'pageview');
         
             
             <p>废话不多说,前几天我在我的支付lib 中,提交了一段很简单的代码,可是cto却指出了有严重的问题.<br>代码是这样的.</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_error.png" alt="Paste_Image.png"></p>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_error.png" alt="code"></p>
 <p>代码很简单也很容易理解, 我这是一个支付lib, 然后这个类提供了1个发起支付的函数,<br>我拿到外部传给我的Charge 进行检验,检验完毕后,我会调用Ping++ 发起支付.<br>其中那个Callback 就是对各种支付结果进行反馈的.<br>是不是看起来没有什么问题?</p>
 <p>但是我的cto 看到后 立马就指出来了一个非常严重的问题 是这样的.</p>
 <p>当外部调用这个方法的时候, 外部一般是这样的</p>
 <p>show a loading Dialog –&gt; xx.createPayment(xx, xx, Callback);<br>然后在 Callback{<br>    onPaySuccess();<br>    onPayFailed();<br>} 的回调中, 隐藏掉这个dialog.</p>
 <p>ok 看起来一切都是正常的.<br>但是cto说,你要明白你是做lib的, 你是无法控制外部何时显示dialog的, 你需要做的是保证无论什么情况都能让调用者<br>收到callback.<br>但是你这样写法的话, 如果外部是这样写的<br>xx.createPayment(xx, xx, Callback); –&gt; show a loading Dialog ;<br>然后它恰巧OrderId 不符合规定,那么 他就会出现先收到错误的回调 然后显示dialog的情况.<br>然后他的那个dialog 就再也不会消失了…</p>
-<p>然后正确的写法应该是这样的.<br><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_success.png" alt="Paste_Image.png"></p>
+<p>然后正确的写法应该是这样的.<br><img src="http://oaym3d44d.bkt.clouddn.com/payhelper_success.png" alt="final code"></p>
 <p>相信你已经看懂了问题所在,通过post到队列的最后,来保证时序是正确的.</p>
 <p>感谢烨哥,学到了很多.</p>
 
@@ -247,7 +247,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="citzt3lp40002kxs66b1um315" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="citzt7e660000sks60xrwqstl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
