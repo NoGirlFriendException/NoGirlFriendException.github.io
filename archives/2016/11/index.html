@@ -3,26 +3,14 @@
 <head>
     <meta charset="utf-8">
     
-    <title>上传Android Library 到 bintray | Hello, I&#39;m bb</title>
+    <title>Archive: 2016/11 | Hello, I&#39;m bb</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="上传Android Library 到 bintray.
-给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.
-说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就">
-<meta property="og:type" content="article">
-<meta property="og:title" content="上传Android Library 到 bintray">
-<meta property="og:url" content="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Hello, I'm bb">
+<meta property="og:url" content="http://nogirlfriendexception.github.io/archives/2016/11/index.html">
 <meta property="og:site_name" content="Hello, I'm bb">
-<meta property="og:description" content="上传Android Library 到 bintray.
-给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.
-说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就">
-<meta property="og:image" content="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png">
-<meta property="og:updated_time" content="2016-07-31T09:38:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="上传Android Library 到 bintray">
-<meta name="twitter:description" content="上传Android Library 到 bintray.
-给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.
-说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就">
-<meta name="twitter:image" content="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png">
+<meta name="twitter:title" content="Hello, I'm bb">
     
 
     
@@ -188,16 +176,20 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-upload-androidlib-bintray" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
+            <section id="main"><div class="timeline timeline-wrap">
+    
+            <div class="timeline-row timeline-row-major">
+                <span class="node"><i class="fa fa-calendar"></i></span>
+                <h1 class="title">2016</h1>
+            </div>
         
-        
-        
-            <header class="article-header">
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
                 
     
-        <h1 class="article-title" itemprop="name">
-            上传Android Library 到 bintray
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2016/11/08/exoplayer_translate_2.x-Why,What and when?/">ExoPlayer, 2.x - Why, what and when?</a>
         </h1>
     
 
@@ -205,8 +197,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2015/11/09/upload-androidlib-bintray/">
-            <time datetime="2015-11-09T03:42:30.000Z" itemprop="datePublished">2015-11-09</time>
+        <a href="/2016/11/08/exoplayer_translate_2.x-Why,What and when?/">
+            <time datetime="2016-11-08T02:43:30.000Z" itemprop="datePublished">2016-11-08</time>
         </a>
     </div>
 
@@ -215,147 +207,76 @@ ga('send', 'pageview');
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/ExoPlayer/">ExoPlayer</a>
     </div>
 
                 </div>
-            </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>上传Android Library 到 bintray.</p>
-<p>给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.</p>
-<p>说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就对着svn和eclipse, 什么maven,git,As,jcenter,bintray 等等完全没接触过. 谢谢公司给了机会去学习这些,但由于英语不好,在学习使用的途中踩了很多坑.<br>这篇文章就是记录我把这个模块传到 bintray上 整个过程踩过的坑.</p>
-<h1 id="第一步-注册"><a href="#第一步-注册" class="headerlink" title="第一步 注册"></a>第一步 注册</h1><p>首先你需要 去<a href="https://bintray.com/" target="_blank" rel="external">bintray官网</a> 注册个账号,这里就不过多描述了.你可以的.<br>注册完毕以后 点击这里 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png" alt="Paste_Image.png"><br>进入maven管理界面<br>然后 点击 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-de836fe22fd42639.png" alt="Paste_Image.png"><br>创建新的package</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ea744876bf5965e3.png" alt="Paste_Image.png"></p>
-<p>name 就是项目的名称<br>licenses 我选择的是apache-2.0<br>version control 我填的是github上的地址<br>然后一切ok, 点击create package. 创建完毕.</p>
-<p>#第二步 寻找好用的publisher<br>作者一开始不懂这个是干什么的,是公司的cto给我推荐了1个github地址,让我去学习那个,并且告诉我这个是最简单的上传方式.<br>地址是 <a href="https://github.com/novoda/bintray-release" target="_blank" rel="external">novoda</a><br>其实英语好的哥们看到这应该已经知道怎么弄了</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-bfeabd995b2e403b.png" alt="Paste_Image.png"></p>
-<p>第一步 把这些配置到 你要发布的项目的 build.gradle文件中 这里需要注意的是<br>apply plugin: ‘com.novoda.bintray-release’ 这句话 需要放在com.android.library 下面<br>如图</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-8ca40a91dfff276a.png" alt="Paste_Image.png"></p>
-<p>第二步<br><img src="http://oaym3d44d.bkt.clouddn.com/1097102-7c60c4378bf4a0c0.png" alt="Paste_Image.png"><br>在build.gradle 文件中添加这个方法块。<br>其中userorg 就是你的用户id<br>groupid 就是你的唯一包名<br>artifactId 是你之前最初在bintary的maven中创建的那个package的名字,这里需要对应上 否则会上传失败.<br>publishVersion 就是你的版本id咯<br>下面2个随意填了</p>
-<p>第三步<br>$ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false<br>在命令行中输出这些,其中需要把BINTRAY_USERNAME 替换成你的bintary的名字<br>BINTRAY_KEY 替换成你的 BIntray的key ,其中key 可以点击你bintary中头像旁边的edit.<br>进入API-Key 可以看到你的key,然后 copy进来就好了！<br>这个时候打回车！ 然后就run起来了就好了.<br>上传成功以后 你可以在你bintary 那个项目中 的管理页面看到这个</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-d6ad4a6950425695.png" alt="Paste_Image.png"></p>
-<p>如果看到1.0.0 恭喜你 那就是上传成功, 但是这只是1个私人的,还不能让别人都用<br>这个时候你需要点下面那个add to jcenter 然后申请加入jcenter<br>用英语写几句描述 然后 提交 然后 就耐心等待就好了！！</p>
-<p>#哦 对了<br>有可能会报一个 :lint 什么什么找不到的错误 我在这卡了好一会儿.<br>需要在android中添加这么一句  如图 就是那个lintOptions什么什么的</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ddd18d7641602ae2.png" alt="Paste_Image.png"></p>
-<p>哦哦我想起来了 有可能会出现什么tools.jar找不到的 bug<br>这个解决比较简单 有可能是你机器的JAVA_HOME没有指对<br>比如我是rmbp 最初的JAVA_HOME是指向的mac 自带的1.6 jdk.<br>修改成 androidstudio 指向的1.7的jdk 后就好了！！！</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="civ05g0g0000erms6fu2utcc5" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="/2015/11/09/upload-androidlib-bintray/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2015/11/09/upload-androidlib-bintray/">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2016/06/06/mediaplayer-rebuild/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    播放器重构中遇见的坑
-                
             </div>
+        </div>
+    
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
+                
+    
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2016/11/08/exoplayer_translate_Reporting_An_Issue/">ExoPlayer, Reporting an issue</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/11/08/exoplayer_translate_Reporting_An_Issue/">
+            <time datetime="2016-11-08T02:31:30.000Z" itemprop="datePublished">2016-11-08</time>
         </a>
-    
-    
-</nav>
-
-
-    
-</article>
-
-
-    
-    <section id="comments">
-    
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
     </div>
 
-    
-    </section>
 
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/ExoPlayer/">ExoPlayer</a>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
+                
+    
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2016/11/02/resume/">android工程师简历.</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/11/02/resume/">
+            <time datetime="2016-11-02T11:31:30.000Z" itemprop="datePublished">2016-11-02</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Resume/">Resume</a>
+    </div>
+
+                </div>
+            </div>
+        </div>
+    
+</div>
 </section>
             
                 <aside id="sidebar">
@@ -528,13 +449,11 @@ ga('send', 'pageview');
     var disqus_shortname = 'saberpowermo';
     
     
-    var disqus_url = 'http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/';
-    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
