@@ -3,21 +3,27 @@
 <head>
     <meta charset="utf-8">
     
-    <title>ExoPlayer, Reporting an issue | Hello, I&#39;m bb</title>
+    <title>WebView开发小记. | Hello, I&#39;m bb</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="本文是个人翻译官方的介绍文章, 原文地址是 Reporting an issue,需要翻墙, 转载请声明出处,感谢.正文随着ExoPlayer越来越受欢迎, 在我们的GitHub 上提出问题时,使用有效的格式,变得越来越重要了,那样能让我们更有效的对问题进行分类.所以, 下面就是来说说当你提问题的时候需要包含什么信息.
-通常来说,接下来的内容都是有用的,并且是在你提问题的时候需要包含在内的, 除非">
+    <meta name="description" content="最近重构了公司的播放器模块,重新整理了整套代码,并且加入了StateMachine, 然后现在处于提测阶段, 打算在提测确认无bug 之后进行一次StateMachine使用的记录,在这个任务空档期,老大安排了我去搞一下公司的WebView模块, 也算是换换脑子.
+该文章记录一下几个在开发过程中的小经验
+
+当你使用WebView加载网页的时候, 如果这个网页有JavaScript, 你要跟它进行交">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ExoPlayer, Reporting an issue">
-<meta property="og:url" content="http://nogirlfriendexception.github.io/2016/11/08/exoplayer_translate_Reporting_An_Issue/index.html">
+<meta property="og:title" content="WebView开发小记.">
+<meta property="og:url" content="http://nogirlfriendexception.github.io/2017/02/16/webview/index.html">
 <meta property="og:site_name" content="Hello, I'm bb">
-<meta property="og:description" content="本文是个人翻译官方的介绍文章, 原文地址是 Reporting an issue,需要翻墙, 转载请声明出处,感谢.正文随着ExoPlayer越来越受欢迎, 在我们的GitHub 上提出问题时,使用有效的格式,变得越来越重要了,那样能让我们更有效的对问题进行分类.所以, 下面就是来说说当你提问题的时候需要包含什么信息.
-通常来说,接下来的内容都是有用的,并且是在你提问题的时候需要包含在内的, 除非">
-<meta property="og:updated_time" content="2016-11-08T03:11:26.000Z">
+<meta property="og:description" content="最近重构了公司的播放器模块,重新整理了整套代码,并且加入了StateMachine, 然后现在处于提测阶段, 打算在提测确认无bug 之后进行一次StateMachine使用的记录,在这个任务空档期,老大安排了我去搞一下公司的WebView模块, 也算是换换脑子.
+该文章记录一下几个在开发过程中的小经验
+
+当你使用WebView加载网页的时候, 如果这个网页有JavaScript, 你要跟它进行交">
+<meta property="og:updated_time" content="2017-02-16T10:09:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="ExoPlayer, Reporting an issue">
-<meta name="twitter:description" content="本文是个人翻译官方的介绍文章, 原文地址是 Reporting an issue,需要翻墙, 转载请声明出处,感谢.正文随着ExoPlayer越来越受欢迎, 在我们的GitHub 上提出问题时,使用有效的格式,变得越来越重要了,那样能让我们更有效的对问题进行分类.所以, 下面就是来说说当你提问题的时候需要包含什么信息.
-通常来说,接下来的内容都是有用的,并且是在你提问题的时候需要包含在内的, 除非">
+<meta name="twitter:title" content="WebView开发小记.">
+<meta name="twitter:description" content="最近重构了公司的播放器模块,重新整理了整套代码,并且加入了StateMachine, 然后现在处于提测阶段, 打算在提测确认无bug 之后进行一次StateMachine使用的记录,在这个任务空档期,老大安排了我去搞一下公司的WebView模块, 也算是换换脑子.
+该文章记录一下几个在开发过程中的小经验
+
+当你使用WebView加载网页的时候, 如果这个网页有JavaScript, 你要跟它进行交">
     
 
     
@@ -152,11 +158,11 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                10
+                9
                 <span>posts</span>
             </div>
             <div class="article-info-block">
-                4
+                3
                 <span>tags</span>
             </div>
         </div>
@@ -183,7 +189,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-exoplayer_translate_Reporting_An_Issue" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-webview" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -192,7 +198,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            ExoPlayer, Reporting an issue
+            WebView开发小记.
         </h1>
     
 
@@ -200,8 +206,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/11/08/exoplayer_translate_Reporting_An_Issue/">
-            <time datetime="2016-11-08T02:31:30.000Z" itemprop="datePublished">2016-11-08</time>
+        <a href="/2017/02/16/webview/">
+            <time datetime="2017-02-16T09:31:30.000Z" itemprop="datePublished">2017-02-16</time>
         </a>
     </div>
 
@@ -210,7 +216,7 @@ ga('send', 'pageview');
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/ExoPlayer/">ExoPlayer</a>
+        <a class="tag-link" href="/tags/Android/">Android</a>
     </div>
 
                 </div>
@@ -219,18 +225,33 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h5 id="本文是个人翻译官方的介绍文章-原文地址是-Reporting-an-issue-需要翻墙-转载请声明出处-感谢"><a href="#本文是个人翻译官方的介绍文章-原文地址是-Reporting-an-issue-需要翻墙-转载请声明出处-感谢" class="headerlink" title="本文是个人翻译官方的介绍文章, 原文地址是 Reporting an issue,需要翻墙, 转载请声明出处,感谢."></a>本文是个人翻译官方的介绍文章, 原文地址是 <a href="https://medium.com/google-exoplayer/howto-1-reporting-an-issue-56a3ed73a5#.fymblwx9i" target="_blank" rel="external">Reporting an issue</a>,需要翻墙, 转载请声明出处,感谢.</h5><h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>随着ExoPlayer越来越受欢迎, 在我们的<a href="https://github.com/google/ExoPlayer/issues" target="_blank" rel="external">GitHub</a> 上提出问题时,使用有效的格式,变得越来越重要了,那样能让我们更有效的对问题进行分类.<br>所以, 下面就是来说说当你提问题的时候需要包含什么信息.</p>
-<p>通常来说,接下来的内容都是有用的,并且是在你提问题的时候需要包含在内的, 除非你确定你的问题是比较特殊的,不需要这些.</p>
+            <p>最近重构了公司的播放器模块,重新整理了整套代码,并且加入了StateMachine, 然后现在处于提测阶段, 打算在提测确认无bug 之后进行一次<br>StateMachine使用的记录,在这个任务空档期,老大安排了我去搞一下公司的WebView模块, 也算是换换脑子.</p>
+<p>该文章记录一下几个在开发过程中的小经验</p>
 <ul>
-<li>问题的描述.</li>
-<li>问题复现的步骤,最好是在我们的demo里也可以复现.</li>
-<li>如果一些问题只能复现在特殊的播放地址,如果你不希望把你的播放地址公开让别人看到,你可以发1个email到dev.exoplayer@gmail.com,然后把你的问题序号也写在里面.</li>
-<li>你出现问题的ExoPlayer版本.</li>
-<li>你能复现问题的手机型号和版本,并且如何最快的复现,它是必现还是偶尔复现, 如果你方便的话,尽可能的在不同的机器上和不同的android版本上尝试复现他, 如果他在一些组合下不会复现,这个也要告诉我们,这是一个很有用的信息.</li>
-<li>崩溃时的完整的错误日志</li>
-<li>还有其他的你觉得有意义的.</li>
+<li><p>当你使用WebView加载网页的时候, 如果这个网页有JavaScript, 你要跟它进行交互的话,你需要打开开关.</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WebView.getSetting.setJavaScriptEnabled(<span class="keyword">true</span>);</div></pre></td></tr></table></figure>
+</li>
+<li><p>Java与JavaScript 交互比较关键的一个方法是 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WebView.addJavascriptInterface(Object, String);</div></pre></td></tr></table></figure>
+<p>这个方法简单的来说<br>就是往JavaScript 注入一个可以供他们使用,进行回调的Object, String 就是 这个Object的名字.<br>举例来说:<br>比如 我们在Java代码中 写了这样一段代码  </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">WebView.addJavascriptInterface(<span class="keyword">new</span> Object()&#123;</div><div class="line">     <span class="meta">@JavascriptInterface</span>  </div><div class="line">     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inject</span><span class="params">()</span> </span>&#123; </div><div class="line">        Log.d(TAG, <span class="string">"Inject success"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;, <span class="string">"InjectObject"</span>);</div></pre></td></tr></table></figure>
+<p>而在Javascript中 代码如下</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">InjectObject.inject(<span class="string">"hi, i'm Javascript"</span>);</div></pre></td></tr></table></figure>
+<p>这样Java中就可以回调打印出Inject success的字段.<br>这里需要特殊说明的一点就是 addJavascriptInterface的Object 中必须有一个方法是声明 @JavascriptInterface 的, 否则是无法add进去的.<br>并且只有声明了 @JavascriptInterface 的方法 才能被JavaScript 成功调用.  </p>
+</li>
+<li>Java 和 Javascript 交互的本质是字符串的传递.<br>Java 无论你上层如何封装, 最终将字符串从Java 传到Javascript 都是需要这样去传递的.<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">WebView.loadUrl(<span class="string">"javascript:WebViewJavascriptBridge._handleMessageFromJava('%s')"</span>)</div></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>谢谢.</p>
+<p>其中 javascript: 是必须的. WebViewJavascriptBridge 是Javascript那边的对象,_handleMessageFromJava 是这个对象所拥有的方法. ()内就是要传递过去的字符串!<br>这里有一点需要注意, loadUrl方法会进行checkThread(); 所以也就是说你必须在MainThread中调用该方法.</p>
+<ul>
+<li>WebView 有内存泄漏的问题, 属于系统代码的1个bug, 在这里我们做了特殊的 WorkAround.<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">recycle</span><span class="params">()</span> </span>&#123;</div><div class="line">       <span class="keyword">try</span> &#123;</div><div class="line">           MagicWebView thiz = <span class="keyword">this</span>;</div><div class="line">           thiz.setWebViewClient(<span class="keyword">null</span>);</div><div class="line">           thiz.setWebChromeClient(<span class="keyword">null</span>);</div><div class="line"></div><div class="line">           Field field = View.class.getDeclaredField(<span class="string">"mContext"</span>);</div><div class="line">           field.setAccessible(<span class="keyword">true</span>);</div><div class="line">           field.set(thiz, getContext().getApplicationContext());</div><div class="line">           field.setAccessible(<span class="keyword">false</span>);</div><div class="line">           field = View.class.getDeclaredField(<span class="string">"mParent"</span>);</div><div class="line">           field.setAccessible(<span class="keyword">true</span>);</div><div class="line">           field.set(thiz, <span class="keyword">null</span>);</div><div class="line">           field.setAccessible(<span class="keyword">false</span>);</div><div class="line">           field = View.class.getDeclaredField(<span class="string">"mLayoutParams"</span>);</div><div class="line">           field.setAccessible(<span class="keyword">true</span>);</div><div class="line">           field.set(thiz, <span class="keyword">null</span>);</div><div class="line">           field.setAccessible(<span class="keyword">false</span>);</div><div class="line">       &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">           e.printStackTrace();</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这样并不能完全解决WebView 会泄露的问题, WebView 依旧会被泄露, 但是WebView跟相应的Activity 会完全解耦,<br>不会造成Activity也跟着泄露.</p>
+<ul>
+<li>在Https的网址下,有的H5图片会加载不正常. 这个时候需要加入这样一个设置<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) &#123;</div><div class="line">    getSettings().setMixedContentMode(WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
 
         
         </div>
@@ -241,7 +262,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/11/08/exoplayer_translate_Reporting_An_Issue/" data-id="civ8w2le60000dnkpztsdi5my" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/02/16/webview/" data-id="ciz87v3gn0000z5kpc8ho2d0o" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -309,7 +330,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/11/08/exoplayer_translate_Reporting_An_Issue/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/11/08/exoplayer_translate_Reporting_An_Issue/">Comments</a>
+        <a href="/2017/02/16/webview/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/02/16/webview/">Comments</a>
     
 
         </footer>
@@ -317,15 +338,6 @@ ga('send', 'pageview');
     
         
 <nav id="article-nav">
-    
-        <a href="/2016/11/08/exoplayer_translate_2.x-Why,What and when?/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    ExoPlayer, 2.x - Why, what and when?
-                
-            </div>
-        </a>
     
     
         <a href="/2016/11/02/resume/" id="article-nav-older" class="article-nav-link-wrap">
@@ -364,7 +376,7 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
-                            <a href="/2016/11/08/exoplayer_translate_2.x-Why,What and when?/" class="thumbnail">
+                            <a href="/2017/02/16/webview/" class="thumbnail">
     
     
         <span class="thumbnail-image thumbnail-none"></span>
@@ -374,26 +386,8 @@ ga('send', 'pageview');
                         
                         <div class="item-inner">
                             <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/11/08/exoplayer_translate_2.x-Why,What and when?/" class="title">ExoPlayer, 2.x - Why, what and when?</a></p>
-                            <p class="item-date"><time datetime="2016-11-08T02:43:30.000Z" itemprop="datePublished">2016-11-08</time></p>
-                        </div>
-                    </li>
-                
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/11/08/exoplayer_translate_Reporting_An_Issue/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/11/08/exoplayer_translate_Reporting_An_Issue/" class="title">ExoPlayer, Reporting an issue</a></p>
-                            <p class="item-date"><time datetime="2016-11-08T02:31:30.000Z" itemprop="datePublished">2016-11-08</time></p>
+                            <p class="item-title"><a href="/2017/02/16/webview/" class="title">WebView开发小记.</a></p>
+                            <p class="item-date"><time datetime="2017-02-16T09:31:30.000Z" itemprop="datePublished">2017-02-16</time></p>
                         </div>
                     </li>
                 
@@ -451,6 +445,24 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/08/29/life/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/8C8B168614ACA2AD69D0394BE1C110D1.jpg)" alt="你就是我的天使." class="thumbnail-image"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2016/08/29/life/" class="title">你就是我的天使.</a></p>
+                            <p class="item-date"><time datetime="2016-08-29T11:31:30.000Z" itemprop="datePublished">2016-08-29</time></p>
+                        </div>
+                    </li>
+                
             </ul>
         </div>
     </div>
@@ -462,7 +474,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -471,7 +483,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ExoPlayer/">ExoPlayer</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -480,7 +492,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tag cloud</h3>
         <div class="widget tagcloud">
-            <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/ExoPlayer/" style="font-size: 13.33px;">ExoPlayer</a> <a href="/tags/Life/" style="font-size: 16.67px;">Life</a> <a href="/tags/Resume/" style="font-size: 10px;">Resume</a>
+            <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/Resume/" style="font-size: 10px;">Resume</a>
         </div>
     </div>
 
@@ -512,7 +524,7 @@ ga('send', 'pageview');
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2016 bb<br>
+            &copy; 2017 bb<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>
@@ -523,7 +535,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'saberpowermo';
     
     
-    var disqus_url = 'http://nogirlfriendexception.github.io/2016/11/08/exoplayer_translate_Reporting_An_Issue/';
+    var disqus_url = 'http://nogirlfriendexception.github.io/2017/02/16/webview/';
     
     (function() {
     var dsq = document.createElement('script');
