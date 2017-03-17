@@ -3,15 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Tags | 一只大金毛</title>
+    <title>android 源生DownloadManager 的两个Crash 坑 | 一只大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Tags">
-<meta property="og:url" content="http://nogirlfriendexception.github.io/tags/index.html">
+    <meta name="description" content="如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,123DownloadManager.Request request = new DownloadManager.Request(Uri.parse(你的APK下载地址));request.setDestinationUri(你的app 本地存储URI));long mDownloadId = mDo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android 源生DownloadManager 的两个Crash 坑">
+<meta property="og:url" content="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/index.html">
 <meta property="og:site_name" content="一只大金毛">
-<meta property="og:updated_time" content="2016-04-27T01:11:30.000Z">
+<meta property="og:description" content="如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,123DownloadManager.Request request = new DownloadManager.Request(Uri.parse(你的APK下载地址));request.setDestinationUri(你的app 本地存储URI));long mDownloadId = mDo">
+<meta property="og:updated_time" content="2017-03-17T04:03:12.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Tags">
+<meta name="twitter:title" content="android 源生DownloadManager 的两个Crash 坑">
+<meta name="twitter:description" content="如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,123DownloadManager.Request request = new DownloadManager.Request(Uri.parse(你的APK下载地址));request.setDestinationUri(你的app 本地存储URI));long mDownloadId = mDo">
     
 
     
@@ -177,7 +180,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="page-undefined" class="article article-type-page" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-downloadbug" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -186,7 +189,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            Tags
+            android 源生DownloadManager 的两个Crash 坑
         </h1>
     
 
@@ -194,21 +197,32 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/tags/index.html">
-            <time datetime="2015-09-30T18:24:55.000Z" itemprop="datePublished">2015-10-01</time>
+        <a href="/2017/03/17/downloadbug/">
+            <time datetime="2017-03-17T01:31:30.000Z" itemprop="datePublished">2017-03-17</time>
         </a>
     </div>
 
 
                     
                     
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
                 </div>
             </header>
         
         <div class="article-entry" itemprop="articleBody">
         
             
-            
+            <p>如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">DownloadManager.Request request = <span class="keyword">new</span> DownloadManager.Request(Uri.parse(你的APK下载地址));</div><div class="line">request.setDestinationUri(你的app 本地存储URI));</div><div class="line"><span class="keyword">long</span> mDownloadId = mDownloadManager.enqueue(request);</div></pre></td></tr></table></figure></p>
+<h3 id="IllegalArgumentException"><a href="#IllegalArgumentException" class="headerlink" title="IllegalArgumentException"></a>IllegalArgumentException</h3><p>这三行代码 最近在一些机型上爆出了java.lang.IllegalArgumentException: UnknownURLcontent://downloads/my_downloads 异常.<br>是崩溃在了mDownloadManager.enqueue(request)这里,<br>跟着代码进去以后<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">enqueue</span><span class="params">(Request request)</span> </span>&#123;</div><div class="line">    ContentValues values = request.toContentValues(mPackageName);</div><div class="line">    Uri downloadUri = mResolver.insert(Downloads.Impl.CONTENT_URI, values);</div><div class="line">    <span class="keyword">long</span> id = Long.parseLong(downloadUri.getLastPathSegment());</div><div class="line">    <span class="keyword">return</span> id;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>继续跟进,找到了崩溃的源头, 是 mResolver.insert这句的问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="meta">@Nullable</span> <span class="function">Uri <span class="title">insert</span><span class="params">(@NonNull Uri url, @Nullable ContentValues values)</span> </span>&#123;</div><div class="line">    Preconditions.checkNotNull(url, <span class="string">"url"</span>);</div><div class="line">    IContentProvider provider = acquireProvider(url);</div><div class="line">    <span class="keyword">if</span> (provider == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="comment">// 看这里 嘿嘿嘿</span></div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Unknown URL "</span> + url);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">long</span> startTime = SystemClock.uptimeMillis();</div><div class="line">        Uri createdRow = provider.insert(mPackageName, url, values);</div><div class="line">        <span class="keyword">long</span> durationMillis = SystemClock.uptimeMillis() - startTime;</div><div class="line">        maybeLogUpdateToEventLog(durationMillis, url, <span class="string">"insert"</span>, <span class="keyword">null</span> <span class="comment">/* where */</span>);</div><div class="line">        <span class="keyword">return</span> createdRow;</div><div class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</div><div class="line">        <span class="comment">// Arbitrary and not worth documenting, as Activity</span></div><div class="line">        <span class="comment">// Manager will kill this process shortly anyway.</span></div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    &#125; <span class="keyword">finally</span> &#123;</div><div class="line">        releaseProvider(provider);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>原因是系统的DownloadManager Service被关闭了, 遇见这种问题, 可以有两种解决方法<br>1 是通过产品角度去告知用户,让用户去系统里找到相应的开关 打开下载服务,<br>2 是catch 住这个IllegalArgumentException 然后不再使用downloadmanager 而是自己去手写下载, 就可以解决.</p>
+<h3 id="SecurityException"><a href="#SecurityException" class="headerlink" title="SecurityException"></a>SecurityException</h3><p>这三行代码在某些机器上会爆出SecurityException，原因是Context.getExternalFilesDir得到的地址 和Environment.getExternalStorageDirectory() 不一致.<br>具体崩溃代码可以去看<a href="https://android.googlesource.com/platform/packages/providers/DownloadProvider/+/android-4.3.1_r1/src/com/android/providers/downloads/DownloadProvider.java" target="_blank" rel="external">源码</a> 的713行.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkFileUriDestination</span><span class="params">(ContentValues values)</span> </span>&#123;</div><div class="line">    String fileUri = values.getAsString(Downloads.Impl.COLUMN_FILE_NAME_HINT);</div><div class="line">    <span class="keyword">if</span> (fileUri == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</div><div class="line">                <span class="string">"DESTINATION_FILE_URI must include a file URI under COLUMN_FILE_NAME_HINT"</span>);</div><div class="line">    &#125;</div><div class="line">    Uri uri = Uri.parse(fileUri);</div><div class="line">    String scheme = uri.getScheme();</div><div class="line">    <span class="keyword">if</span> (scheme == <span class="keyword">null</span> || !scheme.equals(<span class="string">"file"</span>)) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Not a file URI: "</span> + uri);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">final</span> String path = uri.getPath();</div><div class="line">    <span class="keyword">if</span> (path == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Invalid file URI: "</span> + uri);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">final</span> String canonicalPath = <span class="keyword">new</span> File(path).getCanonicalPath();</div><div class="line">        <span class="keyword">final</span> String externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();</div><div class="line">        <span class="keyword">if</span> (!canonicalPath.startsWith(externalPath)) &#123;</div><div class="line">            <span class="comment">// 看这里,嘿嘿嘿</span></div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"Destination must be on external storage: "</span> + uri);</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"Problem resolving path: "</span> + uri);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>出现这种bug 我们的解决方案 是自己去拼1个存储地址..<br>所以这三行代码的最终使用是这样的:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">DownloadManager.Request request = <span class="keyword">new</span> DownloadManager.Request(Uri.parse(你的APK下载地址));</div><div class="line">request.setDestinationUri(你的app 本地存储URI));</div><div class="line"> <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">long</span> mDownloadId = instance.mSystemDownloadManager.enqueue(request);</div><div class="line"> &#125; <span class="keyword">catch</span> (SecurityException e) &#123;</div><div class="line">        File f = Environment.getExternalStorageDirectory();</div><div class="line">        f = <span class="keyword">new</span> File(f, <span class="string">"Android"</span>);</div><div class="line">        f = <span class="keyword">new</span> File(f, <span class="string">"data"</span>);</div><div class="line">        f = <span class="keyword">new</span> File(f, mContext.getPackageName());</div><div class="line">        f = <span class="keyword">new</span> File(f, <span class="string">"files"</span>);</div><div class="line">        f = <span class="keyword">new</span> File(f, Environment.DIRECTORY_DOWNLOADS);</div><div class="line">        <span class="keyword">if</span> (!f.exists()) &#123;</div><div class="line">            f.mkdirs();</div><div class="line">        &#125;</div><div class="line">        request.setDestinationUri(f));</div><div class="line">        instance.mDownloadId = instance.mSystemDownloadManager.enqueue(request);</div><div class="line"> &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</div><div class="line">     <span class="comment">// 自己去写把 要么弹toast告诉用户他傻逼, 要么自己去手写下载</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
+
         
         </div>
         <footer class="article-footer">
@@ -218,7 +232,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/tags/index.html" data-id="cj08vz3cg000pdd4q90mtgntl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/" data-id="cj0daczdr0000y44q5a6mue8f" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -286,13 +300,23 @@ ga('send', 'pageview');
 
             
     
-        <a href="/tags/index.html#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/tags/index.html">Comments</a>
+        <a href="/2017/03/17/downloadbug/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/03/17/downloadbug/">Comments</a>
     
 
         </footer>
     </div>
     
         
+<nav id="article-nav">
+    
+    
+        <a href="/2017/02/24/video_codec/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">音视频编码基础技术.</div>
+        </a>
+    
+</nav>
+
 
     
 </article>
@@ -481,7 +505,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'saberpowermo';
     
     
-    var disqus_url = 'http://nogirlfriendexception.github.io/tags/index.html';
+    var disqus_url = 'http://nogirlfriendexception.github.io/2017/03/17/downloadbug/';
     
     (function() {
     var dsq = document.createElement('script');
