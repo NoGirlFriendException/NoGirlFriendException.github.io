@@ -145,7 +145,7 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                10
+                11
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -177,6 +177,156 @@ ga('send', 'pageview');
 
             
             <section id="main">
+    <article id="post-viewsavastate" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/2017/05/01/viewsavastate/">正确的保存View状态.</a>
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/05/01/viewsavastate/">
+            <time datetime="2017-05-01T02:31:30.000Z" itemprop="datePublished">2017-05-01</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.<br>可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.</p>
+<p>首先我们要明白View 为什么要保存自己的状态? 我咨询了一些做android开发的朋友,给出的答案都是五花八门, 但大部分都是说不关心保存状态这件事, 当我说这样不对的时候,<br>往往得到的回复是我的代码一直好好的啊 没什么问题啊.<br>是的,代码如果不去关心View 保存状态这件事 在大部分时间都是没问题的,但是在一些情况下会出乱子.<br>我举个例子, 我们的Activity A 去Activity B, 这时候A会走 onPause onStop onSaveInstanceState() 的生命周期. 我们要先明白Activity给我们这个onSaveInstanceState()回调时机的意义,<br>来看一下源码的说明  </p>
+<h5 id="Called-to-retrieve-per-instance-state-from-an-activity-before-being-killed-so-that-the-state-can-be-restored-in-link-onCreate-or-link-onRestoreInstanceState-the-link-Bundle-populated-by-this-method-will-be-passed-to-both-This-method-is-called-before-an-activity-may-be-killed-so-that-when-it-comes-back-some-time-in-the-future-it-can-restore-its-state-For-example-if-activity-B-is-launched-in-front-of-activity-A-and-at-some-point-activity-A-is-killed-to-reclaim-resources-activity-A-will-have-a-chance-to-save-the-current-state-of-its-user-interface-via-this-method-so-that-when-the-user-returns-to-activity-A-the-state-of-the-user-interface-can-be-restored-via-link-onCreate-or-link-onRestoreInstanceState"><a href="#Called-to-retrieve-per-instance-state-from-an-activity-before-being-killed-so-that-the-state-can-be-restored-in-link-onCreate-or-link-onRestoreInstanceState-the-link-Bundle-populated-by-this-method-will-be-passed-to-both-This-method-is-called-before-an-activity-may-be-killed-so-that-when-it-comes-back-some-time-in-the-future-it-can-restore-its-state-For-example-if-activity-B-is-launched-in-front-of-activity-A-and-at-some-point-activity-A-is-killed-to-reclaim-resources-activity-A-will-have-a-chance-to-save-the-current-state-of-its-user-interface-via-this-method-so-that-when-the-user-returns-to-activity-A-the-state-of-the-user-interface-can-be-restored-via-link-onCreate-or-link-onRestoreInstanceState" class="headerlink" title="Called to retrieve per-instance state from an activity before being killed so that the state can be restored in {@link #onCreate} or {@link #onRestoreInstanceState} (the {@link Bundle} populated by this method will be passed to both).  This method is called before an activity may be killed so that when it comes back some time in the future it can restore its state.  For example, if activity B is launched in front of activity A, and at some point activity A is killed to reclaim resources, activity A will have a chance to save the current state of its user interface via this method so that when the user returns to activity A, the state of the user interface can be restored via {@link #onCreate} or {@link #onRestoreInstanceState}."></a>Called to retrieve per-instance state from an activity before being killed so that the state can be restored in {@link #onCreate} or {@link #onRestoreInstanceState} (the {@link Bundle} populated by this method will be passed to both).  This method is called before an activity may be killed so that when it comes back some time in the future it can restore its state.  For example, if activity B is launched in front of activity A, and at some point activity A is killed to reclaim resources, activity A will have a chance to save the current state of its user interface via this method so that when the user returns to activity A, the state of the user interface can be restored via {@link #onCreate} or {@link #onRestoreInstanceState}.</h5><p>意思就是说 这个Activity在被杀死之前 给你一个机会让你保留你希望保存的东西, 而你保存的东西会在什么时候还给你呢, 会在onCreate 或者onRestoreState的时候.<br>之前有人跟我, 我完全可以不用care这个回调啊,我可以在Activity内自己创建一个Member变量容器 去保存我希望保存的内容啊, 这里是我们需要明白的一个关键,<br>那就是 Activity A 去Activity B, Activity A 如果不被系统杀死回收的话,那怎么搞都是没问题的,但是一旦因为内存不足,Activity A被回收掉,你想想,你的Member容器也会随之一起回收掉.<br>等你从Activity B back 回Activity A的时候, 就会丢失掉你所有希望保存的内容.<br>这里有一个小细节就是 会有人不知道怎么去测试 Activity A 去Activity B, 然后Activity A 被回收的情况, 我们的android手机内 开发者模式, 有一个选项叫 不保留活动.打开以后,<br>只要你退出当前的Activity(按home或者去别的Activity), 你当前的Activity 就必定会被系统杀死回收. 看到这里如果不了解这个选项的朋友可以去打开这个选项试试自己的app.或许你会发现打开了新大门..<br>还有一个小细节就是有可能打开这个开关以后你检查了下你的app 然后告诉我说并没有什么问题, 不会有崩溃啊什么的, 要注意,这里的问题是指 本来应该保存的一些内容 或者用户已经加载过 或者用户已经在当前页面做过的一些动作<br>没有被保存,这句话需要仔细去理解一下,然后再check下自己的app,看看是不是会有东西丢失.</p>
+<h3 id="View-保存State的一些知识点"><a href="#View-保存State的一些知识点" class="headerlink" title="View 保存State的一些知识点"></a>View 保存State的一些知识点</h3><p>View saveState 与 restoreState 两套动作都是相对应的, 分别有这么几个关键的方法.</p>
+<h5 id="saveState"><a href="#saveState" class="headerlink" title="saveState."></a>saveState.</h5><ul>
+<li>void saveHierarchyState(SparseArray<parcelable> container)<br>这个方法是android framework层调用,在需要保存状态的时机. 看下View源码发现通常是不做什么事情的.是直接调用dispatchSaveInstanceState的</parcelable></li>
+<li>void dispatchSaveInstanceState(SparseArray<parcelable> container)<br>这个方法是被saveHierarchyState调用,它内部会调用onSaveInstanceState 方法去拿到一个存储View当前状态的Parcelable对象, 然后存在container中.这里有两个个关键点<br>1 它的第一句就是 if(mId != NO_ID) 才会执行接下来的保存状态的工作,也就是说如果我们的View希望保存状态那么一定要有一个ID,其实这很好理解, 保存着我们View状态的parcelable 是以key value的形式<br>保存在container中的,那么key是我们的id 也是合情合理的.<br>代码如下 非常清晰<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispatchSaveInstanceState</span><span class="params">(SparseArray&lt;Parcelable&gt; container)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (mID != NO_ID &amp;&amp; (mViewFlags &amp; SAVE_DISABLED_MASK) == <span class="number">0</span>) &#123;</div><div class="line">        mPrivateFlags &amp;= ~PFLAG_SAVE_STATE_CALLED;</div><div class="line">        Parcelable state = onSaveInstanceState();</div><div class="line">        <span class="keyword">if</span> ((mPrivateFlags &amp; PFLAG_SAVE_STATE_CALLED) == <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(</div><div class="line">                    <span class="string">"Derived class did not call super.onSaveInstanceState()"</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (state != <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="comment">// Log.i("View", "Freezing #" + Integer.toHexString(mID)</span></div><div class="line">            <span class="comment">// + ": " + state);</span></div><div class="line">            container.put(mID, state);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</parcelable></li>
+</ul>
+<p>2 如果当前View是一个ViewGroup那么它会去循环调用每个child的dispatchSaveInstanceState(), 去给child机会保存状态, android这样设计的地方很多, 比如Touch分发 比如 Measure分发等等,这里就不过多表述了.<br>代码如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispatchSaveInstanceState</span><span class="params">(SparseArray&lt;Parcelable&gt; container)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.dispatchSaveInstanceState(container);</div><div class="line">    <span class="keyword">final</span> <span class="keyword">int</span> count = mChildrenCount;</div><div class="line">    <span class="keyword">final</span> View[] children = mChildren;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</div><div class="line">        View c = children[i];</div><div class="line">        <span class="keyword">if</span> ((c.mViewFlags &amp; PARENT_SAVE_DISABLED_MASK) != PARENT_SAVE_DISABLED) &#123;</div><div class="line">            c.dispatchSaveInstanceState(container);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li>Parcelable onSaveInstanceState()<br>这个方法就很简单了, 是真正干活的地方,保存当前View的状态, 我们写自定义View的时候 也往往是重写该方法去保存我们需要保存的状态.  </li>
+</ul>
+<h5 id="restoreState"><a href="#restoreState" class="headerlink" title="restoreState."></a>restoreState.</h5><ul>
+<li>void restoreHierarchyState(SparseArray<parcelable> container)<br>对应saveHierarchyState()</parcelable></li>
+<li>void dispatchRestoreInstanceState(SparseArray<parcelable> container)<br>对应dispatchSaveInstanceState()</parcelable></li>
+<li>void onRestoreInstanceState(Parcelable state)<br>对应onSaveInstanceState()</li>
+</ul>
+<p>还有一个方法是需要特殊说明的, 如果你的自定义View需要保存状态, 那么你需要调用setSaveEnabled(true)方法. 当然widgets官方提供的view都是打开了的.你不用操心.<br>看到这里大家应该以及知道了View保存恢复状态的整个流程是什么样的了,一个View 如果想要保存状态,那么只需要做两件事</p>
+<ol>
+<li>有id  </li>
+<li>setSaveEnabled(true)</li>
+</ol>
+<h3 id="如何保存自己的状态"><a href="#如何保存自己的状态" class="headerlink" title="如何保存自己的状态"></a>如何保存自己的状态</h3><p>我们已经知道了我们自定义View应该在onSaveInstanceState的时候去保存我们希望保存的状态,那么具体应该怎么去做呢.接下来是示范(炒鸡简单)<br>比如我们的View内有1个int值希望保存下来, 那么我们的代码应该这样写,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> <span class="keyword">int</span> mState;</div><div class="line">...</div><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> Parcelable <span class="title">onSaveInstanceState</span><span class="params">()</span> </span>&#123;</div><div class="line">        Parcelable superState = <span class="keyword">super</span>.onSaveInstanceState();</div><div class="line">        SavedState ss = <span class="keyword">new</span> SavedState(superState);  </div><div class="line">        ss.state = customState;  </div><div class="line">        <span class="keyword">return</span> ss;  </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRestoreInstanceState</span><span class="params">(Parcelable state)</span> </span>&#123;</div><div class="line">        SavedState ss = (SavedState) state;</div><div class="line">        <span class="keyword">super</span>.onRestoreInstanceState(ss.getSuperState());  </div><div class="line">        setCustomState(ss.state);  </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SavedState</span> <span class="keyword">extends</span> <span class="title">BaseSavedState</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> state;</div><div class="line"></div><div class="line">        SavedState(Parcelable superState) &#123;  </div><div class="line">            <span class="keyword">super</span>(superState);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="title">SavedState</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>(in);</div><div class="line">            state = in.readInt();  </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeToParcel</span><span class="params">(Parcel out, <span class="keyword">int</span> flags)</span> </span>&#123;</div><div class="line">            <span class="keyword">super</span>.writeToParcel(out, flags);</div><div class="line">            out.writeInt(state);  </div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Parcelable.Creator&lt;SavedState&gt; CREATOR</div><div class="line">                = <span class="keyword">new</span> Parcelable.Creator&lt;SavedState&gt;() &#123;</div><div class="line">            <span class="function"><span class="keyword">public</span> SavedState <span class="title">createFromParcel</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> SavedState(in);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">public</span> SavedState[] newArray(<span class="keyword">int</span> size) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">new</span> SavedState[size];</div><div class="line">            &#125;  </div><div class="line">        &#125;;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<h3 id="一个经验教训"><a href="#一个经验教训" class="headerlink" title="一个经验教训."></a>一个经验教训.</h3><p>当我们做一个View的时候,那么上面的内容足够让你保存你想要保存的状态. 但是如果是一个ViewGroup的话, 代码或许在某些情况下应该这样去设计,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> Parcelable <span class="title">onSaveInstanceState</span><span class="params">()</span> </span>&#123;</div><div class="line">       Parcelable superState = <span class="keyword">super</span>.onSaveInstanceState();</div><div class="line">       SavedState ss = <span class="keyword">new</span> SavedState(superState);  </div><div class="line">       ss.childrenStates = <span class="keyword">new</span> SparseArray();  </div><div class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;  </div><div class="line">           getChildAt(i).saveHierarchyState(ss.childrenStates);</div><div class="line">       &#125;  </div><div class="line">       <span class="keyword">return</span> ss;</div><div class="line">   &#125;</div><div class="line">    </div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onRestoreInstanceState</span><span class="params">(Parcelable state)</span> </span>&#123;</div><div class="line">       SavedState ss = (SavedState) state;</div><div class="line">       <span class="keyword">super</span>.onRestoreInstanceState(ss.getSuperState());  </div><div class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; getChildCount(); i++) &#123;  </div><div class="line">           getChildAt(i).restoreHierarchyState(ss.childrenStates);</div><div class="line">       &#125;  </div><div class="line">   &#125;</div><div class="line">    </div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispatchSaveInstanceState</span><span class="params">(SparseArray&lt;Parcelable&gt; container)</span> </span>&#123;</div><div class="line">       dispatchFreezeSelfOnly(container);</div><div class="line">   &#125;</div><div class="line">    </div><div class="line">   <span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">dispatchRestoreInstanceState</span><span class="params">(SparseArray&lt;Parcelable&gt; container)</span> </span>&#123;</div><div class="line">       dispatchThawSelfOnly(container);</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>你需要去注意一下在 dispatchSaveInstanceState 和 dispatchRestoreInstanceState,我们并不是使用super方法 去遍历我们的children去挨个保存和恢复状态,而是<br>调用dispatchFreezeSelfOnly 和 dispatchThawSelfOnly 来告诉系统,我这个ViewGroup不需要去挨个找我的child去保存状态,我们(ViewGroup)自己来就可以了.<br>当然并不是说,如果我们写ViewGroup的时候就一定要这样去写,具体情况要根据自己的实际情况去决定.</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/" data-id="cj25kzd7l000fvdkpos7eagss" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="/2017/05/01/viewsavastate/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/05/01/viewsavastate/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+</article>
+
+
+
     <article id="post-downloadbug" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
@@ -229,7 +379,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/" data-id="cj1rnewx10000oe4qo8qcnqcl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/" data-id="cj25kzd6q0000vdkp9mzgch1l" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -397,7 +547,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/02/24/video_codec/" data-id="cj1rnewxw000eoe4qpumo1yyh" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/02/24/video_codec/" data-id="cj25kzd7p000ivdkpj7eipq1d" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -548,7 +698,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/02/16/webview/" data-id="cj1rnewy0000hoe4qrt0byv49" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/02/16/webview/" data-id="cj25kzd7r000kvdkp1joyx7se" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -672,7 +822,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/11/02/resume/" data-id="cj1rnewxi0006oe4qvadg71t9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/11/02/resume/" data-id="cj25kzd7a0006vdkpvh2jhm35" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -833,7 +983,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/09/29/house/" data-id="cj1rnewx70001oe4qqtv44bwi" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/29/house/" data-id="cj25kzd6x0001vdkp4qynh0tx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -987,7 +1137,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="cj1rnewxu000coe4q13rb1vsa" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="cj25kzd7f000avdkppg1cx75q" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1119,7 +1269,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/29/life/" data-id="cj1rnewxh0004oe4qg0yy15fk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/29/life/" data-id="cj25kzd730003vdkpsko3ynfp" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1253,7 +1403,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cj1rnewxe0003oe4q3w36wird" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cj25kzd750004vdkpj7h6ywqm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1392,7 +1542,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cj1rnewxl0008oe4q35pfwxfx" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cj25kzd7d0008vdkpev0b7jeq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1470,146 +1620,9 @@ ga('send', 'pageview');
 
 
 
-    <article id="post-upload-androidlib-bintray" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-            <header class="article-header">
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/2015/11/09/upload-androidlib-bintray/">上传Android Library 到 bintray</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2015/11/09/upload-androidlib-bintray/">
-            <time datetime="2015-11-09T03:42:30.000Z" itemprop="datePublished">2015-11-09</time>
-        </a>
-    </div>
-
-
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
-    </div>
-
-                </div>
-            </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>上传Android Library 到 bintray.</p>
-<p>给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.</p>
-<p>说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就对着svn和eclipse, 什么maven,git,As,jcenter,bintray 等等完全没接触过. 谢谢公司给了机会去学习这些,但由于英语不好,在学习使用的途中踩了很多坑.<br>这篇文章就是记录我把这个模块传到 bintray上 整个过程踩过的坑.</p>
-<h1 id="第一步-注册"><a href="#第一步-注册" class="headerlink" title="第一步 注册"></a>第一步 注册</h1><p>首先你需要 去<a href="https://bintray.com/" target="_blank" rel="external">bintray官网</a> 注册个账号,这里就不过多描述了.你可以的.<br>注册完毕以后 点击这里 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png" alt="Paste_Image.png"><br>进入maven管理界面<br>然后 点击 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-de836fe22fd42639.png" alt="Paste_Image.png"><br>创建新的package</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ea744876bf5965e3.png" alt="Paste_Image.png"></p>
-<p>name 就是项目的名称<br>licenses 我选择的是apache-2.0<br>version control 我填的是github上的地址<br>然后一切ok, 点击create package. 创建完毕.</p>
-<p>#第二步 寻找好用的publisher<br>作者一开始不懂这个是干什么的,是公司的cto给我推荐了1个github地址,让我去学习那个,并且告诉我这个是最简单的上传方式.<br>地址是 <a href="https://github.com/novoda/bintray-release" target="_blank" rel="external">novoda</a><br>其实英语好的哥们看到这应该已经知道怎么弄了</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-bfeabd995b2e403b.png" alt="Paste_Image.png"></p>
-<p>第一步 把这些配置到 你要发布的项目的 build.gradle文件中 这里需要注意的是<br>apply plugin: ‘com.novoda.bintray-release’ 这句话 需要放在com.android.library 下面<br>如图</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-8ca40a91dfff276a.png" alt="Paste_Image.png"></p>
-<p>第二步<br><img src="http://oaym3d44d.bkt.clouddn.com/1097102-7c60c4378bf4a0c0.png" alt="Paste_Image.png"><br>在build.gradle 文件中添加这个方法块。<br>其中userorg 就是你的用户id<br>groupid 就是你的唯一包名<br>artifactId 是你之前最初在bintary的maven中创建的那个package的名字,这里需要对应上 否则会上传失败.<br>publishVersion 就是你的版本id咯<br>下面2个随意填了</p>
-<p>第三步<br>$ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false<br>在命令行中输出这些,其中需要把BINTRAY_USERNAME 替换成你的bintary的名字<br>BINTRAY_KEY 替换成你的 BIntray的key ,其中key 可以点击你bintary中头像旁边的edit.<br>进入API-Key 可以看到你的key,然后 copy进来就好了！<br>这个时候打回车！ 然后就run起来了就好了.<br>上传成功以后 你可以在你bintary 那个项目中 的管理页面看到这个</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-d6ad4a6950425695.png" alt="Paste_Image.png"></p>
-<p>如果看到1.0.0 恭喜你 那就是上传成功, 但是这只是1个私人的,还不能让别人都用<br>这个时候你需要点下面那个add to jcenter 然后申请加入jcenter<br>用英语写几句描述 然后 提交 然后 就耐心等待就好了！！</p>
-<p>#哦 对了<br>有可能会报一个 :lint 什么什么找不到的错误 我在这卡了好一会儿.<br>需要在android中添加这么一句  如图 就是那个lintOptions什么什么的</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ddd18d7641602ae2.png" alt="Paste_Image.png"></p>
-<p>哦哦我想起来了 有可能会出现什么tools.jar找不到的 bug<br>这个解决比较简单 有可能是你机器的JAVA_HOME没有指对<br>比如我是rmbp 最初的JAVA_HOME是指向的mac 自带的1.6 jdk.<br>修改成 androidstudio 指向的1.7的jdk 后就好了！！！</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cj1rnewxo0009oe4quml0cbpg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="/2015/11/09/upload-androidlib-bintray/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2015/11/09/upload-androidlib-bintray/">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-</article>
-
-
+    <nav id="page-nav">
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
 </section>
             
                 <aside id="sidebar">
@@ -1619,6 +1632,24 @@ ga('send', 'pageview');
         <h3 class="widget-title">recent</h3>
         <div class="widget">
             <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/01/viewsavastate/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/05/01/viewsavastate/" class="title">正确的保存View状态.</a></p>
+                            <p class="item-date"><time datetime="2017-05-01T02:31:30.000Z" itemprop="datePublished">2017-05-01</time></p>
+                        </div>
+                    </li>
                 
                     <li>
                         
@@ -1692,24 +1723,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2016/09/29/house/" class="thumbnail">
-    
-    
-        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/huxing.jpg)" alt="购房记." class="thumbnail-image"></span>
-    
-</a>
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2016/09/29/house/" class="title">购房记.</a></p>
-                            <p class="item-date"><time datetime="2016-09-29T14:31:30.000Z" itemprop="datePublished">2016-09-29</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -1721,7 +1734,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -1730,7 +1743,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
