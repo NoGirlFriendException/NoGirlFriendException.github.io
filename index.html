@@ -243,7 +243,7 @@ ga('send', 'pageview');
 <h3 id="另外一个血和泪的经验教训"><a href="#另外一个血和泪的经验教训" class="headerlink" title="另外一个血和泪的经验教训."></a>另外一个血和泪的经验教训.</h3><p>在上面的例子中, 我们的SavedState 存储了一个int值, 这属于比较简单的一种实现,一般是不会有什么问题的,如果你需要存储的内容是一个Bundle的时候,你往往会这样写;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">SavedState</span> <span class="keyword">extends</span> <span class="title">BaseSavedState</span> </span>&#123;</div><div class="line">           Bundle state;</div><div class="line">   </div><div class="line">           SavedState(Parcelable superState) &#123;  </div><div class="line">               <span class="keyword">super</span>(superState);</div><div class="line">           &#125;</div><div class="line">   </div><div class="line">           <span class="function"><span class="keyword">private</span> <span class="title">SavedState</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">               <span class="keyword">super</span>(in);</div><div class="line">               state = in.readBundle(Bundle.class.getClassLoader());</div><div class="line">           &#125;</div><div class="line">   </div><div class="line">           <span class="meta">@Override</span></div><div class="line">           <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeToParcel</span><span class="params">(Parcel out, <span class="keyword">int</span> flags)</span> </span>&#123;</div><div class="line">               <span class="keyword">super</span>.writeToParcel(out, flags);</div><div class="line">               out.writeBundle(state);  </div><div class="line">           &#125;</div><div class="line">   </div><div class="line">           <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Parcelable.Creator&lt;SavedState&gt; CREATOR</div><div class="line">                   = <span class="keyword">new</span> Parcelable.Creator&lt;SavedState&gt;() &#123;</div><div class="line">               <span class="function"><span class="keyword">public</span> SavedState <span class="title">createFromParcel</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">                   <span class="keyword">return</span> <span class="keyword">new</span> SavedState(in);</div><div class="line">               &#125;</div><div class="line">   </div><div class="line">               <span class="keyword">public</span> SavedState[] newArray(<span class="keyword">int</span> size) &#123;</div><div class="line">                   <span class="keyword">return</span> <span class="keyword">new</span> SavedState[size];</div><div class="line">               &#125;  </div><div class="line">           &#125;;</div><div class="line">       &#125;</div></pre></td></tr></table></figure></p>
 <p>请注意,这些代码是系统自己生成的, 在大多数情况这样写依然是没有问题的, 但是 一旦你的Bundle里存储了一个你自定义的Parcelable类的时候,事情就会变的蛋疼起来,在你这个Bundle进行unparcel()的时候,会崩溃, 爆出BadParcelableException, 原因是 找不到你的自定义的那个类. 这个bug卡了我好长时间,<br>最后定位到了这个异常,爆出位置 : 首先你可以在Parcel类中的readValue(ClassLoader loader) 中找到readParcelable() 然后跟进去最后发现 会执行这么一段代码.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// If loader == null, explicitly emulate Class.forName(String) "caller</span></div><div class="line">                   <span class="comment">// classloader" behavior.</span></div><div class="line">ClassLoader parcelableClassLoader =(loader == <span class="keyword">null</span> ? getClass().getClassLoader() : loader);</div></pre></td></tr></table></figure></p>
 <p>第一次看到这个代码的时候,并没有注意什么. 后来查了很多stackoverflow,开始怀疑跟这个ClassLoader有关系.然后开始相应查相关的内容,最终找到了问题所在, 直接上结论把.</p>
-<p>// Android has two different classloaders: the framework classloader (which knows how to load Android classes)<br>// and the APK classloader (which knows how to load your code).<br>// The APK classloader has the framework classloader set as its parent, meaning it can also load Android classes.</p>
+<p>Android has two different classloaders: the framework classloader (which knows how to load Android classes) and the APK classloader (which knows how to load your code).<br>The APK classloader has the framework classloader set as its parent, meaning it can also load Android classes.</p>
 <p>说的很清晰了, 就是ClassLoader找错了, 解决方案也很简单,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="title">SavedState</span><span class="params">(Parcel in)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>(in);</div><div class="line">        state = in.readBundle(getClass().getClassLoader());</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>这样写就会给Bundle 设置一个APK的ClassLoader, 这样就可以找到你自己定义的那个Parcelable类了.</p>
 
@@ -256,7 +256,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/" data-id="cj2jtmfw1000iw04qbc5obxlp" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/" data-id="cj2jtytuw000k3p4qvd9hdklr" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -386,7 +386,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/" data-id="cj2jtmfuk0000w04qsnko6md0" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/" data-id="cj2jtytts00003p4q6f50k6v7" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -554,7 +554,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/02/24/video_codec/" data-id="cj2jtmfvy000fw04qbyn06qa1" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/02/24/video_codec/" data-id="cj2jtytuu000i3p4q2nu2budy" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -705,7 +705,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/02/16/webview/" data-id="cj2jtmfw3000kw04q51lzj1sc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/02/16/webview/" data-id="cj2jtytuq000f3p4q35e7mu07" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -829,7 +829,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/11/02/resume/" data-id="cj2jtmfvo000aw04q0tflev3m" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/11/02/resume/" data-id="cj2jtytun000d3p4qlqsn9sv6" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -990,7 +990,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/09/29/house/" data-id="cj2jtmfuu0001w04q6whfvs0d" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/29/house/" data-id="cj2jtyttx00013p4q7m5934ox" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1144,7 +1144,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="cj2jtmfvk0008w04quavvg7w9" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="cj2jtytuh000a3p4qkeb4p8xz" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1276,7 +1276,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/29/life/" data-id="cj2jtmfv90004w04qxhdkdav5" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/29/life/" data-id="cj2jtytu500043p4quyegl1wk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1410,7 +1410,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cj2jtmfv40003w04ql9dxtkj8" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cj2jtytu300033p4q7l7dwoyl" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1549,7 +1549,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cj2jtmfvg0006w04qddvu0kef" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cj2jtytue00083p4q3zekx1xz" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
