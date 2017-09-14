@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Volley 源码阅读. | 一只大金毛</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="Volley 项目是大概3年前谷歌出的一套网络访问框架,从出来之后我就接触过并在项目中有使用过,但是一直都是浅尝的使用,没有认认真真的去读过内部结构,最近项目结束了一个版本,接着这个间隙我准备去重新读下这个三年前出来的代码.
+Class VolleyVolley暴露出给我们最直接的类就是Volley这个类,其中有一个newRequestQueue的方法,来为我们创建一个RequestQueue.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Volley 源码阅读.">
+<meta property="og:url" content="http://nogirlfriendexception.github.io/2017/09/14/volley/index.html">
+<meta property="og:site_name" content="一只大金毛">
+<meta property="og:description" content="Volley 项目是大概3年前谷歌出的一套网络访问框架,从出来之后我就接触过并在项目中有使用过,但是一直都是浅尝的使用,没有认认真真的去读过内部结构,最近项目结束了一个版本,接着这个间隙我准备去重新读下这个三年前出来的代码.
+Class VolleyVolley暴露出给我们最直接的类就是Volley这个类,其中有一个newRequestQueue的方法,来为我们创建一个RequestQueue.1">
+<meta property="og:updated_time" content="2017-09-14T09:44:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Volley 源码阅读.">
+<meta name="twitter:description" content="Volley 项目是大概3年前谷歌出的一套网络访问框架,从出来之后我就接触过并在项目中有使用过,但是一直都是浅尝的使用,没有认认真真的去读过内部结构,最近项目结束了一个版本,接着这个间隙我准备去重新读下这个三年前出来的代码.
+Class VolleyVolley暴露出给我们最直接的类就是Volley这个类,其中有一个newRequestQueue的方法,来为我们创建一个RequestQueue.1">
+    
+
+    
+
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+        <script type="text/javascript">
+(function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-6890412', 'auto');
+ga('send', 'pageview');
+
+</script>
+    
+    
+    
+
+</head>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">一只大金毛</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avator.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avator.png" />
+            <h2 id="name">bb</h2>
+            <h3 id="title">Android dev &amp;&amp; WoWer &amp;&amp; Cser.</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Beijing</span>
+            <a id="follow" target="_blank" href="https://github.com/NoGirlFriendException">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                12
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                3
+                <span>tags</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    <td><a href="https://github.com/NoGirlFriendException" target="_blank" title="github"><i class="fa fa-github"></i></a></td>
+                    
+                    <td><a href="https://twitter.com/SABERPOWERbb" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></td>
+                    
+                    <td><a href="https://www.facebook.com/profile.php?id=100005632698168" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></td>
+                    
+                    <td><a href="/" target="_blank" title="dribbble"><i class="fa fa-dribbble"></i></a></td>
+                    
+                    <td><a href="/" target="_blank" title="rss"><i class="fa fa-rss"></i></a></td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-volley" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Volley 源码阅读.
+        </h1>
+    
+
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/09/14/volley/">
+            <time datetime="2017-09-14T06:31:30.000Z" itemprop="datePublished">2017-09-14</time>
+        </a>
+    </div>
+
+
+                    
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Android/">Android</a>
+    </div>
+
+                </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p>Volley 项目是大概3年前谷歌出的一套网络访问框架,从出来之后我就接触过并在项目中有使用过,但是一直都是浅尝的使用,没有认认真真的去读过内部结构,<br>最近项目结束了一个版本,接着这个间隙我准备去重新读下这个三年前出来的代码.</p>
+<h4 id="Class-Volley"><a href="#Class-Volley" class="headerlink" title="Class Volley"></a>Class Volley</h4><p>Volley暴露出给我们最直接的类就是Volley这个类,其中有一个newRequestQueue的方法,来为我们创建一个RequestQueue.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RequestQueue mQueue = Volley.newRequestQueue(context);</div></pre></td></tr></table></figure></p>
+<p>我们就跟着这个方法开始读代码.</p>
+<h4 id="Class-RequestQueue"><a href="#Class-RequestQueue" class="headerlink" title="Class RequestQueue"></a>Class RequestQueue</h4><p>这个类是比较关键的一个入口,该类的API告诉我们,这是一个Request 发送的队列, dispatchers 工作在线程池里.<br>我们可以使用 add(Request) 把一个我们希望的Request请求 加入队列中, 它会在在工作线程中从缓存中或者网络中解析这个请求,<br>并且从主线程传递出一个解析好的 Response.<br>其中RequestQueue的构造方法是<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Creates the worker pool. Processing will not begin until &#123;<span class="doctag">@link</span> #start()&#125; is called.</div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> cache A Cache to use for persisting responses to disk</div><div class="line"> * <span class="doctag">@param</span> network A Network interface for performing HTTP requests</div><div class="line"> * <span class="doctag">@param</span> threadPoolSize Number of network dispatcher threads to create</div><div class="line"> * <span class="doctag">@param</span> delivery A ResponseDelivery interface for posting responses and errors</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="title">RequestQueue</span><span class="params">(Cache cache, Network network, <span class="keyword">int</span> threadPoolSize,</span></span></div><div class="line">        ResponseDelivery delivery) &#123;</div><div class="line">    mCache = cache;</div><div class="line">    mNetwork = network;</div><div class="line">    mDispatchers = <span class="keyword">new</span> NetworkDispatcher[threadPoolSize];</div><div class="line">    mDelivery = delivery;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>可以看出这个队列需要以下四个初始化参数</p>
+<ul>
+<li>用于把response缓存在磁盘的策略.</li>
+<li>一种履行Http请求的实现. </li>
+<li>用来发送网络请求的线程数量</li>
+<li>一种发送responses 和 errors的实现.<br>其中Cache Network ResponseDelivery 都是Interface,  我们暂且只看他的工作流程不去看具体Impl,后面再回来看具体实现.<br>当我们根据APi指示,调用RequestQueue的Start方法时,RequestQueue 才会真正开始工作.<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Starts the dispatchers in this queue.</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</div><div class="line">    stop();  <span class="comment">// Make sure any currently running dispatchers are stopped.</span></div><div class="line">    <span class="comment">// Create the cache dispatcher and start it.</span></div><div class="line">    mCacheDispatcher = <span class="keyword">new</span> CacheDispatcher(mCacheQueue, mNetworkQueue, mCache, mDelivery);</div><div class="line">    mCacheDispatcher.start();</div><div class="line">    </div><div class="line">    <span class="comment">// Create network dispatchers (and corresponding threads) up to the pool size.</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; mDispatchers.length; i++) &#123;</div><div class="line">        NetworkDispatcher networkDispatcher = <span class="keyword">new</span> NetworkDispatcher(mNetworkQueue, mNetwork,</div><div class="line">                mCache, mDelivery);</div><div class="line">        mDispatchers[i] = networkDispatcher;</div><div class="line">        networkDispatcher.start();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>可以看出来我们初始化了一个CacheDispatcher, 它是extends 线程的类, 它是一个可以对请求队列中cache 进行分类的线程.<br>也初始化了一个NetWorkDispatcher数组, NetWorkDispatcher 也是extends 线程的, 他是一个负责把从队列中取出来Request 并且执行的线程.<br>接下来当我们有Request 希望发出的时候, 我们就需要调用 RequestQueue的add方法了.<br>我们一句句的跟着add的方法进行分析,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> &lt;T&gt; <span class="function">Request&lt;T&gt; <span class="title">add</span><span class="params">(Request&lt;T&gt; request)</span> </span>&#123;</div><div class="line">       <span class="comment">// 给这个request设置队列</span></div><div class="line">       request.setRequestQueue(<span class="keyword">this</span>); </div><div class="line">       <span class="comment">// 把这个request加入到一个HashSet中, 这个HashSet存着所有马上或者正在被任何dispacher处理中的request.</span></div><div class="line">       <span class="keyword">synchronized</span> (mCurrentRequests) &#123;</div><div class="line">           mCurrentRequests.add(request);</div><div class="line">       &#125;</div><div class="line">       <span class="comment">// 给request 加上一些编号和marker</span></div><div class="line">       request.setSequence(getSequenceNumber());</div><div class="line">       request.addMarker(<span class="string">"add-to-queue"</span>);</div><div class="line">    </div><div class="line">       <span class="comment">// 如果当前这个request是不希望被缓存的, 那么他将直接被加入到NetworkQueue中去.</span></div><div class="line">       <span class="keyword">if</span> (!request.shouldCache()) &#123;</div><div class="line">           mNetworkQueue.add(request);</div><div class="line">           <span class="keyword">return</span> request;</div><div class="line">       &#125;</div><div class="line">    </div><div class="line">       <span class="keyword">synchronized</span> (mWaitingRequests) &#123;</div><div class="line">           <span class="comment">// 如果这个Request是希望被缓存的,会先检查下WaitingRequests里有没有该Reuqest.</span></div><div class="line">           String cacheKey = request.getCacheKey();</div><div class="line">           <span class="keyword">if</span> (mWaitingRequests.containsKey(cacheKey)) &#123;</div><div class="line">               Queue&lt;Request&lt;?&gt;&gt; stagedRequests = mWaitingRequests.get(cacheKey);</div><div class="line">               <span class="keyword">if</span> (stagedRequests == <span class="keyword">null</span>) &#123;</div><div class="line">                   stagedRequests = <span class="keyword">new</span> LinkedList&lt;&gt;();</div><div class="line">               &#125;</div><div class="line">               stagedRequests.add(request);</div><div class="line">               mWaitingRequests.put(cacheKey, stagedRequests);</div><div class="line">               <span class="keyword">if</span> (VolleyLog.DEBUG) &#123;</div><div class="line">                   VolleyLog.v(<span class="string">"Request for cacheKey=%s is in flight, putting on hold."</span>, cacheKey);</div><div class="line">               &#125;</div><div class="line">           &#125; <span class="keyword">else</span> &#123;</div><div class="line">               mWaitingRequests.put(cacheKey, <span class="keyword">null</span>);</div><div class="line">               <span class="comment">// 把该Request加入到mCacheQueue中.</span></div><div class="line">               mCacheQueue.add(request);</div><div class="line">           &#125;</div><div class="line">           <span class="keyword">return</span> request;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>我们先来看不需要缓存的Request 被加入到mNetworkQueue之后的流程, 之前我们说过,RequestQueue 会有几个NetworkDispatcher 工作线程在run, 我们来看下其中的run方法.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">       Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);</div><div class="line">       <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">           <span class="keyword">long</span> startTimeMs = SystemClock.elapsedRealtime();</div><div class="line">           Request&lt;?&gt; request;</div><div class="line">           <span class="keyword">try</span> &#123;</div><div class="line">               <span class="comment">//  这里的mQueue 就是RequesQueue中的mNetworkQueue, request被加入到mNetworkQueue中以后,会被取出</span></div><div class="line">               request = mQueue.take();</div><div class="line">           &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">               <span class="keyword">if</span> (mQuit) &#123;</div><div class="line">                   <span class="keyword">return</span>;</div><div class="line">               &#125;</div><div class="line">               <span class="keyword">continue</span>;</div><div class="line">           &#125;</div><div class="line">           <span class="keyword">try</span> &#123;</div><div class="line">               request.addMarker(<span class="string">"network-queue-take"</span>);</div><div class="line">               <span class="keyword">if</span> (request.isCanceled()) &#123;</div><div class="line">                   request.finish(<span class="string">"network-discard-cancelled"</span>);</div><div class="line">                   <span class="keyword">continue</span>;</div><div class="line">               &#125;</div><div class="line">               addTrafficStatsTag(request);</div><div class="line">               </div><div class="line">               <span class="comment">// 这里是执行request 请求的地方, 会返回一个NetworkResponse,这里的NetworkResponse是最基础的response raw数据.</span></div><div class="line">               NetworkResponse networkResponse = mNetwork.performRequest(request);</div><div class="line">               request.addMarker(<span class="string">"network-http-complete"</span>);</div><div class="line">    </div><div class="line">               <span class="keyword">if</span> (networkResponse.notModified &amp;&amp; request.hasHadResponseDelivered()) &#123;</div><div class="line">                   request.finish(<span class="string">"not-modified"</span>);</div><div class="line">                   <span class="keyword">continue</span>;</div><div class="line">               &#125;   </div><div class="line">               </div><div class="line">               <span class="comment">// 对networkResponse进行解析,其中这里的泛型是Request设置的,由request自己根据自己的需要 对response中的data 字节数组进行解析.</span></div><div class="line">               Response&lt;?&gt; response = request.parseNetworkResponse(networkResponse);</div><div class="line">               request.addMarker(<span class="string">"network-parse-complete"</span>);</div><div class="line">    </div><div class="line">               <span class="comment">// 这里需要主要的是 如果这个request需要做缓存, 那么将被存入Cache中.</span></div><div class="line">               <span class="keyword">if</span> (request.shouldCache() &amp;&amp; response.cacheEntry != <span class="keyword">null</span>) &#123;</div><div class="line">                   mCache.put(request.getCacheKey(), response.cacheEntry);</div><div class="line">                   request.addMarker(<span class="string">"network-cache-written"</span>);</div><div class="line">               &#125;</div><div class="line">    </div><div class="line">               <span class="comment">// 通过mDelivery返回 request 和 response. 注意这里是通过handler post到主线程的.</span></div><div class="line">               request.markDelivered();</div><div class="line">               mDelivery.postResponse(request, response);</div><div class="line">           &#125; <span class="keyword">catch</span> (VolleyError volleyError) &#123;</div><div class="line">               volleyError.setNetworkTimeMs(SystemClock.elapsedRealtime() - startTimeMs);</div><div class="line">               parseAndDeliverNetworkError(request, volleyError);</div><div class="line">           &#125; <span class="keyword">catch</span> (Exception e) &#123;</div><div class="line">               VolleyLog.e(e, <span class="string">"Unhandled exception %s"</span>, e.toString());</div><div class="line">               VolleyError volleyError = <span class="keyword">new</span> VolleyError(e);</div><div class="line">               volleyError.setNetworkTimeMs(SystemClock.elapsedRealtime() - startTimeMs);</div><div class="line">               mDelivery.postError(request, volleyError);</div><div class="line">           &#125;</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure></p>
+<p>至此一次完整的 无缓存 Http 请求就结束了.<br>接下来可以观察下 需要缓存的Request 和 不需要缓存的Request 处理区别, 不难发现 需要缓存的Request请求 会加入到mCacheQueue中去, 而会处理CacheQueue的Dispatcher 正是<br>刚才我们初始化的mCacheDispatcher, 我们来看看mCacheDispatcher的run方法<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (DEBUG) VolleyLog.v(<span class="string">"start new dispatcher"</span>);</div><div class="line">        Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);</div><div class="line">        mCache.initialize();</div><div class="line">        <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">            <span class="keyword">try</span> &#123;</div><div class="line">                <span class="comment">// 这里从我们刚才加入request的CacheQueue取出 Request, 如果request 是空 会卡住该线程,直到有Request入列.</span></div><div class="line">                <span class="keyword">final</span> Request&lt;?&gt; request = mCacheQueue.take();</div><div class="line">                request.addMarker(<span class="string">"cache-queue-take"</span>);</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (request.isCanceled()) &#123;</div><div class="line">                    request.finish(<span class="string">"cache-discard-canceled"</span>);</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="comment">// 这里会去Cache中找该Request的缓存, 如果找不到就会把他加入到mNetworkQueue 去执行首次请求.</span></div><div class="line">                Cache.Entry entry = mCache.get(request.getCacheKey());</div><div class="line">                <span class="keyword">if</span> (entry == <span class="keyword">null</span>) &#123;</div><div class="line">                    request.addMarker(<span class="string">"cache-miss"</span>);</div><div class="line">                    mNetworkQueue.put(request);</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="comment">// 如果从缓存中查找到了这个Request的缓存, 但是它已经过期了,那么依旧会把他加入到mNetworkQueue 去再次执行请求.</span></div><div class="line">                <span class="keyword">if</span> (entry.isExpired()) &#123;</div><div class="line">                    request.addMarker(<span class="string">"cache-hit-expired"</span>);</div><div class="line">                    request.setCacheEntry(entry);</div><div class="line">                    mNetworkQueue.put(request);</div><div class="line">                    <span class="keyword">continue</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                <span class="comment">// 走到这说明我们拿到了这个Request的 有效缓存</span></div><div class="line">                request.addMarker(<span class="string">"cache-hit"</span>);</div><div class="line">                Response&lt;?&gt; response = request.parseNetworkResponse(</div><div class="line">                        <span class="keyword">new</span> NetworkResponse(entry.data, entry.responseHeaders));</div><div class="line">                request.addMarker(<span class="string">"cache-hit-parsed"</span>);</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (!entry.refreshNeeded()) &#123;</div><div class="line">                    <span class="comment">// 如果这个Request 不需要更新, 那么到此该Http请求就结束了, 依旧是通过mDelivery 返回Request和response.</span></div><div class="line">                    mDelivery.postResponse(request, response);</div><div class="line">                &#125; <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="comment">// 如果需要更新该request, 那么会在返回request和response的同时,再次去请求该Request.</span></div><div class="line">                    request.addMarker(<span class="string">"cache-hit-refresh-needed"</span>);</div><div class="line">                    request.setCacheEntry(entry);</div><div class="line">                    response.intermediate = <span class="keyword">true</span>;</div><div class="line">                    mDelivery.postResponse(request, response, <span class="keyword">new</span> Runnable() &#123;</div><div class="line">                        <span class="meta">@Override</span></div><div class="line">                        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">                            <span class="keyword">try</span> &#123;</div><div class="line">                                mNetworkQueue.put(request);</div><div class="line">                            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                                <span class="comment">// Not much we can do about this.</span></div><div class="line">                            &#125;</div><div class="line">                        &#125;</div><div class="line">                    &#125;);</div><div class="line">                &#125;</div><div class="line"></div><div class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</div><div class="line">                <span class="keyword">if</span> (mQuit) &#123;</div><div class="line">                    <span class="keyword">return</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>看到这里,Volley的大体框架 和工作流程就结束了,Volley这份代码虽然是三年前的框架,但是现在看依然是有很多可以学习的地方, 它的结构简单清晰, 可插拔性强, 层与层之间耦合低,都体现出了<br>它的水平.</p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+
+
+</div>
+
+    <a data-url="http://nogirlfriendexception.github.io/2017/09/14/volley/" data-id="cj7k3q4jc000ok1kp7ytscle4" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="/2017/09/14/volley/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/09/14/volley/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2017/05/01/viewsavastate/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">正确的保存View状态.</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">recent</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/09/14/volley/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/09/14/volley/" class="title">Volley 源码阅读.</a></p>
+                            <p class="item-date"><time datetime="2017-09-14T06:31:30.000Z" itemprop="datePublished">2017-09-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/05/01/viewsavastate/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/05/01/viewsavastate/" class="title">正确的保存View状态.</a></p>
+                            <p class="item-date"><time datetime="2017-05-01T02:31:30.000Z" itemprop="datePublished">2017-05-01</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/03/17/downloadbug/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/03/17/downloadbug/" class="title">android 源生DownloadManager 的两个Crash 坑</a></p>
+                            <p class="item-date"><time datetime="2017-03-17T01:31:30.000Z" itemprop="datePublished">2017-03-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/24/video_codec/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/image2017-2-24_14-5-19.png)" alt="音视频编码基础技术." class="thumbnail-image"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/02/24/video_codec/" class="title">音视频编码基础技术.</a></p>
+                            <p class="item-date"><time datetime="2017-02-24T14:31:30.000Z" itemprop="datePublished">2017-02-24</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/16/webview/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/02/16/webview/" class="title">WebView开发小记.</a></p>
+                            <p class="item-date"><time datetime="2017-02-16T09:31:30.000Z" itemprop="datePublished">2017-02-16</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">archives</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tags</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">tag cloud</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/Resume/" style="font-size: 10px;">Resume</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">links</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://blog.aquariuslt.com/">英俊的小A</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://lousama.com/">楼总</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://songyuqiang.com/">强神</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-chevron-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 bb<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script>
+    var disqus_shortname = 'saberpowermo';
+    
+    
+    var disqus_url = 'http://nogirlfriendexception.github.io/2017/09/14/volley/';
+    
+    (function() {
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
