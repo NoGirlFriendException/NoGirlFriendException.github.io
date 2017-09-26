@@ -5,22 +5,19 @@
     
     <title>正确的保存View状态. | 一只大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="纯手打原创,转载请注明出处,感谢!
-前言android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.
-首先我们要明白View 为什么要保存自己的状态? 我咨询了">
+    <meta name="description" content="纯手打原创,转载请注明出处,感谢!前言android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.
+首先我们要明白View 为什么要保存自己的状态? 我咨询了一">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正确的保存View状态.">
 <meta property="og:url" content="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/index.html">
 <meta property="og:site_name" content="一只大金毛">
-<meta property="og:description" content="纯手打原创,转载请注明出处,感谢!
-前言android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.
-首先我们要明白View 为什么要保存自己的状态? 我咨询了">
-<meta property="og:updated_time" content="2017-05-11T03:04:23.000Z">
+<meta property="og:description" content="纯手打原创,转载请注明出处,感谢!前言android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.
+首先我们要明白View 为什么要保存自己的状态? 我咨询了一">
+<meta property="og:updated_time" content="2017-09-26T06:39:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正确的保存View状态.">
-<meta name="twitter:description" content="纯手打原创,转载请注明出处,感谢!
-前言android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.
-首先我们要明白View 为什么要保存自己的状态? 我咨询了">
+<meta name="twitter:description" content="纯手打原创,转载请注明出处,感谢!前言android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.
+首先我们要明白View 为什么要保存自己的状态? 我咨询了一">
     
 
     
@@ -155,7 +152,7 @@ ga('send', 'pageview');
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
-                12
+                13
                 <span>posts</span>
             </div>
             <div class="article-info-block">
@@ -222,8 +219,7 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>纯手打原创,转载请注明出处,感谢!</p>
-<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.<br>可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.</p>
+            <h5 id="纯手打原创-转载请注明出处-感谢"><a href="#纯手打原创-转载请注明出处-感谢" class="headerlink" title="纯手打原创,转载请注明出处,感谢!"></a>纯手打原创,转载请注明出处,感谢!</h5><h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>android 的 View以及ViewGroup保存相应状态是一件很重要的事情,但是最近由于用到了相关的内容, 搜了下国内相关文章,涉及到的很少.<br>可能很多人都在开发的时候忽略掉了这个功能.自己看了下相应的源码以及翻阅了下相关的文章,了解了下相应的知识,于是写下这篇记录,算是给以后自己翻阅做个笔记.</p>
 <p>首先我们要明白View 为什么要保存自己的状态? 我咨询了一些做android开发的朋友,给出的答案都是五花八门, 但大部分都是说不关心保存状态这件事, 当我说这样不对的时候,<br>往往得到的回复是我的代码一直好好的啊 没什么问题啊.<br>是的,代码如果不去关心View 保存状态这件事 在大部分时间都是没问题的,但是在一些情况下会出乱子.<br>我举个例子, 我们的Activity A 去Activity B, 这时候A会走 onPause onStop onSaveInstanceState() 的生命周期. 我们要先明白Activity给我们这个onSaveInstanceState()回调时机的意义,<br>来看一下源码的说明  </p>
 <h5 id="Called-to-retrieve-per-instance-state-from-an-activity-before-being-killed-so-that-the-state-can-be-restored-in-link-onCreate-or-link-onRestoreInstanceState-the-link-Bundle-populated-by-this-method-will-be-passed-to-both-This-method-is-called-before-an-activity-may-be-killed-so-that-when-it-comes-back-some-time-in-the-future-it-can-restore-its-state-For-example-if-activity-B-is-launched-in-front-of-activity-A-and-at-some-point-activity-A-is-killed-to-reclaim-resources-activity-A-will-have-a-chance-to-save-the-current-state-of-its-user-interface-via-this-method-so-that-when-the-user-returns-to-activity-A-the-state-of-the-user-interface-can-be-restored-via-link-onCreate-or-link-onRestoreInstanceState"><a href="#Called-to-retrieve-per-instance-state-from-an-activity-before-being-killed-so-that-the-state-can-be-restored-in-link-onCreate-or-link-onRestoreInstanceState-the-link-Bundle-populated-by-this-method-will-be-passed-to-both-This-method-is-called-before-an-activity-may-be-killed-so-that-when-it-comes-back-some-time-in-the-future-it-can-restore-its-state-For-example-if-activity-B-is-launched-in-front-of-activity-A-and-at-some-point-activity-A-is-killed-to-reclaim-resources-activity-A-will-have-a-chance-to-save-the-current-state-of-its-user-interface-via-this-method-so-that-when-the-user-returns-to-activity-A-the-state-of-the-user-interface-can-be-restored-via-link-onCreate-or-link-onRestoreInstanceState" class="headerlink" title="Called to retrieve per-instance state from an activity before being killed so that the state can be restored in {@link #onCreate} or {@link #onRestoreInstanceState} (the {@link Bundle} populated by this method will be passed to both).  This method is called before an activity may be killed so that when it comes back some time in the future it can restore its state.  For example, if activity B is launched in front of activity A, and at some point activity A is killed to reclaim resources, activity A will have a chance to save the current state of its user interface via this method so that when the user returns to activity A, the state of the user interface can be restored via {@link #onCreate} or {@link #onRestoreInstanceState}."></a>Called to retrieve per-instance state from an activity before being killed so that the state can be restored in {@link #onCreate} or {@link #onRestoreInstanceState} (the {@link Bundle} populated by this method will be passed to both).  This method is called before an activity may be killed so that when it comes back some time in the future it can restore its state.  For example, if activity B is launched in front of activity A, and at some point activity A is killed to reclaim resources, activity A will have a chance to save the current state of its user interface via this method so that when the user returns to activity A, the state of the user interface can be restored via {@link #onCreate} or {@link #onRestoreInstanceState}.</h5><p>意思就是说 这个Activity在被杀死之前 给你一个机会让你保留你希望保存的东西, 而你保存的东西会在什么时候还给你呢, 会在onCreate 或者onRestoreState的时候.<br>之前有人跟我, 我完全可以不用care这个回调啊,我可以在Activity内自己创建一个Member变量容器 去保存我希望保存的内容啊, 这里是我们需要明白的一个关键,<br>那就是 Activity A 去Activity B, Activity A 如果不被系统杀死回收的话,那怎么搞都是没问题的,但是一旦因为内存不足,Activity A被回收掉,你想想,你的Member容器也会随之一起回收掉.<br>等你从Activity B back 回Activity A的时候, 就会丢失掉你所有希望保存的内容.<br>这里有一个小细节就是 会有人不知道怎么去测试 Activity A 去Activity B, 然后Activity A 被回收的情况, 我们的android手机内 开发者模式, 有一个选项叫 不保留活动.打开以后,<br>只要你退出当前的Activity(按home或者去别的Activity), 你当前的Activity 就必定会被系统杀死回收. 看到这里如果不了解这个选项的朋友可以去打开这个选项试试自己的app.或许你会发现打开了新大门..<br>还有一个小细节就是有可能打开这个开关以后你检查了下你的app 然后告诉我说并没有什么问题, 不会有崩溃啊什么的, 要注意,这里的问题是指 本来应该保存的一些内容 或者用户已经加载过 或者用户已经在当前页面做过的一些动作<br>没有被保存,这句话需要仔细去理解一下,然后再check下自己的app,看看是不是会有东西丢失.</p>
 <h3 id="View-保存State的一些知识点"><a href="#View-保存State的一些知识点" class="headerlink" title="View 保存State的一些知识点"></a>View 保存State的一些知识点</h3><p>View saveState 与 restoreState 两套动作都是相对应的, 分别有这么几个关键的方法.</p>
@@ -265,7 +261,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/" data-id="cj7kahog0000jn3kp3gpm3xbe" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/" data-id="cj8191uoz000i1kkpc5cff9nc" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -388,6 +384,24 @@ ga('send', 'pageview');
                     <li>
                         
                         <div class="item-thumbnail">
+                            <a href="/2017/09/26/lottie/" class="thumbnail">
+    
+    
+        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/lottie_test0.gif)" alt="Lottie 源码阅读." class="thumbnail-image"></span>
+    
+</a>
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"></p>
+                            <p class="item-title"><a href="/2017/09/26/lottie/" class="title">Lottie 源码阅读.</a></p>
+                            <p class="item-date"><time datetime="2017-09-26T06:31:30.000Z" itemprop="datePublished">2017-09-26</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
                             <a href="/2017/09/14/volley/" class="thumbnail">
     
     
@@ -457,24 +471,6 @@ ga('send', 'pageview');
                         </div>
                     </li>
                 
-                    <li>
-                        
-                        <div class="item-thumbnail">
-                            <a href="/2017/02/16/webview/" class="thumbnail">
-    
-    
-        <span class="thumbnail-image thumbnail-none"></span>
-    
-</a>
-                        </div>
-                        
-                        <div class="item-inner">
-                            <p class="item-category"></p>
-                            <p class="item-title"><a href="/2017/02/16/webview/" class="title">WebView开发小记.</a></p>
-                            <p class="item-date"><time datetime="2017-02-16T09:31:30.000Z" itemprop="datePublished">2017-02-16</time></p>
-                        </div>
-                    </li>
-                
             </ul>
         </div>
     </div>
@@ -486,7 +482,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">archives</h3>
         <div class="widget">
-            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
     </div>
 
@@ -495,7 +491,7 @@ ga('send', 'pageview');
     <div class="widget-wrap">
         <h3 class="widget-title">tags</h3>
         <div class="widget">
-            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">9</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li></ul>
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li></ul>
         </div>
     </div>
 
