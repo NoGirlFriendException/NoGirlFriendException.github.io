@@ -3,30 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>播放器重构中遇见的坑 | 一只大金毛</title>
+    <title>播放器重构中遇见的坑 | 回龙观大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="播放器重构中遇见的坑
-最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开.
-在开发过程中遇见了几个小坑.
-
-播放器状态相关简单的来说, medi">
+    <meta name="description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
+<meta name="keywords" content="Android">
 <meta property="og:type" content="article">
 <meta property="og:title" content="播放器重构中遇见的坑">
 <meta property="og:url" content="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/index.html">
-<meta property="og:site_name" content="一只大金毛">
-<meta property="og:description" content="播放器重构中遇见的坑
-最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开.
-在开发过程中遇见了几个小坑.
-
-播放器状态相关简单的来说, medi">
+<meta property="og:site_name" content="回龙观大金毛">
+<meta property="og:description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2016-07-28T03:39:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="播放器重构中遇见的坑">
-<meta name="twitter:description" content="播放器重构中遇见的坑
-最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开.
-在开发过程中遇见了几个小坑.
-
-播放器状态相关简单的来说, medi">
+<meta name="twitter:description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
     
 
     
@@ -67,7 +57,7 @@ ga('send', 'pageview');
         <div class="outer">
             <a href="/" id="logo">
                 <i class="logo"></i>
-                <span class="site-title">一只大金毛</span>
+                <span class="site-title">回龙观大金毛</span>
             </a>
             <nav id="main-nav">
                 
@@ -237,7 +227,7 @@ ga('send', 'pageview');
 </li>
 </ul>
 <ul>
-<li><p>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.<br>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="external">issue</a>;<br>作者也承认了这个错误, 但是 他说 这并不重要, not on plan.</p>
+<li><p>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.<br>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="noopener">issue</a>;<br>作者也承认了这个错误, 但是 他说 这并不重要, not on plan.</p>
 </li>
 <li><p>SeekTo 相关<br>android mediaplayer seekTo 到 mediaplayer.getDuration(); 也就是说 seek到最后 正常来说 是没有什么问题的.<br>可以正常seek, 然后成功进入completed状态. 然后这个时候调用start. 也不会有什么问题 会进入Playing状态<br>但是你如果再次seekTo mediaplayer.getDuration(); 再点播放 就会出问题了, Mediaplayer 内部状态已经混乱了.<br>对于这件事 我不知道为什么网上搜不到很多相关的问题, 可能是我太无聊了或者我使用方法不恰当的问题把.<br>总而言之最后我做了WorkAround.<br>每次执行seekTo的时候 我都会判断1下 是不是seekTo到最后 如果是 我就seekTo到getDuration() - 2000;<br>然后 问题解决了</p>
 </li>
@@ -253,7 +243,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cj8191uoo00081kkpqa1fbta2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cjiofw2i3000dd0kp0vxsktje" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -528,7 +518,7 @@ ga('send', 'pageview');
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2017 bb<br>
+            &copy; 2018 bb<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>

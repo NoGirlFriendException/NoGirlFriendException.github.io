@@ -3,14 +3,15 @@
 <head>
     <meta charset="utf-8">
     
-    <title>一只大金毛</title>
+    <title>回龙观大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta property="og:type" content="website">
-<meta property="og:title" content="一只大金毛">
+<meta property="og:title" content="回龙观大金毛">
 <meta property="og:url" content="http://nogirlfriendexception.github.io/page/2/index.html">
-<meta property="og:site_name" content="一只大金毛">
+<meta property="og:site_name" content="回龙观大金毛">
+<meta property="og:locale" content="zh-Hans">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一只大金毛">
+<meta name="twitter:title" content="回龙观大金毛">
     
 
     
@@ -51,7 +52,7 @@ ga('send', 'pageview');
         <div class="outer">
             <a href="/" id="logo">
                 <i class="logo"></i>
-                <span class="site-title">一只大金毛</span>
+                <span class="site-title">回龙观大金毛</span>
             </a>
             <nav id="main-nav">
                 
@@ -233,7 +234,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cj8191uoe00031kkp5vzteyuq" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/08/03/lib-experience/" data-id="cjiofw2hu0003d0kpkg08o07d" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -356,7 +357,7 @@ ga('send', 'pageview');
 </li>
 </ul>
 <ul>
-<li><p>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.<br>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="external">issue</a>;<br>作者也承认了这个错误, 但是 他说 这并不重要, not on plan.</p>
+<li><p>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.<br>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="noopener">issue</a>;<br>作者也承认了这个错误, 但是 他说 这并不重要, not on plan.</p>
 </li>
 <li><p>SeekTo 相关<br>android mediaplayer seekTo 到 mediaplayer.getDuration(); 也就是说 seek到最后 正常来说 是没有什么问题的.<br>可以正常seek, 然后成功进入completed状态. 然后这个时候调用start. 也不会有什么问题 会进入Playing状态<br>但是你如果再次seekTo mediaplayer.getDuration(); 再点播放 就会出问题了, Mediaplayer 内部状态已经混乱了.<br>对于这件事 我不知道为什么网上搜不到很多相关的问题, 可能是我太无聊了或者我使用方法不恰当的问题把.<br>总而言之最后我做了WorkAround.<br>每次执行seekTo的时候 我都会判断1下 是不是seekTo到最后 如果是 我就seekTo到getDuration() - 2000;<br>然后 问题解决了</p>
 </li>
@@ -372,7 +373,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cj8191uoo00081kkpqa1fbta2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cjiofw2i3000dd0kp0vxsktje" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -489,10 +490,10 @@ ga('send', 'pageview');
             <p>上传Android Library 到 bintray.</p>
 <p>给公司写的videoplayer模块version one 完成了, 公司两个项目都需要用到这个模块,并且其中一个项目外包出去了,所以就要把这个模块上传到一个公共的lib库,方便外包的哥们去调用. 以及后续我这边更新维护. 然后选择了上传到bintray这个网站上.</p>
 <p>说实话不是太了解这块儿东西,来这个公司之前一直是闷头写代码层的东西,每天就对着svn和eclipse, 什么maven,git,As,jcenter,bintray 等等完全没接触过. 谢谢公司给了机会去学习这些,但由于英语不好,在学习使用的途中踩了很多坑.<br>这篇文章就是记录我把这个模块传到 bintray上 整个过程踩过的坑.</p>
-<h1 id="第一步-注册"><a href="#第一步-注册" class="headerlink" title="第一步 注册"></a>第一步 注册</h1><p>首先你需要 去<a href="https://bintray.com/" target="_blank" rel="external">bintray官网</a> 注册个账号,这里就不过多描述了.你可以的.<br>注册完毕以后 点击这里 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png" alt="Paste_Image.png"><br>进入maven管理界面<br>然后 点击 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-de836fe22fd42639.png" alt="Paste_Image.png"><br>创建新的package</p>
+<h1 id="第一步-注册"><a href="#第一步-注册" class="headerlink" title="第一步 注册"></a>第一步 注册</h1><p>首先你需要 去<a href="https://bintray.com/" target="_blank" rel="noopener">bintray官网</a> 注册个账号,这里就不过多描述了.你可以的.<br>注册完毕以后 点击这里 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-6dfcd184ce9b8eab.png" alt="Paste_Image.png"><br>进入maven管理界面<br>然后 点击 <img src="http://oaym3d44d.bkt.clouddn.com/1097102-de836fe22fd42639.png" alt="Paste_Image.png"><br>创建新的package</p>
 <p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-ea744876bf5965e3.png" alt="Paste_Image.png"></p>
 <p>name 就是项目的名称<br>licenses 我选择的是apache-2.0<br>version control 我填的是github上的地址<br>然后一切ok, 点击create package. 创建完毕.</p>
-<p>#第二步 寻找好用的publisher<br>作者一开始不懂这个是干什么的,是公司的cto给我推荐了1个github地址,让我去学习那个,并且告诉我这个是最简单的上传方式.<br>地址是 <a href="https://github.com/novoda/bintray-release" target="_blank" rel="external">novoda</a><br>其实英语好的哥们看到这应该已经知道怎么弄了</p>
+<p>#第二步 寻找好用的publisher<br>作者一开始不懂这个是干什么的,是公司的cto给我推荐了1个github地址,让我去学习那个,并且告诉我这个是最简单的上传方式.<br>地址是 <a href="https://github.com/novoda/bintray-release" target="_blank" rel="noopener">novoda</a><br>其实英语好的哥们看到这应该已经知道怎么弄了</p>
 <p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-bfeabd995b2e403b.png" alt="Paste_Image.png"></p>
 <p>第一步 把这些配置到 你要发布的项目的 build.gradle文件中 这里需要注意的是<br>apply plugin: ‘com.novoda.bintray-release’ 这句话 需要放在com.android.library 下面<br>如图</p>
 <p><img src="http://oaym3d44d.bkt.clouddn.com/1097102-8ca40a91dfff276a.png" alt="Paste_Image.png"></p>
@@ -513,7 +514,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cj8191uoq000a1kkpjq2wqlnj" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2015/11/09/upload-androidlib-bintray/" data-id="cjiofw2i9000md0kp21yxzmrj" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -759,7 +760,7 @@ ga('send', 'pageview');
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2017 bb<br>
+            &copy; 2018 bb<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>
