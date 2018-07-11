@@ -3,20 +3,22 @@
 <head>
     <meta charset="utf-8">
     
-    <title>播放器重构中遇见的坑 | 回龙观大金毛</title>
+    <title>nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务  | 回龙观大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
-<meta name="keywords" content="Android">
+    <meta name="description" content="前提这两天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等 开始折腾申请到的服务器系统版本12cat /etc/redhat-releaseCentOS Linux release 7.3.1611 (Core) 安装 nginx 添加CentOS 7 nginx yum资源库,打开终端,使用以下命令: 1sudo rpm -Uvh http:">
+<meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="播放器重构中遇见的坑">
-<meta property="og:url" content="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/index.html">
+<meta property="og:title" content="nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 ">
+<meta property="og:url" content="http://nogirlfriendexception.github.io/2018/07/11/nginx_go_server/index.html">
 <meta property="og:site_name" content="回龙观大金毛">
-<meta property="og:description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
+<meta property="og:description" content="前提这两天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等 开始折腾申请到的服务器系统版本12cat /etc/redhat-releaseCentOS Linux release 7.3.1611 (Core) 安装 nginx 添加CentOS 7 nginx yum资源库,打开终端,使用以下命令: 1sudo rpm -Uvh http:">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-07-28T03:39:53.000Z">
+<meta property="og:image" content="http://oaym3d44d.bkt.clouddn.com/nginx_default.png">
+<meta property="og:updated_time" content="2018-07-11T10:05:35.645Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="播放器重构中遇见的坑">
-<meta name="twitter:description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
+<meta name="twitter:title" content="nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 ">
+<meta name="twitter:description" content="前提这两天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等 开始折腾申请到的服务器系统版本12cat /etc/redhat-releaseCentOS Linux release 7.3.1611 (Core) 安装 nginx 添加CentOS 7 nginx yum资源库,打开终端,使用以下命令: 1sudo rpm -Uvh http:">
+<meta name="twitter:image" content="http://oaym3d44d.bkt.clouddn.com/nginx_default.png">
     
 
     
@@ -182,7 +184,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-mediaplayer-rebuild" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-nginx_go_server" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -191,7 +193,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            播放器重构中遇见的坑
+            nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 
         </h1>
     
 
@@ -199,8 +201,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/06/06/mediaplayer-rebuild/">
-            <time datetime="2016-06-06T10:47:30.000Z" itemprop="datePublished">2016-06-06</time>
+        <a href="/2018/07/11/nginx_go_server/">
+            <time datetime="2018-07-11T08:58:30.000Z" itemprop="datePublished">2018-07-11</time>
         </a>
     </div>
 
@@ -209,7 +211,7 @@ ga('send', 'pageview');
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/nginx/">nginx</a>
     </div>
 
                 </div>
@@ -218,21 +220,53 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>播放器重构中遇见的坑</p>
-<p>最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.<br>(android mediaplayer, exoplayer, ijkplayer.)<br>rendenview 与 Mediaplayer 层面 隔离开.</p>
-<p>在开发过程中遇见了几个小坑.</p>
-<ul>
-<li><p>播放器状态相关<br>简单的来说, mediaplayer 和ijkplayer 在进入Preparing的状态中时, 是不会对视频本身进行缓冲的, 而仅仅是做了初始化播放器的工作, 也就是说在prepared完成之前, 是不会有buffer的生命周期回调的, 而是在prepared 之后, 才会开始进入buffering state. 但是exoplayer的理念和 这两者有一点小小的不同,<br>exoplayer在 进入 preparing状态之后 初始化完成播放器以后,<br>会对视频本身开始buffer, buffer到足够开始进行播放以后, 才会<br>回掉 STATE_READY(Prepared)的状态.<br>这会给上层做整套生命周期 造成一定的影响.</p>
-<p>  如图:<br>  androidmediaplayer/ ijkplayer 的初始化生命周期<br>  IDLE –&gt; Preparing –&gt; Prepared –&gt; buffering –&gt; playing.<br>  exoplayer的 初始化生命周期<br>  IDLE –&gt; preparing –&gt; buffering –&gt; prepared(ready)</p>
+            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>这两天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等</p>
+<h3 id="开始折腾"><a href="#开始折腾" class="headerlink" title="开始折腾"></a>开始折腾</h3><p>申请到的服务器系统版本<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/redhat-<span class="built_in">release</span></span><br><span class="line">CentOS Linux <span class="built_in">release</span> <span class="number">7.3</span><span class="number">.1611</span> (Core)</span><br></pre></td></tr></table></figure></p>
+<h5 id="安装-nginx"><a href="#安装-nginx" class="headerlink" title="安装 nginx"></a>安装 nginx</h5><ol>
+<li><p>添加CentOS 7 nginx yum资源库,打开终端,使用以下命令:</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh http:<span class="regexp">//</span>nginx.org<span class="regexp">/packages/</span>centos<span class="regexp">/7/</span>noarch<span class="regexp">/RPMS/</span>nginx-release-centos-<span class="number">7</span>-<span class="number">0</span>.el7.ngx.noarch.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用 yum 命令从 nginx 源服务器中获取来安装 nginx：</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum <span class="keyword">install</span> -y nginx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动 Nginx </p>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="literal">start</span> nginx.service</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在基本上就可以通过IP地址 访问 nginx 的默认页面了<br>比如我的ip 是192.168.9.251<br>这个时候我在浏览器输入我的 ip, 就可以看到 nginx 的默认页面了</p>
+</li>
+</ol>
+<p><img src="http://oaym3d44d.bkt.clouddn.com/nginx_default.png" alt=""></p>
+<p>看到这个就代表nginx装好了</p>
+<h5 id="期间遇见的一个问题"><a href="#期间遇见的一个问题" class="headerlink" title="期间遇见的一个问题"></a>期间遇见的一个问题</h5><p>启动服务器以后, 访问网页显示无法打开,去查了下发现是因为80端口没有开放.<br>首先：开启 web 端口<br> firewall-cmd –permanent –add-port=80/tcp<br>然后重启 firewall<br>firewall-cmd –reload<br>搞定</p>
+<h5 id="nginx-的一些基本命令和配置"><a href="#nginx-的一些基本命令和配置" class="headerlink" title="nginx 的一些基本命令和配置"></a>nginx 的一些基本命令和配置</h5><ul>
+<li><p>默认的服务器 html 存放根目录是/usr/share/nginx/html.<br>可以 cd 到这个目录中去看到一些基础的 html, 比如 404.html, 和 index.html<br>可以把自己的网页放进这里面</p>
+</li>
+<li><p>默认的服务器模块配置文件位于<br>/etc/nginx/conf.d/default.conf.<br><img src="http://oaym3d44d.bkt.clouddn.com/nginx_defalut.conf.png" alt=""></p>
+</li>
+<li><p>nginx总的配置文件位于<br>/etc/nginx/nginx.conf.<br><img src="http://oaym3d44d.bkt.clouddn.com/nginx_conf.png" alt=""></p>
 </li>
 </ul>
+<p>可以看到最后 那句 include 就是把我们刚才配的 /etc/nginx/conf.d/default.conf 引入进来</p>
 <ul>
-<li><p>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.<br>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="noopener">issue</a>;<br>作者也承认了这个错误, 但是 他说 这并不重要, not on plan.</p>
+<li><p>nginx  重新加载配置文件</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nginx -s reload</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>SeekTo 相关<br>android mediaplayer seekTo 到 mediaplayer.getDuration(); 也就是说 seek到最后 正常来说 是没有什么问题的.<br>可以正常seek, 然后成功进入completed状态. 然后这个时候调用start. 也不会有什么问题 会进入Playing状态<br>但是你如果再次seekTo mediaplayer.getDuration(); 再点播放 就会出问题了, Mediaplayer 内部状态已经混乱了.<br>对于这件事 我不知道为什么网上搜不到很多相关的问题, 可能是我太无聊了或者我使用方法不恰当的问题把.<br>总而言之最后我做了WorkAround.<br>每次执行seekTo的时候 我都会判断1下 是不是seekTo到最后 如果是 我就seekTo到getDuration() - 2000;<br>然后 问题解决了</p>
+<li><p>nginx 关闭服务<br>nginx -s stop</p>
 </li>
 </ul>
-<p>不过还好 这些问题如果理解的好,可以在上层进行规避.把三套播放器的生命周期 可以整合一套的。</p>
+<h5 id="启动-go-服务"><a href="#启动-go-服务" class="headerlink" title="启动 go 服务"></a>启动 go 服务</h5><p>我在本机 使用 <a href="https://github.com/labstack/echo" target="_blank" rel="noopener">echo</a> 写了一个简单的 http server<br>比较关键的几个代码如下<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s := &amp;http.<span class="built_in">Server</span>&#123;</span><br><span class="line">	Addr:         <span class="string">":1323"</span>,</span><br><span class="line">	ReadTimeout:  <span class="number">20</span> * <span class="built_in">time</span>.<span class="built_in">Minute</span>,</span><br><span class="line">	WriteTimeout: <span class="number">20</span> * <span class="built_in">time</span>.<span class="built_in">Minute</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里是声明我这个服务 listen 1323端口.</p>
+<p>这里是我声明了1个path group, 以 /me 打头<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">me := e.<span class="type">Group</span>(<span class="string">"/me"</span>)</span><br><span class="line">me.<span class="type">GET</span>(<span class="string">"/ping"</span>, <span class="function"><span class="keyword">func</span><span class="params">(<span class="built_in">c</span> echo.Context)</span></span> error &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">c</span>.<span class="type">String</span>(<span class="number">200</span>, <span class="string">"Pong"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>当别人访问 /me/ping 的时候 我会返回 1个Pong 的 response.</p>
+<p>ok 代码很简单.<br>如果本机跑的话 直接go build  -&gt; ./main  或者go run main.go 就ok<br>但是因为我要部署到服务器centos系统上, 我本机是mac, 所以需要一些特殊操作, go 可以很轻松的支持这种跨平台编译<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">CGO_ENABLED</span>=0 <span class="attribute">GOOS</span>=linux <span class="attribute">GOARCH</span>=amd64 go build main.go</span><br></pre></td></tr></table></figure></p>
+<p>这样就会生成1个可以在 centos 下 跑起来的二进制文件<br>通过 scp 命令 把该文件传到 我的服务器的某个路径上<br>运行该文件<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="regexp">/usr/</span>share<span class="regexp">/go/m</span>ain &amp;</span><br></pre></td></tr></table></figure></p>
+<p>这样我的服务器上就已经成功跑起来该服务了<br>访问 <a href="http://192.168.9.251:1323/me/ping" target="_blank" rel="noopener">http://192.168.9.251:1323/me/ping</a><br>可以收到 1个 pong 的 response.<br>前提依然是你的防火墙已经打开了 1323的端口</p>
+<h5 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h5><p>我们先看看 正向代理 和 反向代理的 一些概念</p>
+<h5 id="正向代理的概念"><a href="#正向代理的概念" class="headerlink" title="正向代理的概念"></a>正向代理的概念</h5><p>正向代理，也就是传说中的代理,他的工作原理就像一个跳板，简单的说，我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器呢，他能访问那个我不能访问的网站，于是我先连上代理服务器，告诉他我需要那个无法访问网站的内容，代理服务器去取回来，然后返回给我。从网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。**       结论就是，正向代理 是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。</p>
+<h5 id="反向代理的概念"><a href="#反向代理的概念" class="headerlink" title="反向代理的概念"></a>反向代理的概念</h5><p>用户访问  <a href="http://www.test.com/readme" target="_blank" rel="noopener">http://www.test.com/readme</a> ，但 <a href="http://www.test.com/" target="_blank" rel="noopener">www.test.com</a> 上并不存在readme页面，他是偷偷从另外一台服务器上取回来，然后作为自己的内容返回用户，但用户并不知情。这里所提到的  <a href="http://www.test.com/" target="_blank" rel="noopener">www.test.com</a>  这个域名对应的服务器就设置了反向代理功能。<br>结论就是，反向代理正好相反，对于客户端而言它就像是原始服务器，并且客户端不需要进行任何特别的设置。客户端向反向代理的命名空间(name-space)中的内容发送普通请求，接着反向代理将判断向何处(原始服务器)转交请求，并将获得的内容返回给客户端，就像这些内容原本就是它自己的一样。</p>
+<h5 id="我的需求"><a href="#我的需求" class="headerlink" title="我的需求"></a>我的需求</h5><p>我服务器本身是不希望打开过多的端口, 希望外部访问这台机器的时候, 只通过80端口来接受 http 请求, 并且根据相应的规则分发到不同的端口<br>比如 <a href="http://192.168.9.251/me/ping" target="_blank" rel="noopener">http://192.168.9.251/me/ping</a><br>这样就可以 收到 pong 的 回应, 而不用 加上 :1323 的端口<br>nginx 实现这个需求非常简单<br>只需要 在 /etc/nginx/conf.d/default.conf 加入这个规则就好</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /me &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:1323;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>   Host             <span class="variable">$host</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>   X-Real-IP        <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>   X-Forwarded-For  <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样就是说 凡是 /me 的请求 都分发到本机的1323端口上<br>改完conf 之后, 执行  nginx -s reload<br>再次访问 <a href="http://192.168.9.251/me/ping" target="_blank" rel="noopener">http://192.168.9.251/me/ping</a><br>就能收到 我们来自 1323端口 go服务的 pong 的回应了</p>
 
         
         </div>
@@ -243,7 +277,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cjjgvuea0000a10kp4jmtmtwn" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2018/07/11/nginx_go_server/" data-id="cjjgy3p6g0000g4kpzw2iagwv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -311,7 +345,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/06/06/mediaplayer-rebuild/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/06/06/mediaplayer-rebuild/">Comments</a>
+        <a href="/2018/07/11/nginx_go_server/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2018/07/11/nginx_go_server/">Comments</a>
     
 
         </footer>
@@ -320,19 +354,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2016/08/03/lib-experience/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    做lib的时候学习到的一种思路.
-                
-            </div>
-        </a>
     
-    
-        <a href="/2015/11/09/upload-androidlib-bintray/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2017/09/26/lottie/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">上传Android Library 到 bintray</div>
+            <div class="article-nav-title">Lottie 源码阅读.</div>
         </a>
     
 </nav>
@@ -529,7 +554,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'saberpowermo';
     
     
-    var disqus_url = 'http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/';
+    var disqus_url = 'http://nogirlfriendexception.github.io/2018/07/11/nginx_go_server/';
     
     (function() {
     var dsq = document.createElement('script');

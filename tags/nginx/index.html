@@ -3,20 +3,15 @@
 <head>
     <meta charset="utf-8">
     
-    <title>播放器重构中遇见的坑 | 回龙观大金毛</title>
+    <title>Tag: nginx | 回龙观大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
-<meta name="keywords" content="Android">
-<meta property="og:type" content="article">
-<meta property="og:title" content="播放器重构中遇见的坑">
-<meta property="og:url" content="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="回龙观大金毛">
+<meta property="og:url" content="http://nogirlfriendexception.github.io/tags/nginx/index.html">
 <meta property="og:site_name" content="回龙观大金毛">
-<meta property="og:description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2016-07-28T03:39:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="播放器重构中遇见的坑">
-<meta name="twitter:description" content="播放器重构中遇见的坑 最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.(android mediaplayer, exoplayer, ijkplayer.)rendenview 与 Mediaplayer 层面 隔离开. 在开发过程中遇见了几个小坑.  播放器状态相关简单的来说, medi">
+<meta name="twitter:title" content="回龙观大金毛">
     
 
     
@@ -182,16 +177,20 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-mediaplayer-rebuild" class="article article-type-post" itemscope itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-            <header class="article-header">
+            <section id="main">
+<div class="timeline timeline-wrap">
+    <div class="timeline-row timeline-row-major">
+        <span class="node"><i class="fa fa-tag"></i></span>
+        <h1 class="title">#nginx</h1>
+    </div>
+    
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
                 
     
-        <h1 class="article-title" itemprop="name">
-            播放器重构中遇见的坑
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/2018/07/11/nginx_go_server/">nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 </a>
         </h1>
     
 
@@ -199,8 +198,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/06/06/mediaplayer-rebuild/">
-            <time datetime="2016-06-06T10:47:30.000Z" itemprop="datePublished">2016-06-06</time>
+        <a href="/2018/07/11/nginx_go_server/">
+            <time datetime="2018-07-11T08:58:30.000Z" itemprop="datePublished">2018-07-11</time>
         </a>
     </div>
 
@@ -209,150 +208,14 @@ ga('send', 'pageview');
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/nginx/">nginx</a>
     </div>
 
                 </div>
-            </header>
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-            
-            <p>播放器重构中遇见的坑</p>
-<p>最近一直在重构公司项目的播放器项目, 这次重构是借鉴了Bilibili开源的ijkPlayer 代码的 写法, 一个VideoView 对应各种播放器内核.<br>(android mediaplayer, exoplayer, ijkplayer.)<br>rendenview 与 Mediaplayer 层面 隔离开.</p>
-<p>在开发过程中遇见了几个小坑.</p>
-<ul>
-<li><p>播放器状态相关<br>简单的来说, mediaplayer 和ijkplayer 在进入Preparing的状态中时, 是不会对视频本身进行缓冲的, 而仅仅是做了初始化播放器的工作, 也就是说在prepared完成之前, 是不会有buffer的生命周期回调的, 而是在prepared 之后, 才会开始进入buffering state. 但是exoplayer的理念和 这两者有一点小小的不同,<br>exoplayer在 进入 preparing状态之后 初始化完成播放器以后,<br>会对视频本身开始buffer, buffer到足够开始进行播放以后, 才会<br>回掉 STATE_READY(Prepared)的状态.<br>这会给上层做整套生命周期 造成一定的影响.</p>
-<p>  如图:<br>  androidmediaplayer/ ijkplayer 的初始化生命周期<br>  IDLE –&gt; Preparing –&gt; Prepared –&gt; buffering –&gt; playing.<br>  exoplayer的 初始化生命周期<br>  IDLE –&gt; preparing –&gt; buffering –&gt; prepared(ready)</p>
-</li>
-</ul>
-<ul>
-<li><p>onCompletion 相关<br>这三个播放器都有onCompletion的回调,这个回调其实很好理解,就是播放完成的时候会回调该生命周期,<br>但是ijkplayer回调的时机是有问题的, 它不仅仅在播放完成的时候会回调该方法,而且在出现错误的时候也会回调该方法。<br>播放器产生错误 –&gt; onError –&gt; onCompletion.<br>我也跟IJK的作者提了<a href="https://github.com/Bilibili/ijkplayer/issues/1289" target="_blank" rel="noopener">issue</a>;<br>作者也承认了这个错误, 但是 他说 这并不重要, not on plan.</p>
-</li>
-<li><p>SeekTo 相关<br>android mediaplayer seekTo 到 mediaplayer.getDuration(); 也就是说 seek到最后 正常来说 是没有什么问题的.<br>可以正常seek, 然后成功进入completed状态. 然后这个时候调用start. 也不会有什么问题 会进入Playing状态<br>但是你如果再次seekTo mediaplayer.getDuration(); 再点播放 就会出问题了, Mediaplayer 内部状态已经混乱了.<br>对于这件事 我不知道为什么网上搜不到很多相关的问题, 可能是我太无聊了或者我使用方法不恰当的问题把.<br>总而言之最后我做了WorkAround.<br>每次执行seekTo的时候 我都会判断1下 是不是seekTo到最后 如果是 我就seekTo到getDuration() - 2000;<br>然后 问题解决了</p>
-</li>
-</ul>
-<p>不过还好 这些问题如果理解的好,可以在上层进行规避.把三套播放器的生命周期 可以整合一套的。</p>
-
-        
-        </div>
-        <footer class="article-footer">
-            <div class="share-container">
-
-
-
-</div>
-
-    <a data-url="http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/" data-id="cjjgvuea0000a10kp4jmtmtwn" class="article-share-link"><i class="fa fa-share"></i>Share</a>
-<script>
-    (function ($) {
-        // Prevent duplicate binding
-        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
-            __SHARE_BUTTON_BINDED__ = true;
-        } else {
-            return;
-        }
-        $('body').on('click', function() {
-            $('.article-share-box.on').removeClass('on');
-        }).on('click', '.article-share-link', function(e) {
-            e.stopPropagation();
-
-            var $this = $(this),
-                url = $this.attr('data-url'),
-                encodedUrl = encodeURIComponent(url),
-                id = 'article-share-box-' + $this.attr('data-id'),
-                offset = $this.offset(),
-                box;
-
-            if ($('#' + id).length) {
-                box = $('#' + id);
-
-                if (box.hasClass('on')){
-                    box.removeClass('on');
-                    return;
-                }
-            } else {
-                var html = [
-                    '<div id="' + id + '" class="article-share-box">',
-                        '<input class="article-share-input" value="' + url + '">',
-                        '<div class="article-share-links">',
-                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
-                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
-                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
-                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
-                        '</div>',
-                    '</div>'
-                ].join('');
-
-              box = $(html);
-
-              $('body').append(box);
-            }
-
-            $('.article-share-box.on').hide();
-
-            box.css({
-                top: offset.top + 25,
-                left: offset.left
-            }).addClass('on');
-
-        }).on('click', '.article-share-box', function (e) {
-            e.stopPropagation();
-        }).on('click', '.article-share-box-input', function () {
-            $(this).select();
-        }).on('click', '.article-share-box-link', function (e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
-        });
-    })(jQuery);
-</script>
-
-            
-    
-        <a href="/2016/06/06/mediaplayer-rebuild/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/06/06/mediaplayer-rebuild/">Comments</a>
-    
-
-        </footer>
-    </div>
-    
-        
-<nav id="article-nav">
-    
-        <a href="/2016/08/03/lib-experience/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    做lib的时候学习到的一种思路.
-                
             </div>
-        </a>
+        </div>
     
-    
-        <a href="/2015/11/09/upload-androidlib-bintray/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">上传Android Library 到 bintray</div>
-        </a>
-    
-</nav>
-
-
-    
-</article>
-
-
-    
-    <section id="comments">
-    
-        
-    <div id="disqus_thread">
-        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-    </div>
-
-    
-    </section>
-
+</div>
 </section>
             
                 <aside id="sidebar">
@@ -529,13 +392,11 @@ ga('send', 'pageview');
     var disqus_shortname = 'saberpowermo';
     
     
-    var disqus_url = 'http://nogirlfriendexception.github.io/2016/06/06/mediaplayer-rebuild/';
-    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
