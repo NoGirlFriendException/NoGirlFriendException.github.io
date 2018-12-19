@@ -13,12 +13,12 @@
 <meta property="og:site_name" content="回龙观大金毛">
 <meta property="og:description" content="纯手打原创,转载请注明出处,感谢!参考资料 lottie-android introducing-lottie design lottie bodymovin Animation: Jump-through keyframes overview  概略介绍Lottie is the native engine that Airbnb’s awesome team built. It uses Bo">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oaym3d44d.bkt.clouddn.com/lottie_test0.gif">
-<meta property="og:updated_time" content="2018-01-07T02:36:59.913Z">
+<meta property="og:image" content="http://nogirlfriendexception.github.io/images/lottie_test0.gif">
+<meta property="og:updated_time" content="2018-12-19T10:04:32.543Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lottie 源码阅读.">
 <meta name="twitter:description" content="纯手打原创,转载请注明出处,感谢!参考资料 lottie-android introducing-lottie design lottie bodymovin Animation: Jump-through keyframes overview  概略介绍Lottie is the native engine that Airbnb’s awesome team built. It uses Bo">
-<meta name="twitter:image" content="http://oaym3d44d.bkt.clouddn.com/lottie_test0.gif">
+<meta name="twitter:image" content="http://nogirlfriendexception.github.io/images/lottie_test0.gif">
     
 
     
@@ -82,7 +82,7 @@ ga('send', 'pageview');
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Rechercher" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -101,9 +101,9 @@ ga('send', 'pageview');
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
+            POSTS: 'Articles',
             PAGES: 'Pages',
-            CATEGORIES: 'Categories',
+            CATEGORIES: 'Catégories',
             TAGS: 'Tags',
             UNTITLED: '(Untitled)',
         },
@@ -129,7 +129,7 @@ ga('send', 'pageview');
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Rechercher" />
     </div>
 
                 </td>
@@ -149,16 +149,16 @@ ga('send', 'pageview');
             <h2 id="name">bb</h2>
             <h3 id="title">Android dev &amp;&amp; WoWer &amp;&amp; Cser.</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Beijing</span>
-            <a id="follow" target="_blank" href="https://github.com/NoGirlFriendException">FOLLOW</a>
+            <a id="follow" target="_blank" href="https://github.com/NoGirlFriendException">SUIVRE</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 14
-                <span>posts</span>
+                <span>Articles</span>
             </div>
             <div class="article-info-block">
                 4
-                <span>tags</span>
+                <span>Tags</span>
             </div>
         </div>
         
@@ -234,17 +234,17 @@ ga('send', 'pageview');
 <li><a href="https://github.com/airbnb/lottie-ios" target="_blank" rel="noopener">iOS’s player</a></li>
 <li><a href="https://github.com/airbnb/lottie-react-native" target="_blank" rel="noopener">React Native’s wrapper</a></li>
 </ul>
-<h3 id="官方效果图"><a href="#官方效果图" class="headerlink" title="官方效果图"></a>官方效果图</h3><p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_test0.gif" alt=""></p>
-<h3 id="整体开发流程"><a href="#整体开发流程" class="headerlink" title="整体开发流程"></a>整体开发流程</h3><p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_%20flow.png" alt=""></p>
+<h3 id="官方效果图"><a href="#官方效果图" class="headerlink" title="官方效果图"></a>官方效果图</h3><p><img src="/images/lottie_test0.gif" alt=""></p>
+<h3 id="整体开发流程"><a href="#整体开发流程" class="headerlink" title="整体开发流程"></a>整体开发流程</h3><p><img src="/images/lottie_%20flow.png" alt=""></p>
 <p>如图所示，通过安装AE上的bodymovin的插件，能够将AE中的动画工程文件转换为通用的json格式描述文件(bodymovin插件本身是用于网页上呈现各种AE效果的一个开源库),lottie所做的事情就是实现在不同移动端平台上呈现AE动画的方式，从而达到动画文件的一次绘制、一次转换，随处可用的效果，这个跟Java一次编译随处运行效果一样</p>
 <p>各平台 代码简单示范<br>android:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);</span><br><span class="line">animationView.setAnimation(<span class="string">"hello-world.json"</span>);</span><br><span class="line">animationView.loop(<span class="keyword">true</span>);</span><br><span class="line">animationView.playAnimation();</span><br></pre></td></tr></table></figure></p>
 <p>iOS:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LOTAnimationView *animation = [LOTAnimationView animationNamed:@<span class="string">"Lottie"</span>];</span><br><span class="line">[self.view addSubview:animation];</span><br><span class="line">[animation playWithCompletion:^(BOOL animationFinished) &#123;</span><br><span class="line">  <span class="comment">// Do Something</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
 <p>WEB:<br><figure class="highlight javascript"><figcaption><span>1.8</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LOTAnimationView *animation = [LOTAnimationView animationNamed:@<span class="string">"Lottie"</span>];</span><br><span class="line">[self.view addSubview:animation];</span><br><span class="line">[animation playWithCompletion:^(BOOL animationFinished) &#123;</span><br><span class="line">  <span class="comment">// Do Something</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
 <h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>我们先从底层思考下如何在屏幕上绘制动画，最简单的方式是把动画分为多张图片，然后通过周期替换屏幕上绘制的图片来形成动画，这种暴力的方式非常简单，但缺点明显，很耗内存，动画播放中前后两张替换的图片在很多元素并没有变化，重复的内容浪费了空间。<br>为了提高空间利用率，可以把图片中的元素进行拆分，使用过photoshop的同学知道，其实在处理一张图片时，可以把一张复杂的图片使用多个图层来表示，每个图层上展示一部分内容，图层中的内容也可以拆分为多个元素。拆分元素之后，根据动画需求，可以单独对图层，甚至图层中的元素设置平移、旋转、收缩等动画。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_test1.png" alt=""></p>
+<p><img src="/images/lottie_test1.png" alt=""></p>
 <p>Lottie使用json文件来作为动画数据源，json文件是通过Bodymovin插件导出的，查看sample中给出的json文件，其实就是把图片中的元素进行来拆分，并且描述每个元素的动画执行路径和执行时间。Lottie的功能就是读取这些数据，然后绘制到屏幕上。<br>现在思考如果我们拿到一份json格式动画如何展示到屏幕上。首先要解析json，建立数据到对象的映射，然后根据数据对象创建合适的Drawable绘制到View上，动画的实现可以通过操作读取到的元素完成。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_test2.png" alt=""></p>
-<h3 id="从android-源码解析"><a href="#从android-源码解析" class="headerlink" title="从android 源码解析"></a>从android 源码解析</h3><h4 id="项目结构图"><a href="#项目结构图" class="headerlink" title="项目结构图"></a>项目结构图</h4><p><img src="http://oaym3d44d.bkt.clouddn.com/Lottie%20%E7%BB%93%E6%9E%84%E5%9B%BE..png" alt=""></p>
+<p><img src="/images/lottie_test2.png" alt=""></p>
+<h3 id="从android-源码解析"><a href="#从android-源码解析" class="headerlink" title="从android 源码解析"></a>从android 源码解析</h3><h4 id="项目结构图"><a href="#项目结构图" class="headerlink" title="项目结构图"></a>项目结构图</h4><p><img src="/images/Lottie%20%E7%BB%93%E6%9E%84%E5%9B%BE..png" alt=""></p>
 <h6 id="该图因为太大了-所以有可能会看不清楚-感兴趣的同学可以下载到本地放大查看"><a href="#该图因为太大了-所以有可能会看不清楚-感兴趣的同学可以下载到本地放大查看" class="headerlink" title="该图因为太大了,所以有可能会看不清楚,感兴趣的同学可以下载到本地放大查看"></a>该图因为太大了,所以有可能会看不清楚,感兴趣的同学可以下载到本地放大查看</h6><h5 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h5><p>通过如下3个核心类来来完成整个工作流程，因而使用起来比较简单。以下是三个比较核心的类的说明：</p>
 <ul>
 <li>LottieComposition (json-&gt;数据对象)<br>Lottie使用LottieComposition来作为After Effects的数据对象，即把Json文件映射为到LottieComposition，该类中提供了解析json的静态方法。</li>
@@ -258,7 +258,7 @@ ga('send', 'pageview');
 <p>从这里可以获取 设计的动画的宽高，帧相关的信息，动画所需要的图片资源的信息以及图层信息。</p>
 <h6 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h6><p>图片资源信息, 相关类 LottieImageAsset、 ImageAssetBitmapManager。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">"assets": [</span><br><span class="line">    &#123;</span><br><span class="line">      "id": "image_0",   // 图片id</span><br><span class="line">      "w": 58,  // 图片宽度</span><br><span class="line">      "h": 31,  // 图片高度</span><br><span class="line">      "u": "images/",</span><br><span class="line">      "p": "img_0.png"  // 图片名称</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h6 id="layers"><a href="#layers" class="headerlink" title="layers"></a>layers</h6><p>图层信息，相关类：Layer、BaseLayer以及 BaseLayer 的实现类。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"ddd"</span>: <span class="number">0</span>,</span><br><span class="line">    "ind": 0,  // layer id 图层 id</span><br><span class="line">    "ty": 2,  // layertype 图层类型</span><br><span class="line">    "nm": "btnSlice.png",  // layerName 图层信息</span><br><span class="line">    "cl": "png",</span><br><span class="line">    "refId": "image_0",  // 引用的资源 id,如果是 ImageLayer 那么就是图片的id</span><br><span class="line">    "ks": &#123;....&#125;,</span><br><span class="line">    "ao": 0,</span><br><span class="line">    "ip": 0,  // inFrame 该图层起始关键帧</span><br><span class="line">    "op": 90.0000036657751,  // outFrame 该图层结束关键帧</span><br><span class="line">    "st": 0,   // startFrame 开始</span><br><span class="line">    "bm": 0,</span><br><span class="line">    "sr": 1 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="播放动画"><a href="#播放动画" class="headerlink" title="播放动画"></a>播放动画</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_draw_flow" alt=""></p>
+<h5 id="播放动画"><a href="#播放动画" class="headerlink" title="播放动画"></a>播放动画</h5><p><img src="/images/lottie_draw_flow" alt=""></p>
 <h5 id="官方说法"><a href="#官方说法" class="headerlink" title="官方说法"></a>官方说法</h5><ul>
 <li>如果没有mask和mattes，那么性能和内存非常好，没有bitmap创建，大部分操作都是简单的cavas绘制。</li>
 <li>如果存在mattes，将会创建2～3个bitmap。bitmap在动画加载到window时被创建，被window删除时回收。所以不宜在RecyclerView中使用包涵mattes或者mask的动画，否则会引起bitmap抖动。除了内存抖动，mattes和mask中必要的bitmap.eraseColor()和canvas.drawBitmap()也会降低动画性能。对于简单的动画，在实际使用时性能不太明显。</li>
@@ -274,7 +274,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/09/26/lottie/" data-id="cjjgvue9y000810kp1gvk3w9p" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/09/26/lottie/" data-id="cjpuyjw6c0003pkkp2ru5ohvz" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -342,7 +342,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/09/26/lottie/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/09/26/lottie/">Comments</a>
+        <a href="/2017/09/26/lottie/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/09/26/lottie/">Commentaires</a>
     
 
         </footer>
@@ -352,7 +352,7 @@ ga('send', 'pageview');
 <nav id="article-nav">
     
         <a href="/2018/07/11/nginx_go_server/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
+            <strong class="article-nav-caption">Plus récent</strong>
             <div class="article-nav-title">
                 
                     nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 
@@ -362,7 +362,7 @@ ga('send', 'pageview');
     
     
         <a href="/2017/09/14/volley/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
+            <strong class="article-nav-caption">Plus ancien</strong>
             <div class="article-nav-title">Volley 源码阅读.</div>
         </a>
     
@@ -390,7 +390,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
+        <h3 class="widget-title">Récents</h3>
         <div class="widget">
             <ul id="recent-post" class="">
                 
@@ -400,7 +400,7 @@ ga('send', 'pageview');
                             <a href="/2018/07/11/nginx_go_server/" class="thumbnail">
     
     
-        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/nginx_default.png)" alt="nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 " class="thumbnail-image"></span>
+        <span style="background-image:url(/images/nginx_default.png)" alt="nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 " class="thumbnail-image"></span>
     
 </a>
                         </div>
@@ -418,7 +418,7 @@ ga('send', 'pageview');
                             <a href="/2017/09/26/lottie/" class="thumbnail">
     
     
-        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/lottie_test0.gif)" alt="Lottie 源码阅读." class="thumbnail-image"></span>
+        <span style="background-image:url(/images/lottie_test0.gif)" alt="Lottie 源码阅读." class="thumbnail-image"></span>
     
 </a>
                         </div>
@@ -493,7 +493,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">archives</h3>
+        <h3 class="widget-title">Archives</h3>
         <div class="widget">
             <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
@@ -502,7 +502,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tags</h3>
+        <h3 class="widget-title">Tags</h3>
         <div class="widget">
             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li></ul>
         </div>
@@ -511,7 +511,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tag cloud</h3>
+        <h3 class="widget-title">Nuage de tags</h3>
         <div class="widget tagcloud">
             <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/Resume/" style="font-size: 10px;">Resume</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a>
         </div>
@@ -520,7 +520,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
+        <h3 class="widget-title">Liens</h3>
         <div class="widget">
             <ul>
                 

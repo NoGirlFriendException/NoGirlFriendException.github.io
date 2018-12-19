@@ -75,7 +75,7 @@ ga('send', 'pageview');
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Rechercher" />
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -94,9 +94,9 @@ ga('send', 'pageview');
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
+            POSTS: 'Articles',
             PAGES: 'Pages',
-            CATEGORIES: 'Categories',
+            CATEGORIES: 'Catégories',
             TAGS: 'Tags',
             UNTITLED: '(Untitled)',
         },
@@ -122,7 +122,7 @@ ga('send', 'pageview');
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search" />
+        <input type="text" class="ins-search-input search-form-input" placeholder="Rechercher" />
     </div>
 
                 </td>
@@ -142,16 +142,16 @@ ga('send', 'pageview');
             <h2 id="name">bb</h2>
             <h3 id="title">Android dev &amp;&amp; WoWer &amp;&amp; Cser.</h3>
             <span id="location"><i class="fa fa-map-marker"></i>Beijing</span>
-            <a id="follow" target="_blank" href="https://github.com/NoGirlFriendException">FOLLOW</a>
+            <a id="follow" target="_blank" href="https://github.com/NoGirlFriendException">SUIVRE</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 14
-                <span>posts</span>
+                <span>Articles</span>
             </div>
             <div class="article-info-block">
                 4
-                <span>tags</span>
+                <span>Tags</span>
             </div>
         </div>
         
@@ -214,52 +214,52 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>这两天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等</p>
-<h3 id="开始折腾"><a href="#开始折腾" class="headerlink" title="开始折腾"></a>开始折腾</h3><p>申请到的服务器系统版本<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/redhat-<span class="built_in">release</span></span><br><span class="line">CentOS Linux <span class="built_in">release</span> <span class="number">7.3</span><span class="number">.1611</span> (Core)</span><br></pre></td></tr></table></figure></p>
+            <h3 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h3><p>这几天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等</p>
+<h3 id="开始折腾"><a href="#开始折腾" class="headerlink" title="开始折腾"></a>开始折腾</h3><p>申请到的服务器系统版本<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/redhat-release</span><br><span class="line">CentOS Linux release 7.3.1611 (Core)</span><br></pre></td></tr></table></figure></p>
 <h5 id="安装-nginx"><a href="#安装-nginx" class="headerlink" title="安装 nginx"></a>安装 nginx</h5><ol>
 <li><p>添加CentOS 7 nginx yum资源库,打开终端,使用以下命令:</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh http:<span class="regexp">//</span>nginx.org<span class="regexp">/packages/</span>centos<span class="regexp">/7/</span>noarch<span class="regexp">/RPMS/</span>nginx-release-centos-<span class="number">7</span>-<span class="number">0</span>.el7.ngx.noarch.rpm</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>使用 yum 命令从 nginx 源服务器中获取来安装 nginx：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum <span class="keyword">install</span> -y nginx</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y nginx</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>启动 Nginx </p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="literal">start</span> nginx.service</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start nginx.service</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>现在基本上就可以通过IP地址 访问 nginx 的默认页面了<br>比如我的ip 是192.168.9.251<br>这个时候我在浏览器输入我的 ip, 就可以看到 nginx 的默认页面了</p>
 </li>
 </ol>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/nginx_default.png" alt=""></p>
+<p><img src="/images/nginx_default.png" alt=""></p>
 <p>看到这个就代表nginx装好了</p>
 <h5 id="期间遇见的一个问题"><a href="#期间遇见的一个问题" class="headerlink" title="期间遇见的一个问题"></a>期间遇见的一个问题</h5><p>启动服务器以后, 访问网页显示无法打开,去查了下发现是因为80端口没有开放.<br>首先：开启 web 端口<br> firewall-cmd –permanent –add-port=80/tcp<br>然后重启 firewall<br>firewall-cmd –reload<br>搞定</p>
 <h5 id="nginx-的一些基本命令和配置"><a href="#nginx-的一些基本命令和配置" class="headerlink" title="nginx 的一些基本命令和配置"></a>nginx 的一些基本命令和配置</h5><ul>
 <li><p>默认的服务器 html 存放根目录是/usr/share/nginx/html.<br>可以 cd 到这个目录中去看到一些基础的 html, 比如 404.html, 和 index.html<br>可以把自己的网页放进这里面</p>
 </li>
-<li><p>默认的服务器模块配置文件位于<br>/etc/nginx/conf.d/default.conf.<br><img src="http://oaym3d44d.bkt.clouddn.com/nginx_defalut.conf.png" alt=""></p>
+<li><p>默认的服务器模块配置文件位于<br>/etc/nginx/conf.d/default.conf.<br><img src="/images/nginx_defalut.conf.png" alt=""></p>
 </li>
-<li><p>nginx总的配置文件位于<br>/etc/nginx/nginx.conf.<br><img src="http://oaym3d44d.bkt.clouddn.com/nginx_conf.png" alt=""></p>
+<li><p>nginx总的配置文件位于<br>/etc/nginx/nginx.conf.<br><img src="/images/nginx_conf.png" alt=""></p>
 </li>
 </ul>
 <p>可以看到最后 那句 include 就是把我们刚才配的 /etc/nginx/conf.d/default.conf 引入进来</p>
 <ul>
 <li><p>nginx  重新加载配置文件</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nginx -s reload</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx -s reload</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>nginx 关闭服务<br>nginx -s stop</p>
 </li>
 </ul>
-<h5 id="启动-go-服务"><a href="#启动-go-服务" class="headerlink" title="启动 go 服务"></a>启动 go 服务</h5><p>我在本机 使用 <a href="https://github.com/labstack/echo" target="_blank" rel="noopener">echo</a> 写了一个简单的 http server<br>比较关键的几个代码如下<br><figure class="highlight vbscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s := &amp;http.<span class="built_in">Server</span>&#123;</span><br><span class="line">	Addr:         <span class="string">":1323"</span>,</span><br><span class="line">	ReadTimeout:  <span class="number">20</span> * <span class="built_in">time</span>.<span class="built_in">Minute</span>,</span><br><span class="line">	WriteTimeout: <span class="number">20</span> * <span class="built_in">time</span>.<span class="built_in">Minute</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h5 id="启动-go-服务"><a href="#启动-go-服务" class="headerlink" title="启动 go 服务"></a>启动 go 服务</h5><p>我在本机 使用 <a href="https://github.com/labstack/echo" target="_blank" rel="noopener">echo</a> 写了一个简单的 http server<br>比较关键的几个代码如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">s := &amp;http.Server&#123;</span><br><span class="line">	Addr:         &quot;:1323&quot;,</span><br><span class="line">	ReadTimeout:  20 * time.Minute,</span><br><span class="line">	WriteTimeout: 20 * time.Minute,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这里是声明我这个服务 listen 1323端口.</p>
-<p>这里是我声明了1个path group, 以 /me 打头<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">me := e.<span class="type">Group</span>(<span class="string">"/me"</span>)</span><br><span class="line">me.<span class="type">GET</span>(<span class="string">"/ping"</span>, <span class="function"><span class="keyword">func</span><span class="params">(<span class="built_in">c</span> echo.Context)</span></span> error &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">c</span>.<span class="type">String</span>(<span class="number">200</span>, <span class="string">"Pong"</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这里是我声明了1个path group, 以 /me 打头<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">me := e.Group(&quot;/me&quot;)</span><br><span class="line">me.GET(&quot;/ping&quot;, func(c echo.Context) error &#123;</span><br><span class="line">	return c.String(200, &quot;Pong&quot;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
 <p>当别人访问 /me/ping 的时候 我会返回 1个Pong 的 response.</p>
-<p>ok 代码很简单.<br>如果本机跑的话 直接go build  -&gt; ./main  或者go run main.go 就ok<br>但是因为我要部署到服务器centos系统上, 我本机是mac, 所以需要一些特殊操作, go 可以很轻松的支持这种跨平台编译<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">CGO_ENABLED</span>=0 <span class="attribute">GOOS</span>=linux <span class="attribute">GOARCH</span>=amd64 go build main.go</span><br></pre></td></tr></table></figure></p>
-<p>这样就会生成1个可以在 centos 下 跑起来的二进制文件<br>通过 scp 命令 把该文件传到 我的服务器的某个路径上<br>运行该文件<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.<span class="regexp">/usr/</span>share<span class="regexp">/go/m</span>ain &amp;</span><br></pre></td></tr></table></figure></p>
+<p>ok 代码很简单.<br>如果本机跑的话 直接go build  -&gt; ./main  或者go run main.go 就ok<br>但是因为我要部署到服务器centos系统上, 我本机是mac, 所以需要一些特殊操作, go 可以很轻松的支持这种跨平台编译<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build main.go</span><br></pre></td></tr></table></figure></p>
+<p>这样就会生成1个可以在 centos 下 跑起来的二进制文件<br>通过 scp 命令 把该文件传到 我的服务器的某个路径上<br>运行该文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./usr/share/go/main &amp;</span><br></pre></td></tr></table></figure></p>
 <p>这样我的服务器上就已经成功跑起来该服务了<br>访问 <a href="http://192.168.9.251:1323/me/ping" target="_blank" rel="noopener">http://192.168.9.251:1323/me/ping</a><br>可以收到 1个 pong 的 response.<br>前提依然是你的防火墙已经打开了 1323的端口</p>
 <h5 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h5><p>我们先看看 正向代理 和 反向代理的 一些概念</p>
 <h5 id="正向代理的概念"><a href="#正向代理的概念" class="headerlink" title="正向代理的概念"></a>正向代理的概念</h5><p>正向代理，也就是传说中的代理,他的工作原理就像一个跳板，简单的说，我是一个用户，我访问不了某网站，但是我能访问一个代理服务器，这个代理服务器呢，他能访问那个我不能访问的网站，于是我先连上代理服务器，告诉他我需要那个无法访问网站的内容，代理服务器去取回来，然后返回给我。从网站的角度，只在代理服务器来取内容的时候有一次记录，有时候并不知道是用户的请求，也隐藏了用户的资料，这取决于代理告不告诉网站。**       结论就是，正向代理 是一个位于客户端和原始服务器(origin server)之间的服务器，为了从原始服务器取得内容，客户端向代理发送一个请求并指定目标(原始服务器)，然后代理向原始服务器转交请求并将获得的内容返回给客户端。客户端必须要进行一些特别的设置才能使用正向代理。</p>
 <h5 id="反向代理的概念"><a href="#反向代理的概念" class="headerlink" title="反向代理的概念"></a>反向代理的概念</h5><p>用户访问  <a href="http://www.test.com/readme" target="_blank" rel="noopener">http://www.test.com/readme</a> ，但 <a href="http://www.test.com/" target="_blank" rel="noopener">www.test.com</a> 上并不存在readme页面，他是偷偷从另外一台服务器上取回来，然后作为自己的内容返回用户，但用户并不知情。这里所提到的  <a href="http://www.test.com/" target="_blank" rel="noopener">www.test.com</a>  这个域名对应的服务器就设置了反向代理功能。<br>结论就是，反向代理正好相反，对于客户端而言它就像是原始服务器，并且客户端不需要进行任何特别的设置。客户端向反向代理的命名空间(name-space)中的内容发送普通请求，接着反向代理将判断向何处(原始服务器)转交请求，并将获得的内容返回给客户端，就像这些内容原本就是它自己的一样。</p>
 <h5 id="我的需求"><a href="#我的需求" class="headerlink" title="我的需求"></a>我的需求</h5><p>我服务器本身是不希望打开过多的端口, 希望外部访问这台机器的时候, 只通过80端口来接受 http 请求, 并且根据相应的规则分发到不同的端口<br>比如 <a href="http://192.168.9.251/me/ping" target="_blank" rel="noopener">http://192.168.9.251/me/ping</a><br>这样就可以 收到 pong 的 回应, 而不用 加上 :1323 的端口<br>nginx 实现这个需求非常简单<br>只需要 在 /etc/nginx/conf.d/default.conf 加入这个规则就好</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">location</span> /me &#123;</span><br><span class="line">    <span class="attribute">proxy_pass</span> http://127.0.0.1:1323;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>   Host             <span class="variable">$host</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>   X-Real-IP        <span class="variable">$remote_addr</span>;</span><br><span class="line">    <span class="attribute">proxy_set_header</span>   X-Forwarded-For  <span class="variable">$proxy_add_x_forwarded_for</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location /me &#123;</span><br><span class="line">    proxy_pass http://127.0.0.1:1323;</span><br><span class="line">    proxy_set_header   Host             $host;</span><br><span class="line">    proxy_set_header   X-Real-IP        $remote_addr;</span><br><span class="line">    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这样就是说 凡是 /me 的请求 都分发到本机的1323端口上<br>改完conf 之后, 执行  nginx -s reload<br>再次访问 <a href="http://192.168.9.251/me/ping" target="_blank" rel="noopener">http://192.168.9.251/me/ping</a><br>就能收到 我们来自 1323端口 go服务的 pong 的回应了</p>
 
         
@@ -271,7 +271,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2018/07/11/nginx_go_server/" data-id="cjjgy3p6g0000g4kpzw2iagwv" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2018/07/11/nginx_go_server/" data-id="cjpuyjw6f0005pkkpdjn4unwf" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -339,7 +339,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2018/07/11/nginx_go_server/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2018/07/11/nginx_go_server/">Comments</a>
+        <a href="/2018/07/11/nginx_go_server/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2018/07/11/nginx_go_server/">Commentaires</a>
     
 
         </footer>
@@ -399,17 +399,17 @@ ga('send', 'pageview');
 <li><a href="https://github.com/airbnb/lottie-ios" target="_blank" rel="noopener">iOS’s player</a></li>
 <li><a href="https://github.com/airbnb/lottie-react-native" target="_blank" rel="noopener">React Native’s wrapper</a></li>
 </ul>
-<h3 id="官方效果图"><a href="#官方效果图" class="headerlink" title="官方效果图"></a>官方效果图</h3><p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_test0.gif" alt=""></p>
-<h3 id="整体开发流程"><a href="#整体开发流程" class="headerlink" title="整体开发流程"></a>整体开发流程</h3><p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_%20flow.png" alt=""></p>
+<h3 id="官方效果图"><a href="#官方效果图" class="headerlink" title="官方效果图"></a>官方效果图</h3><p><img src="/images/lottie_test0.gif" alt=""></p>
+<h3 id="整体开发流程"><a href="#整体开发流程" class="headerlink" title="整体开发流程"></a>整体开发流程</h3><p><img src="/images/lottie_%20flow.png" alt=""></p>
 <p>如图所示，通过安装AE上的bodymovin的插件，能够将AE中的动画工程文件转换为通用的json格式描述文件(bodymovin插件本身是用于网页上呈现各种AE效果的一个开源库),lottie所做的事情就是实现在不同移动端平台上呈现AE动画的方式，从而达到动画文件的一次绘制、一次转换，随处可用的效果，这个跟Java一次编译随处运行效果一样</p>
 <p>各平台 代码简单示范<br>android:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LottieAnimationView animationView = (LottieAnimationView) findViewById(R.id.animation_view);</span><br><span class="line">animationView.setAnimation(<span class="string">"hello-world.json"</span>);</span><br><span class="line">animationView.loop(<span class="keyword">true</span>);</span><br><span class="line">animationView.playAnimation();</span><br></pre></td></tr></table></figure></p>
 <p>iOS:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LOTAnimationView *animation = [LOTAnimationView animationNamed:@<span class="string">"Lottie"</span>];</span><br><span class="line">[self.view addSubview:animation];</span><br><span class="line">[animation playWithCompletion:^(BOOL animationFinished) &#123;</span><br><span class="line">  <span class="comment">// Do Something</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
 <p>WEB:<br><figure class="highlight javascript"><figcaption><span>1.8</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">LOTAnimationView *animation = [LOTAnimationView animationNamed:@<span class="string">"Lottie"</span>];</span><br><span class="line">[self.view addSubview:animation];</span><br><span class="line">[animation playWithCompletion:^(BOOL animationFinished) &#123;</span><br><span class="line">  <span class="comment">// Do Something</span></span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure></p>
 <h3 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h3><p>我们先从底层思考下如何在屏幕上绘制动画，最简单的方式是把动画分为多张图片，然后通过周期替换屏幕上绘制的图片来形成动画，这种暴力的方式非常简单，但缺点明显，很耗内存，动画播放中前后两张替换的图片在很多元素并没有变化，重复的内容浪费了空间。<br>为了提高空间利用率，可以把图片中的元素进行拆分，使用过photoshop的同学知道，其实在处理一张图片时，可以把一张复杂的图片使用多个图层来表示，每个图层上展示一部分内容，图层中的内容也可以拆分为多个元素。拆分元素之后，根据动画需求，可以单独对图层，甚至图层中的元素设置平移、旋转、收缩等动画。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_test1.png" alt=""></p>
+<p><img src="/images/lottie_test1.png" alt=""></p>
 <p>Lottie使用json文件来作为动画数据源，json文件是通过Bodymovin插件导出的，查看sample中给出的json文件，其实就是把图片中的元素进行来拆分，并且描述每个元素的动画执行路径和执行时间。Lottie的功能就是读取这些数据，然后绘制到屏幕上。<br>现在思考如果我们拿到一份json格式动画如何展示到屏幕上。首先要解析json，建立数据到对象的映射，然后根据数据对象创建合适的Drawable绘制到View上，动画的实现可以通过操作读取到的元素完成。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_test2.png" alt=""></p>
-<h3 id="从android-源码解析"><a href="#从android-源码解析" class="headerlink" title="从android 源码解析"></a>从android 源码解析</h3><h4 id="项目结构图"><a href="#项目结构图" class="headerlink" title="项目结构图"></a>项目结构图</h4><p><img src="http://oaym3d44d.bkt.clouddn.com/Lottie%20%E7%BB%93%E6%9E%84%E5%9B%BE..png" alt=""></p>
+<p><img src="/images/lottie_test2.png" alt=""></p>
+<h3 id="从android-源码解析"><a href="#从android-源码解析" class="headerlink" title="从android 源码解析"></a>从android 源码解析</h3><h4 id="项目结构图"><a href="#项目结构图" class="headerlink" title="项目结构图"></a>项目结构图</h4><p><img src="/images/Lottie%20%E7%BB%93%E6%9E%84%E5%9B%BE..png" alt=""></p>
 <h6 id="该图因为太大了-所以有可能会看不清楚-感兴趣的同学可以下载到本地放大查看"><a href="#该图因为太大了-所以有可能会看不清楚-感兴趣的同学可以下载到本地放大查看" class="headerlink" title="该图因为太大了,所以有可能会看不清楚,感兴趣的同学可以下载到本地放大查看"></a>该图因为太大了,所以有可能会看不清楚,感兴趣的同学可以下载到本地放大查看</h6><h5 id="核心类"><a href="#核心类" class="headerlink" title="核心类"></a>核心类</h5><p>通过如下3个核心类来来完成整个工作流程，因而使用起来比较简单。以下是三个比较核心的类的说明：</p>
 <ul>
 <li>LottieComposition (json-&gt;数据对象)<br>Lottie使用LottieComposition来作为After Effects的数据对象，即把Json文件映射为到LottieComposition，该类中提供了解析json的静态方法。</li>
@@ -423,7 +423,7 @@ ga('send', 'pageview');
 <p>从这里可以获取 设计的动画的宽高，帧相关的信息，动画所需要的图片资源的信息以及图层信息。</p>
 <h6 id="assets"><a href="#assets" class="headerlink" title="assets"></a>assets</h6><p>图片资源信息, 相关类 LottieImageAsset、 ImageAssetBitmapManager。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">"assets": [</span><br><span class="line">    &#123;</span><br><span class="line">      "id": "image_0",   // 图片id</span><br><span class="line">      "w": 58,  // 图片宽度</span><br><span class="line">      "h": 31,  // 图片高度</span><br><span class="line">      "u": "images/",</span><br><span class="line">      "p": "img_0.png"  // 图片名称</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h6 id="layers"><a href="#layers" class="headerlink" title="layers"></a>layers</h6><p>图层信息，相关类：Layer、BaseLayer以及 BaseLayer 的实现类。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"ddd"</span>: <span class="number">0</span>,</span><br><span class="line">    "ind": 0,  // layer id 图层 id</span><br><span class="line">    "ty": 2,  // layertype 图层类型</span><br><span class="line">    "nm": "btnSlice.png",  // layerName 图层信息</span><br><span class="line">    "cl": "png",</span><br><span class="line">    "refId": "image_0",  // 引用的资源 id,如果是 ImageLayer 那么就是图片的id</span><br><span class="line">    "ks": &#123;....&#125;,</span><br><span class="line">    "ao": 0,</span><br><span class="line">    "ip": 0,  // inFrame 该图层起始关键帧</span><br><span class="line">    "op": 90.0000036657751,  // outFrame 该图层结束关键帧</span><br><span class="line">    "st": 0,   // startFrame 开始</span><br><span class="line">    "bm": 0,</span><br><span class="line">    "sr": 1 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h5 id="播放动画"><a href="#播放动画" class="headerlink" title="播放动画"></a>播放动画</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/lottie_draw_flow" alt=""></p>
+<h5 id="播放动画"><a href="#播放动画" class="headerlink" title="播放动画"></a>播放动画</h5><p><img src="/images/lottie_draw_flow" alt=""></p>
 <h5 id="官方说法"><a href="#官方说法" class="headerlink" title="官方说法"></a>官方说法</h5><ul>
 <li>如果没有mask和mattes，那么性能和内存非常好，没有bitmap创建，大部分操作都是简单的cavas绘制。</li>
 <li>如果存在mattes，将会创建2～3个bitmap。bitmap在动画加载到window时被创建，被window删除时回收。所以不宜在RecyclerView中使用包涵mattes或者mask的动画，否则会引起bitmap抖动。除了内存抖动，mattes和mask中必要的bitmap.eraseColor()和canvas.drawBitmap()也会降低动画性能。对于简单的动画，在实际使用时性能不太明显。</li>
@@ -439,7 +439,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/09/26/lottie/" data-id="cjjgvue9y000810kp1gvk3w9p" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/09/26/lottie/" data-id="cjpuyjw6c0003pkkp2ru5ohvz" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -507,7 +507,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/09/26/lottie/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/09/26/lottie/">Comments</a>
+        <a href="/2017/09/26/lottie/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/09/26/lottie/">Commentaires</a>
     
 
         </footer>
@@ -579,7 +579,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/09/14/volley/" data-id="cjjgvueab000n10kpiks1dwgk" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/09/14/volley/" data-id="cjpuyjw6t000npkkpud34teci" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -647,7 +647,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/09/14/volley/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/09/14/volley/">Comments</a>
+        <a href="/2017/09/14/volley/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/09/14/volley/">Commentaires</a>
     
 
         </footer>
@@ -735,7 +735,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/" data-id="cjjgvuea4000f10kpgg0ap05k" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/05/01/viewsavastate/" data-id="cjpuyjw6r000kpkkp6a2fkv13" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -803,7 +803,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/05/01/viewsavastate/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/05/01/viewsavastate/">Comments</a>
+        <a href="/2017/05/01/viewsavastate/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/05/01/viewsavastate/">Commentaires</a>
     
 
         </footer>
@@ -865,7 +865,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/" data-id="cjjgvue9m000010kpt0aiay5z" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/03/17/downloadbug/" data-id="cjpuyjw630000pkkpsmz8psbh" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -933,7 +933,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/03/17/downloadbug/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/03/17/downloadbug/">Comments</a>
+        <a href="/2017/03/17/downloadbug/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/03/17/downloadbug/">Commentaires</a>
     
 
         </footer>
@@ -981,34 +981,34 @@ ga('send', 'pageview');
             
             <p>本文参考文章:<br><a href="https://en.wikipedia.org/wiki/Comparison_of_streaming_media_systems" target="_blank" rel="noopener">流媒体系统对比</a><br><a href="https://en.wikipedia.org/wiki/Comparison_of_container_formats" target="_blank" rel="noopener">封装格式对比</a><br><a href="https://en.wikipedia.org/wiki/Comparison_of_video_codecs" target="_blank" rel="noopener">视频编码器对比</a><br><a href="https://en.wikipedia.org/wiki/Comparison_of_audio_coding_formats" target="_blank" rel="noopener">音频编码格式对比</a><br><a href="http://blog.csdn.net/leixiaohua1020" target="_blank" rel="noopener">雷霄骅雷神博客</a><br><a href="http://hevc.info/" target="_blank" rel="noopener">HEVC</a><br><a href="http://x265.org/" target="_blank" rel="noopener">x265编码器</a></p>
 <p>我们平时下载的电影,因为下载的来源不同，这些电影文件有不同的格式，用不同的后缀表示：avi，rmvb，mp4，flv，mkv等等（当然也使用不同的图标）。在这里需要注意的是，这些格式代表的是封装格式。何为封装格式？就是把视频数据和音频数据打包成一个文件的规范。仅仅靠看文件的后缀，很难能看出具体使用了什么视音频编码标准。总的来说，不同的封装格式之间差距不大，各有优劣。<br>注：有些封装格式支持的视音频编码标准十分广泛，应该算比较优秀的封装格式，比如MKV；而有些封装格式支持的视音频编码标准很少，应该属于落后的封装格式，比如RMVB。<br>在此我选用了魔力盒中的一个视频 进行说明.<br>该视频的 后缀为 mp4.  Video codec_name 为H.264, Audio codec_name 为 aac.<br>这样我们就可以说 这个视频 采用mp4的QuickTime封装格式（MOV），采用了H.264（AVC）的视频压缩编码标准, AAC的音频编码标准.</p>
-<p>接下来说一下我们使用播放器去播放一个视频, 中间发生了什么.<br>视频播放器播放一个互联网上的视频文件，需要经过以下几个步骤：解协议，解封装，解码视音频，视音频同步。<br>如果播放本地文件则不需要解协议，为以下几个步骤：解封装，解码视音频，视音频同步。<br>他们的过程如图所示。<br><img src="http://oaym3d44d.bkt.clouddn.com/image2017-2-24_14-5-19.png" alt="过程图"></p>
+<p>接下来说一下我们使用播放器去播放一个视频, 中间发生了什么.<br>视频播放器播放一个互联网上的视频文件，需要经过以下几个步骤：解协议，解封装，解码视音频，视音频同步。<br>如果播放本地文件则不需要解协议，为以下几个步骤：解封装，解码视音频，视音频同步。<br>他们的过程如图所示。<br><img src="/images/image2017-2-24_14-5-19.png" alt="过程图"></p>
 <p>其中<br>解协议的作用，就是将流媒体协议的数据，解析为标准的相应的封装格式数据。视音频在网络上传播的时候，常常采用各种流媒体协议，例如HTTP，RTMP，或是MMS等等。这些协议在传输视音频数据的同时，也会传输一些信令数据。这些信令数据包括对播放的控制（播放，暂停，停止），或者对网络状态的描述等。解协议的过程中会去除掉信令数据而只保留视音频数据。例如，采用RTMP协议传输的数据，经过解协议操作后，输出FLV格式的数据。<br>解封装的作用，就是将输入的封装格式的数据，分离成为音频流压缩编码数据和视频流压缩编码数据。封装格式种类很多，例如MP4，MKV，RMVB，TS，FLV，AVI等等，它的作用就是将已经压缩编码的视频数据和音频数据按照一定的格式放到一起。例如，FLV格式的数据，经过解封装操作后，输出H.264编码的视频码流和AAC编码的音频码流。<br>解码的作用，就是将视频/音频压缩编码数据，解码成为非压缩的视频/音频原始数据。音频的压缩编码标准包含AAC，MP3，AC-3等等，视频的压缩编码标准则包含H.264，MPEG2，VC-1等等。解码是整个系统中最重要也是最复杂的一个环节。通过解码，压缩编码的视频数据输出成为非压缩的颜色数据，例如YUV420P，RGB等等；压缩编码的音频数据输出成为非压缩的音频抽样数据，例如PCM数据。<br>视音频同步的作用，就是根据解封装模块处理过程中获取到的参数信息，同步解码出来的视频和音频数据，并将视频音频数据送至系统的显卡和声卡播放出来</p>
 <p>其中几个概念的 特殊说明</p>
 <h3 id="流媒体协议"><a href="#流媒体协议" class="headerlink" title="流媒体协议"></a>流媒体协议</h3><p>流媒体协议是服务器与客户端之间通信遵循的规定。当前网络上主要的流媒体协议如表所示。</p>
-<h4 id="主要流媒体协议一览"><a href="#主要流媒体协议一览" class="headerlink" title="主要流媒体协议一览"></a>主要流媒体协议一览</h4><p><img src="http://oaym3d44d.bkt.clouddn.com/liumeiti.png" alt="流媒体"></p>
+<h4 id="主要流媒体协议一览"><a href="#主要流媒体协议一览" class="headerlink" title="主要流媒体协议一览"></a>主要流媒体协议一览</h4><p><img src="/images/liumeiti.png" alt="流媒体"></p>
 <h3 id="封装格式"><a href="#封装格式" class="headerlink" title="封装格式"></a>封装格式</h3><p>封装格式的主要作用是把视频码流和音频码流按照一定的格式存储在一个文件中。现如今流行的封装格式如下表所示：</p>
-<h4 id="主要封装格式一览"><a href="#主要封装格式一览" class="headerlink" title="主要封装格式一览"></a>主要封装格式一览</h4><p><img src="http://oaym3d44d.bkt.clouddn.com/fengzhuanggeshi.png" alt="封装格式"></p>
+<h4 id="主要封装格式一览"><a href="#主要封装格式一览" class="headerlink" title="主要封装格式一览"></a>主要封装格式一览</h4><p><img src="/images/fengzhuanggeshi.png" alt="封装格式"></p>
 <h3 id="视频编码"><a href="#视频编码" class="headerlink" title="视频编码"></a>视频编码</h3><p>视频编码的主要作用是将视频像素数据（RGB，YUV等）压缩成为视频码流，从而降低视频的数据量。如果视频不经过压缩编码的话，体积通常是非常大的，一部电影可能就要上百G的空间。视频编码是视音频技术中最重要的技术之一。视频码流的数据量占了视音频总数据量的绝大部分。高效率的视频编码在同等的码率下，可以获得更高的视频质量。</p>
-<h4 id="主要视频编码一览"><a href="#主要视频编码一览" class="headerlink" title="主要视频编码一览"></a>主要视频编码一览</h4><p><img src="http://oaym3d44d.bkt.clouddn.com/shipinbianma.png" alt="视频编码"><br>由表可见，有两种视频编码方案是最新推出的：VP9和HEVC。目前这两种方案都处于研发阶段，还没有到达实用的程度。当前使用最多的视频编码方案就是H.264。</p>
+<h4 id="主要视频编码一览"><a href="#主要视频编码一览" class="headerlink" title="主要视频编码一览"></a>主要视频编码一览</h4><p><img src="/images/shipinbianma.png" alt="视频编码"><br>由表可见，有两种视频编码方案是最新推出的：VP9和HEVC。目前这两种方案都处于研发阶段，还没有到达实用的程度。当前使用最多的视频编码方案就是H.264。</p>
 <h3 id="音频编码"><a href="#音频编码" class="headerlink" title="音频编码"></a>音频编码</h3><p>音频编码的主要作用是将音频采样数据（PCM等）压缩成为音频码流，从而降低音频的数据量。音频编码也是互联网视音频技术中一个重要的技术。但是一般情况下音频的数据量要远小于视频的数据量，因而即使使用稍微落后的音频编码标准，而导致音频数据量有所增加，也不会对视音频的总数据量产生太大的影响。高效率的音频编码在同等的码率下，可以获得更高的音质。</p>
-<h4 id="主要音频编码一览"><a href="#主要音频编码一览" class="headerlink" title="主要音频编码一览"></a>主要音频编码一览</h4><p><img src="http://oaym3d44d.bkt.clouddn.com/yinpinbianma.png" alt="音频编码"><br>由表可见，近年来并未推出全新的音频编码方案，可见音频编码技术已经基本可以满足人们的需要。音频编码技术近期绝大部分的改动都是在MP3的继任者——AAC的基础上完成的。</p>
+<h4 id="主要音频编码一览"><a href="#主要音频编码一览" class="headerlink" title="主要音频编码一览"></a>主要音频编码一览</h4><p><img src="/images/yinpinbianma.png" alt="音频编码"><br>由表可见，近年来并未推出全新的音频编码方案，可见音频编码技术已经基本可以满足人们的需要。音频编码技术近期绝大部分的改动都是在MP3的继任者——AAC的基础上完成的。</p>
 <h3 id="现有网络视音频平台对比"><a href="#现有网络视音频平台对比" class="headerlink" title="现有网络视音频平台对比"></a>现有网络视音频平台对比</h3><p>现有的网络视音频服务主要包括两种方式：点播和直播。点播意即根据用户的需要播放相应的视频节目，这是互联网视音频服务最主要的方式。绝大部分视频网站都提供了点播服务。直播意即互联网视音频平台直接将视频内容实时发送给用户，目前还处于发展阶段。直播在网络电视台，社交视频网站较为常见。</p>
-<h4 id="直播平台参数对比"><a href="#直播平台参数对比" class="headerlink" title="直播平台参数对比"></a>直播平台参数对比</h4><p>主流互联网视音频平台直播服务的参数对比如表所示：<br>                        现有网络视音频平台参数对比<br><img src="http://oaym3d44d.bkt.clouddn.com/zhibopintai.png" alt="zhibo"></p>
+<h4 id="直播平台参数对比"><a href="#直播平台参数对比" class="headerlink" title="直播平台参数对比"></a>直播平台参数对比</h4><p>主流互联网视音频平台直播服务的参数对比如表所示：<br>                        现有网络视音频平台参数对比<br><img src="/images/zhibopintai.png" alt="zhibo"></p>
 <p>可以看出，直播服务普遍采用了RTMP作为流媒体协议，FLV作为封装格式，H.264作为视频编码格式，AAC作为音频编码格式。采用RTMP作为直播协议的好处在于其被Flash播放器支持。而Flash播放器如今已经安装在全球99%的电脑上，并且与浏览器结合的很好。因此这种流媒体直播平台可以实现“无插件直播”，极大的简化了客户端的操作。封装格式，视频编码，音频编码方面，无一例外的使用了FLV + H.264 + AAC的组合。FLV是RTMP使用的封装格式，H.264是当今实际应用中编码效率最高的视频编码标准，AAC则是当今实际应用中编码效率最高的音频编码标准。视频播放器方面，都使用了Flash播放器。</p>
-<h4 id="点播平台参数对比"><a href="#点播平台参数对比" class="headerlink" title="点播平台参数对比"></a>点播平台参数对比</h4><p>主流网络视音频平台点播服务的参数对比如表所示：<br>                        现有互联网视音频平台参数对比<br><img src="http://oaym3d44d.bkt.clouddn.com/zhibopintai.png" alt="dianbo"><br>可以看出，点播服务普遍采用了HTTP作为流媒体协议，H.264作为视频编码格式，AAC作为音频编码格式。采用HTTP作为点播协议有以下两点优势：一方面，HTTP是基于TCP协议的应用层协议，媒体传输过程中不会出现丢包等现象，从而保证了视频的质量；另一方面，HTTP被绝大部分的Web服务器支持，因而流媒体服务机构不必投资购买额外的流媒体服务器，从而节约了开支。点播服务采用的封装格式有多种：MP4，FLV，F4V等，它们之间的区别不是很大。视频编码标准和音频编码标准是H.264和AAC。这两种标准分别是当今实际应用中编码效率最高的视频标准和音频标准。视频播放器方面，无一例外的都使用了Flash播放器。</p>
-<h2 id="H-265"><a href="#H-265" class="headerlink" title="H.265."></a>H.265.</h2><p>首先可以明确的是 H265 属于一种视频编码格式, 这里有一篇比较专业的说明, HEVC / H.265 Explained<br><img src="http://oaym3d44d.bkt.clouddn.com/h265.png" alt="h265"></p>
+<h4 id="点播平台参数对比"><a href="#点播平台参数对比" class="headerlink" title="点播平台参数对比"></a>点播平台参数对比</h4><p>主流网络视音频平台点播服务的参数对比如表所示：<br>                        现有互联网视音频平台参数对比<br><img src="/images/zhibopintai.png" alt="dianbo"><br>可以看出，点播服务普遍采用了HTTP作为流媒体协议，H.264作为视频编码格式，AAC作为音频编码格式。采用HTTP作为点播协议有以下两点优势：一方面，HTTP是基于TCP协议的应用层协议，媒体传输过程中不会出现丢包等现象，从而保证了视频的质量；另一方面，HTTP被绝大部分的Web服务器支持，因而流媒体服务机构不必投资购买额外的流媒体服务器，从而节约了开支。点播服务采用的封装格式有多种：MP4，FLV，F4V等，它们之间的区别不是很大。视频编码标准和音频编码标准是H.264和AAC。这两种标准分别是当今实际应用中编码效率最高的视频标准和音频标准。视频播放器方面，无一例外的都使用了Flash播放器。</p>
+<h2 id="H-265"><a href="#H-265" class="headerlink" title="H.265."></a>H.265.</h2><p>首先可以明确的是 H265 属于一种视频编码格式, 这里有一篇比较专业的说明, HEVC / H.265 Explained<br><img src="/images/h265.png" alt="h265"></p>
 <p>说到H.265, 就不得不先提一下H.264了, H.264仅仅是一个编码标准，而不是一个具体的编码器，H.264只是给编码器的实现提供参照用的。<br>Google推出的VP8属于和H.264同一时代的标准。总体而言，VP8比H.264要稍微差一点。除了在技术领域，VP8和H.264在专利等方面也是打的不可开交。<br>可以武断的说,H264.是现在最主流的视频编码标准.<br>而H.265 是 H.264/MPEG-4 AVC的继任者。目前正在由ISO/IEC MPEG和ITU-T VCEG开发中。为此目的MPEG与VCEG联合成立了一个JCT-VC（JointCollaborative Team on Video Coding）作为共同开发HEVC的团队。HEVC被认为不仅提升图像质量，同时也能达到H.264/MPEG-4 AVC两倍之压缩率（等同于同样画面质量下比特率减少了50%），可支持4K分辨率甚至到超高画质电视，最高分辨率可达到8192×4320（8K分辨率）。第一版的HEVC/H.265视频压缩标准在2013年4月13日被接受为国际电信联盟（ITU-T）的正式标准。<br>VP9是一个由Google开发的开放的视频压缩标准。VP9将是VP8的后继者。VP9的开发始于2011。VP9的目标之一是相同质量下相对于VP8可以减少50%的比特率。而另一个目标就是争取能在压缩效率上高于HEVC。2013年2月21日，第一个支持VP9解码技术的Google Chrome网页浏览器发布了。<br>HEVC VP9 以及x264的性能对比, 结果参考 Dan Grois等人的论文《Performance Comparison of H.265/MPEG-HEVC, VP9, andH.264/MPEG-AVC Encoders》 </p>
 <p>选用的编码器如下：</p>
 <p>HEVC：HM<br>VP9：libvpx<br>H.264：x264</p>
 <p>HEVC性能最强，奇怪的是x264的性能竟然好于VP9。要知道VP9可是Google推出的下一代编码标准。x264太强悍了！</p>
 <p>PS：此外，x264的速度是远远高于HEVC和VP9的。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/duibi1.jpeg" alt="对比1"></p>
+<p><img src="/images/duibi1.jpeg" alt="对比1"></p>
 <p>下表显示了HEVC在同等质量的前提下（以PSNR为依据），相对于VP9和x264节约的码率。下表显示了所有序列的情况。总体来说HEVC相对于VP9节约了41.9%，HEVC相对于x264节约了38.9%。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/duibi2.jpeg" alt="对比2"></p>
+<p><img src="/images/duibi2.jpeg" alt="对比2"></p>
 <p>下表显示了三种编码器整体性能的比较。表中百分比数字的意义是：同等视频质量的前提下，该列所属的编码器相对于该行所属的编码器节约的码率，如果为负值，则代表反而消耗了更多的码率。例如，同等质量的前提下，x264相对于VP9节约了8.4%的码率。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/duibi3.jpeg" alt="对比3"></p>
+<p><img src="/images/duibi3.jpeg" alt="对比3"></p>
 <p>同等视频质量的前提条件下，编码消耗时间对比如下表所示。可以看出，VP9编码时间大约是x264的130倍。HEVC编码时间大约是VP9的7倍。</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/duibi4.jpeg" alt="对比4"></p>
+<p><img src="/images/duibi4.jpeg" alt="对比4"></p>
 <p>此外，在码率一定的情况下，几种编码标准结果大致是这样的：HEVC &gt; VP9 &gt; H.264&gt; VP8 &gt; MPEG4 &gt; H.263 &gt; MPEG2。</p>
 <p>HEVC 在未来拥有很大的优势, 具体可以参考以下文字段</p>
 <p>在数字视频应用产业链的快速发展中，面对视频应用不断向高清晰度、高帧率、高压缩率方向发展的趋势，当前主流的视频压缩标准协议H.264(AVC)的局限性不断凸显。同时，面向更高清晰度、更高帧率、更高压缩率视频应用的HEVC(H.265)协议标准应运而生。本文重点分析了下一代视频压缩协议标准HEVC(H.265)的技术亮点，并对其在未来应用中将给整个产业带来的深刻变化予以展望。</p>
@@ -1033,7 +1033,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/02/24/video_codec/" data-id="cjjgvuea3000d10kp9fpsofg3" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/02/24/video_codec/" data-id="cjpuyjw6l000dpkkpm025wqas" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1101,7 +1101,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/02/24/video_codec/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/02/24/video_codec/">Comments</a>
+        <a href="/2017/02/24/video_codec/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/02/24/video_codec/">Commentaires</a>
     
 
         </footer>
@@ -1184,7 +1184,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2017/02/16/webview/" data-id="cjjgvuead000p10kpl81b9loe" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2017/02/16/webview/" data-id="cjpuyjw6v000ppkkp31k621ak" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1252,7 +1252,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/02/16/webview/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/02/16/webview/">Comments</a>
+        <a href="/2017/02/16/webview/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/02/16/webview/">Commentaires</a>
     
 
         </footer>
@@ -1308,7 +1308,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/11/02/resume/" data-id="cjjgvuea6000i10kp91pm8t22" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/11/02/resume/" data-id="cjpuyjw6p000ipkkp82cqtedu" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1376,7 +1376,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/11/02/resume/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/11/02/resume/">Comments</a>
+        <a href="/2016/11/02/resume/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/11/02/resume/">Commentaires</a>
     
 
         </footer>
@@ -1451,14 +1451,14 @@ ga('send', 'pageview');
 <li>送精装修, 先不说是不是羊毛出在羊身上了, 因为我要一直在北京上班,没有时间去管装修的事.</li>
 </ul>
 <p>虽然现在是列了那么多,但是当时只是脑子已经乱了,每天我在北京上着班,听着父母传来的信息,感觉父母也累到极限了, 也实在是不想<br>让父母再去逛了,于是我立马拍板了,就他了.<br>决定之后也就好说了,第二天4点50就起床然后高铁到了济南, 直接打车到了楼盘, 然后我亲自看了下样板间,看起来确实很不错!<br>然后接下来就一路程序走下来, 认购 -&gt; 去银行面签 -&gt; 然后签合同. 一切算是尘埃落定了吧</p>
-<h4 id="下面是房子的一些照片"><a href="#下面是房子的一些照片" class="headerlink" title="下面是房子的一些照片"></a>下面是房子的一些照片</h4><p><img src="http://oaym3d44d.bkt.clouddn.com/huxing.jpg" alt="户型图"></p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/zhuwo.jpg" alt="主卧"></p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/zhuwei.jpg" alt="主卫"></p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/guodao.jpg" alt="过道"></p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/ciwo1.jpg" alt="次卧1"></p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/ciwo2.jpg" alt="次卧2"></p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/keting.jpg" alt="客厅"></p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/keting2.jpg" alt="客厅换了个角度"></p>
+<h4 id="下面是房子的一些照片"><a href="#下面是房子的一些照片" class="headerlink" title="下面是房子的一些照片"></a>下面是房子的一些照片</h4><p><img src="/images/huxing.jpg" alt="户型图"></p>
+<p><img src="/images/zhuwo.jpg" alt="主卧"></p>
+<p><img src="/images/zhuwei.jpg" alt="主卫"></p>
+<p><img src="/images/guodao.jpg" alt="过道"></p>
+<p><img src="/images/ciwo1.jpg" alt="次卧1"></p>
+<p><img src="/images/ciwo2.jpg" alt="次卧2"></p>
+<p><img src="/images/keting.jpg" alt="客厅"></p>
+<p><img src="/images/keting2.jpg" alt="客厅换了个角度"></p>
 
         
         </div>
@@ -1469,7 +1469,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/09/29/house/" data-id="cjjgvue9q000110kp5isf5de2" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/29/house/" data-id="cjpuyjw680001pkkpgqk1mopu" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1537,7 +1537,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/09/29/house/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/09/29/house/">Comments</a>
+        <a href="/2016/09/29/house/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/09/29/house/">Commentaires</a>
     
 
         </footer>
@@ -1584,15 +1584,15 @@ ga('send', 'pageview');
         
             
             <p>从开始做android开发,一晃就两年十个月了, 算上实习的公司已经经历了三家公司, 不知道是巧合还是怎么<br>三家都是做跟视频有关系的. 今天的记录跟视频有关系但是关系不打,主要是讲视频的控制层.<br>现在回头想想之前做播放器控制层的时候,基本都是没有动过脑子的, 关于MotionEvent 也是一知半解,写出来的控制层的代码,<br>都是从网上搜索到的.然后我看了看几家公司的代码, 基本上大家都是雷同的…</p>
-<p>下面贴出来一个 示范代码, 网上随处可见.<br><img src="http://oaym3d44d.bkt.clouddn.com/normal_Scroll.png" alt="Paste_Image.png"></p>
+<p>下面贴出来一个 示范代码, 网上随处可见.<br><img src="/images/normal_Scroll.png" alt="Paste_Image.png"></p>
 <p>反正这代码的逻辑就是算touch Down 下时的Event xy 坐标 然后看当前的Event 坐标 来判断用户 是做的什么操作,以及滑动了多少.  这段代码 大部分时间应该都是没问题的, 大家也都是这样做的.<br>但是在用户做一些特殊操作的时候 就会有问题.</p>
 <h5 id="我举个例子"><a href="#我举个例子" class="headerlink" title="我举个例子:"></a>我举个例子:</h5><p>用户touch 到了屏幕中间,然后向右滑动, 然后滑动到最右面, 不要松手 往左滑动.再滑动到中间继续往左滑.<br>你就会发现touch事件有断层, 并且滑动距离与 视频进退的比例不好设定. (这点尤为突出)</p>
 <h5 id="这些缺点-以及一些不如意的地方-由于我描述能力不行-可能说的不是太清楚-只有实际开发碰见过这些问题的同学才会明白我说的是什么"><a href="#这些缺点-以及一些不如意的地方-由于我描述能力不行-可能说的不是太清楚-只有实际开发碰见过这些问题的同学才会明白我说的是什么" class="headerlink" title="这些缺点 以及一些不如意的地方, 由于我描述能力不行, 可能说的不是太清楚, 只有实际开发碰见过这些问题的同学才会明白我说的是什么.."></a>这些缺点 以及一些不如意的地方, 由于我描述能力不行, 可能说的不是太清楚, 只有实际开发碰见过这些问题的同学才会明白我说的是什么..</h5><p>之前自己也一直没有注意到这些细节上的问题, 偶尔的一次机会发现了这个体验问题, 决心要解决它,重新去搞一套比较舒服的Scroll 算法. 最后在烨哥+飞哥的共同帮助下,完成了一套暂时看起来还不错的Scroll算法, 所以写下了这篇文章来记录一下想法和实现.</p>
 <h3 id="以下是正文"><a href="#以下是正文" class="headerlink" title="以下是正文"></a>以下是正文</h3><p>首先 我们要明确一件事情,</p>
-<h5 id="当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕"><a href="#当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕" class="headerlink" title="当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕."></a>当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕.</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/test.png" alt="timeline"></p>
+<h5 id="当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕"><a href="#当用户手指touch-down-到屏幕的一瞬间-整个滑动过程-用户滑动距离与视频改变的时间的比例-就已经确认了-不能再因为任何原因改变-一直到用户手指离开屏幕" class="headerlink" title="当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕."></a>当用户手指touch down 到屏幕的一瞬间, 整个滑动过程, 用户滑动距离与视频改变的时间的比例,就已经确认了, 不能再因为任何原因改变, 一直到用户手指离开屏幕.</h5><p><img src="/images/test.png" alt="timeline"></p>
 <h5 id="看图"><a href="#看图" class="headerlink" title="看图"></a>看图</h5><p>上面这条线是影片的时间线,<br>0 就是视频起点<br>d 就是影片的总长度<br>Y 当前currentPosition<br>下面这条线是用户touch点在屏幕上的位置线<br>p是触摸左侧X坐标<br>q 触摸右侧X坐标<br>X touchDown的X坐标</p>
 <p>其中需要说明的是 这里有个小细节, 很多人算触摸界限的时候,都习惯性设置0 和 ScreenWidth. 但是其实真正使用的时候, 是没有人会从0开始滑 或者滑到屏幕最右面的, 除非你是测试.<br>所以 p 是设置的1个padding值,并不是 0, q 也不是ScreenWidth. 一般是ScreenWidth - padding.</p>
-<h5 id="这套代码的整体思想很简单-x-用户的触摸x坐标-随着用户的滑动不停的在改变-我们要用x来算出相应的y-影片seek到的位置-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值"><a href="#这套代码的整体思想很简单-x-用户的触摸x坐标-随着用户的滑动不停的在改变-我们要用x来算出相应的y-影片seek到的位置-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值" class="headerlink" title="这套代码的整体思想很简单, x(用户的触摸x坐标)随着用户的滑动不停的在改变, 我们要用x来算出相应的y(影片seek到的位置), 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值."></a>这套代码的整体思想很简单, x(用户的触摸x坐标)随着用户的滑动不停的在改变, 我们要用x来算出相应的y(影片seek到的位置), 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值.</h5><p><img src="http://oaym3d44d.bkt.clouddn.com/inited.png" alt="init"><br>首先是一些常量的初始化, 注释也都有说明,大家自行理解一下.<br>leftTouch 就是手指x坐标离左面的值<br>rightTouch 是离右面的值.<br>touchRange 是总的触摸长度.<br>rightDuration 是影片剩余的时间.</p>
+<h5 id="这套代码的整体思想很简单-x-用户的触摸x坐标-随着用户的滑动不停的在改变-我们要用x来算出相应的y-影片seek到的位置-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值"><a href="#这套代码的整体思想很简单-x-用户的触摸x坐标-随着用户的滑动不停的在改变-我们要用x来算出相应的y-影片seek到的位置-也就是一个二元一次方程-y-ax-b-所以我们要来先算出-a-和-b的-值" class="headerlink" title="这套代码的整体思想很简单, x(用户的触摸x坐标)随着用户的滑动不停的在改变, 我们要用x来算出相应的y(影片seek到的位置), 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值."></a>这套代码的整体思想很简单, x(用户的触摸x坐标)随着用户的滑动不停的在改变, 我们要用x来算出相应的y(影片seek到的位置), 也就是一个二元一次方程. y = ax + b; 所以我们要来先算出 a 和 b的 值.</h5><p><img src="/images/inited.png" alt="init"><br>首先是一些常量的初始化, 注释也都有说明,大家自行理解一下.<br>leftTouch 就是手指x坐标离左面的值<br>rightTouch 是离右面的值.<br>touchRange 是总的触摸长度.<br>rightDuration 是影片剩余的时间.</p>
 <p>接着上面的说, 我们既然要算出a 和 b, 那么就需要 得到两组合适的 xy 值 代入公式.<br>其中已经确定好的一组值 就是 X 和 Y 就是手指刚落下的时候 那一组. 我们需要做的就是找出另外一组x y 值.</p>
 <p>情况其实只有四种</p>
 <ol>
@@ -1609,9 +1609,9 @@ ga('send', 'pageview');
 <li>影片已经播放的时间 比较长, 触摸的位置靠左,但是不是特别靠左</li>
 </ol>
 <p>具体代码如下,也是最核心的代码.</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/hexin.png" alt="code"></p>
+<p><img src="/images/hexin.png" alt="code"></p>
 <p>这个地方如果理解起来有点困难, 可以画一些图来感受一下,就能明白为什么这样对应了.<br>得到 两组 xy 值以后, 代入二元一次方程, 算出 ab 以后就好说拉！</p>
-<p><img src="http://oaym3d44d.bkt.clouddn.com/final.png" alt="final"></p>
+<p><img src="/images/final.png" alt="final"></p>
 <p>以上就是整套Scroll的代码和解析了, 实际跑起来的效果特别好! 顺滑无比! 怎么滑动都不会有断层,而且无论用户触摸在哪里开始滑动,<br>滑动距离与影片改变的时间都很舒服.</p>
 
         
@@ -1623,7 +1623,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="cjjgvue9x000510kp1nz31a5z" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://nogirlfriendexception.github.io/2016/09/12/playerscroll/" data-id="cjpuyjw6i000apkkp01l8b2pp" class="article-share-link"><i class="fa fa-share"></i>Partager</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -1691,7 +1691,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2016/09/12/playerscroll/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/09/12/playerscroll/">Comments</a>
+        <a href="/2016/09/12/playerscroll/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2016/09/12/playerscroll/">Commentaires</a>
     
 
         </footer>
@@ -1702,7 +1702,7 @@ ga('send', 'pageview');
 
 
     <nav id="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+        <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Suiv &raquo;</a>
     </nav>
 </section>
             
@@ -1710,7 +1710,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">recent</h3>
+        <h3 class="widget-title">Récents</h3>
         <div class="widget">
             <ul id="recent-post" class="">
                 
@@ -1720,7 +1720,7 @@ ga('send', 'pageview');
                             <a href="/2018/07/11/nginx_go_server/" class="thumbnail">
     
     
-        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/nginx_default.png)" alt="nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 " class="thumbnail-image"></span>
+        <span style="background-image:url(/images/nginx_default.png)" alt="nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 " class="thumbnail-image"></span>
     
 </a>
                         </div>
@@ -1738,7 +1738,7 @@ ga('send', 'pageview');
                             <a href="/2017/09/26/lottie/" class="thumbnail">
     
     
-        <span style="background-image:url(http://oaym3d44d.bkt.clouddn.com/lottie_test0.gif)" alt="Lottie 源码阅读." class="thumbnail-image"></span>
+        <span style="background-image:url(/images/lottie_test0.gif)" alt="Lottie 源码阅读." class="thumbnail-image"></span>
     
 </a>
                         </div>
@@ -1813,7 +1813,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">archives</h3>
+        <h3 class="widget-title">Archives</h3>
         <div class="widget">
             <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">August 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">June 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">1</span></li></ul>
         </div>
@@ -1822,7 +1822,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tags</h3>
+        <h3 class="widget-title">Tags</h3>
         <div class="widget">
             <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Android/">Android</a><span class="tag-list-count">10</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Resume/">Resume</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a><span class="tag-list-count">1</span></li></ul>
         </div>
@@ -1831,7 +1831,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap">
-        <h3 class="widget-title">tag cloud</h3>
+        <h3 class="widget-title">Nuage de tags</h3>
         <div class="widget tagcloud">
             <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/Life/" style="font-size: 15px;">Life</a> <a href="/tags/Resume/" style="font-size: 10px;">Resume</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a>
         </div>
@@ -1840,7 +1840,7 @@ ga('send', 'pageview');
     
         
     <div class="widget-wrap widget-list">
-        <h3 class="widget-title">links</h3>
+        <h3 class="widget-title">Liens</h3>
         <div class="widget">
             <ul>
                 
