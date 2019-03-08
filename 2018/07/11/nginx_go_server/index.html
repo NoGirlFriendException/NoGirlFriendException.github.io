@@ -14,7 +14,7 @@
 <meta property="og:description" content="前提这几天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等 开始折腾申请到的服务器系统版本12cat /etc/redhat-releaseCentOS Linux release 7.3.1611 (Core) 安装 nginx 添加CentOS 7 nginx yum资源库,打开终端,使用以下命令: 1sudo rpm -Uvh http:">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://saberpowermo.github.io/images/nginx_default.png">
-<meta property="og:updated_time" content="2018-12-19T10:04:32.561Z">
+<meta property="og:updated_time" content="2019-03-08T06:48:34.602Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 ">
 <meta name="twitter:description" content="前提这几天在公司的局域网服务器上申请了一个服务器, 准备没事整点自己没接触过的东西玩玩, 比如 nginx 等等 开始折腾申请到的服务器系统版本12cat /etc/redhat-releaseCentOS Linux release 7.3.1611 (Core) 安装 nginx 添加CentOS 7 nginx yum资源库,打开终端,使用以下命令: 1sudo rpm -Uvh http:">
@@ -237,7 +237,7 @@ ga('send', 'pageview');
 </ol>
 <p><img src="/images/nginx_default.png" alt=""></p>
 <p>看到这个就代表nginx装好了</p>
-<h5 id="期间遇见的一个问题"><a href="#期间遇见的一个问题" class="headerlink" title="期间遇见的一个问题"></a>期间遇见的一个问题</h5><p>启动服务器以后, 访问网页显示无法打开,去查了下发现是因为80端口没有开放.<br>首先：开启 web 端口<br> firewall-cmd –permanent –add-port=80/tcp<br>然后重启 firewall<br>firewall-cmd –reload<br>搞定</p>
+<h5 id="期间遇见的一个问题"><a href="#期间遇见的一个问题" class="headerlink" title="期间遇见的一个问题"></a>期间遇见的一个问题</h5><p>启动服务器以后, 访问网页显示无法打开,去查了下发现是因为80端口没有开放.<br>首先：开启 web 端口<br>firewall-cmd –zone=public –add-port=80/tcp –permanent<br>然后重启 firewall<br>firewall-cmd –reload<br>搞定</p>
 <h5 id="nginx-的一些基本命令和配置"><a href="#nginx-的一些基本命令和配置" class="headerlink" title="nginx 的一些基本命令和配置"></a>nginx 的一些基本命令和配置</h5><ul>
 <li><p>默认的服务器 html 存放根目录是/usr/share/nginx/html.<br>可以 cd 到这个目录中去看到一些基础的 html, 比如 404.html, 和 index.html<br>可以把自己的网页放进这里面</p>
 </li>
@@ -277,7 +277,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://saberpowermo.github.io/2018/07/11/nginx_go_server/" data-id="cjpv1zuj30009rrkputhn1mhf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://saberpowermo.github.io/2018/07/11/nginx_go_server/" data-id="cjszp9jkp00092ykpcskjhybm" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -543,7 +543,7 @@ ga('send', 'pageview');
         <footer id="footer">
     <div class="outer">
         <div id="footer-info" class="inner">
-            &copy; 2018 bb<br>
+            &copy; 2019 bb<br>
             Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
         </div>
     </div>
