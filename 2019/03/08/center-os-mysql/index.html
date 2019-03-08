@@ -3,15 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Archive: 2017/9 | 回龙观大金毛</title>
+    <title>center os 通过yum 安装 mysql 5.7 | 回龙观大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta property="og:type" content="website">
-<meta property="og:title" content="回龙观大金毛">
-<meta property="og:url" content="http://saberpowermo.github.io/archives/2017/09/index.html">
+    <meta name="description" content="下载 mysql 源安装包  1curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  安装 mysql 源 1sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm  安装 mysql 1sudo yum instal">
+<meta name="keywords" content="server">
+<meta property="og:type" content="article">
+<meta property="og:title" content="center os 通过yum 安装 mysql 5.7">
+<meta property="og:url" content="http://saberpowermo.github.io/2019/03/08/center-os-mysql/index.html">
 <meta property="og:site_name" content="回龙观大金毛">
+<meta property="og:description" content="下载 mysql 源安装包  1curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  安装 mysql 源 1sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm  安装 mysql 1sudo yum instal">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-08T08:34:38.475Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="回龙观大金毛">
+<meta name="twitter:title" content="center os 通过yum 安装 mysql 5.7">
+<meta name="twitter:description" content="下载 mysql 源安装包  1curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  安装 mysql 源 1sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm  安装 mysql 1sudo yum instal">
     
 
     
@@ -177,20 +182,16 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title">2017</h1>
-            </div>
+            <section id="main"><article id="post-center-os-mysql" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
         
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+        
+        
+            <header class="article-header">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/09/26/lottie/">Lottie 源码阅读.</a>
+        <h1 class="article-title" itemprop="name">
+            center os 通过yum 安装 mysql 5.7
         </h1>
     
 
@@ -198,8 +199,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/09/26/lottie/">
-            <time datetime="2017-09-26T06:31:30.000Z" itemprop="datePublished">2017-09-26</time>
+        <a href="/2019/03/08/center-os-mysql/">
+            <time datetime="2019-03-08T06:58:30.000Z" itemprop="datePublished">2019-03-08</time>
         </a>
     </div>
 
@@ -208,45 +209,155 @@ ga('send', 'pageview');
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/server/">server</a>
     </div>
 
                 </div>
-            </div>
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <ol>
+<li>下载 mysql 源安装包</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>安装 mysql 源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>一顿按 y 就可以了.</p>
+<ol start="4">
+<li><p>启动mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 安装服务</span><br><span class="line">[root@localhost share]# sudo systemctl enable mysqld</span><br><span class="line">// 启动服务</span><br><span class="line">[root@localhost share]# sudo systemctl start mysqld</span><br><span class="line">// 查看服务状态</span><br><span class="line">[root@localhost share]# sudo systemctl status mysqld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 root 默认密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MySQL 5.7 默认密码 在 /var/log/mysqld.log 文件中, 下面这个指令可以拿到默认指令.</span><br><span class="line">grep 'temporary password' /var/log/mysqld.log</span><br><span class="line">[Note] A temporary password is generated for root@localhost: **********</span><br><span class="line">登录 MySQL 并修改密码</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY '你自己的密码';</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">6. 修改数据库默认字符</span><br><span class="line">```sql</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'character%'</span>;</span><br><span class="line">+<span class="comment">--------------------------+----------------------------+</span></span><br><span class="line">| Variable_name            | Value                      |</span><br><span class="line">+<span class="comment">--------------------------+----------------------------+</span></span><br><span class="line">| character_set_client     | utf8                       |</span><br><span class="line">| character_set_connection | utf8                       |</span><br><span class="line">| character_set_database   | latin1                     |</span><br><span class="line">| character_set_filesystem | binary                     |</span><br><span class="line">| character_set_results    | utf8                       |</span><br><span class="line">| character_set_server     | latin1                     |</span><br><span class="line">| character_set_system     | utf8                       |</span><br><span class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</span><br><span class="line">+<span class="comment">--------------------------+----------------------------+</span></span><br></pre></td></tr></table></figure>
+<p> 这是我的 mysql 安装以后默认的格式，一般我们实际工作中都是用 utf8mb4 格式.这里可以通过修改 /etc/my.conf 进行修改<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/my.cnf</span><br><span class="line">之后 插入以下的语句 即可修改</span><br><span class="line">[client]</span><br><span class="line">default-character-set = utf8mb4</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">default-character-set = utf8mb4</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">character_set_server=utf8mb4</span><br></pre></td></tr></table></figure></p>
+<ol start="7">
+<li>允许远程访问<br>默认情况下 root 账号是不允许远端访问的<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; mysql&gt; select host,user  from user;</span><br><span class="line">+<span class="comment">-----------+---------------+</span></span><br><span class="line">| host      | user          |</span><br><span class="line">+<span class="comment">-----------+---------------+</span></span><br><span class="line">| localhost | mysql.session |</span><br><span class="line">| localhost | mysql.sys     |</span><br><span class="line">| localhost | root          |</span><br><span class="line">+<span class="comment">-----------+---------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>执行以下命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update user set host = '%' where user = 'root';</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br></pre></td></tr></table></figure></p>
+<p>执行完之后 systemctl restart mysqld 重启服务 即可.</p>
+
+        
         </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/2017/09/14/volley/">Volley 源码阅读.</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/2017/09/14/volley/">
-            <time datetime="2017-09-14T06:31:30.000Z" itemprop="datePublished">2017-09-14</time>
-        </a>
-    </div>
+        <footer class="article-footer">
+            <div class="share-container">
 
 
-                    
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
-    </div>
 
-                </div>
-            </div>
-        </div>
-    
 </div>
+
+    <a data-url="http://saberpowermo.github.io/2019/03/08/center-os-mysql/" data-id="cjszrxgub0002u4kp4rfzux6r" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+<script>
+    (function ($) {
+        // Prevent duplicate binding
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+</script>
+
+            
+    
+        <a href="/2019/03/08/center-os-mysql/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2019/03/08/center-os-mysql/">Comments</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2018/07/11/nginx_go_server/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title">nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 </div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+
+    
+    </section>
+
 </section>
             
                 <aside id="sidebar">
@@ -423,11 +534,13 @@ ga('send', 'pageview');
     var disqus_shortname = 'saberpowermo';
     
     
+    var disqus_url = 'http://saberpowermo.github.io/2019/03/08/center-os-mysql/';
+    
     (function() {
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
     </script>
