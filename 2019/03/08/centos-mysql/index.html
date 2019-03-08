@@ -3,20 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>android 源生DownloadManager 的两个Crash 坑 | 回龙观大金毛</title>
+    <title>centos 通过yum 安装 mysql 5.7 | 回龙观大金毛</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,123DownloadManager.Request request = new DownloadManager.Request(Uri.parse(你的APK下载地址));request.setDestinationUri(你的app 本地存储URI));long mDownloadId = mDo">
-<meta name="keywords" content="Android">
+    <meta name="description" content="下载 mysql 源安装包  1curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  安装 mysql 源 1sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm  安装 mysql 1sudo yum instal">
+<meta name="keywords" content="server">
 <meta property="og:type" content="article">
-<meta property="og:title" content="android 源生DownloadManager 的两个Crash 坑">
-<meta property="og:url" content="http://saberpowermo.github.io/2017/03/17/downloadbug/index.html">
+<meta property="og:title" content="centos 通过yum 安装 mysql 5.7">
+<meta property="og:url" content="http://saberpowermo.github.io/2019/03/08/centos-mysql/index.html">
 <meta property="og:site_name" content="回龙观大金毛">
-<meta property="og:description" content="如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,123DownloadManager.Request request = new DownloadManager.Request(Uri.parse(你的APK下载地址));request.setDestinationUri(你的app 本地存储URI));long mDownloadId = mDo">
+<meta property="og:description" content="下载 mysql 源安装包  1curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  安装 mysql 源 1sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm  安装 mysql 1sudo yum instal">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-03-17T04:03:12.000Z">
+<meta property="og:updated_time" content="2019-03-08T10:10:48.531Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="android 源生DownloadManager 的两个Crash 坑">
-<meta name="twitter:description" content="如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,123DownloadManager.Request request = new DownloadManager.Request(Uri.parse(你的APK下载地址));request.setDestinationUri(你的app 本地存储URI));long mDownloadId = mDo">
+<meta name="twitter:title" content="centos 通过yum 安装 mysql 5.7">
+<meta name="twitter:description" content="下载 mysql 源安装包  1curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm  安装 mysql 源 1sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm  安装 mysql 1sudo yum instal">
     
 
     
@@ -182,7 +182,7 @@ ga('send', 'pageview');
 </aside>
 
             
-            <section id="main"><article id="post-downloadbug" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-centos-mysql" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -191,7 +191,7 @@ ga('send', 'pageview');
                 
     
         <h1 class="article-title" itemprop="name">
-            android 源生DownloadManager 的两个Crash 坑
+            centos 通过yum 安装 mysql 5.7
         </h1>
     
 
@@ -199,8 +199,8 @@ ga('send', 'pageview');
                     
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2017/03/17/downloadbug/">
-            <time datetime="2017-03-17T01:31:30.000Z" itemprop="datePublished">2017-03-17</time>
+        <a href="/2019/03/08/centos-mysql/">
+            <time datetime="2019-03-08T06:58:30.000Z" itemprop="datePublished">2019-03-08</time>
         </a>
     </div>
 
@@ -209,7 +209,7 @@ ga('send', 'pageview');
                     
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Android/">Android</a>
+        <a class="tag-link" href="/tags/server/">server</a>
     </div>
 
                 </div>
@@ -218,12 +218,35 @@ ga('send', 'pageview');
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>如果你的APP使用源生DownloadManager去更新apk,那么下面这3行代码你肯定不陌生,<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">DownloadManager.Request request = <span class="keyword">new</span> DownloadManager.Request(Uri.parse(你的APK下载地址));</span><br><span class="line">request.setDestinationUri(你的app 本地存储URI));</span><br><span class="line"><span class="keyword">long</span> mDownloadId = mDownloadManager.enqueue(request);</span><br></pre></td></tr></table></figure></p>
-<h3 id="IllegalArgumentException"><a href="#IllegalArgumentException" class="headerlink" title="IllegalArgumentException"></a>IllegalArgumentException</h3><p>这三行代码 最近在一些机型上爆出了java.lang.IllegalArgumentException: UnknownURLcontent://downloads/my_downloads 异常.<br>是崩溃在了mDownloadManager.enqueue(request)这里,<br>跟着代码进去以后<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">long</span> <span class="title">enqueue</span><span class="params">(Request request)</span> </span>&#123;</span><br><span class="line">    ContentValues values = request.toContentValues(mPackageName);</span><br><span class="line">    Uri downloadUri = mResolver.insert(Downloads.Impl.CONTENT_URI, values);</span><br><span class="line">    <span class="keyword">long</span> id = Long.parseLong(downloadUri.getLastPathSegment());</span><br><span class="line">    <span class="keyword">return</span> id;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>继续跟进,找到了崩溃的源头, 是 mResolver.insert这句的问题<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="meta">@Nullable</span> <span class="function">Uri <span class="title">insert</span><span class="params">(@NonNull Uri url, @Nullable ContentValues values)</span> </span>&#123;</span><br><span class="line">    Preconditions.checkNotNull(url, <span class="string">"url"</span>);</span><br><span class="line">    IContentProvider provider = acquireProvider(url);</span><br><span class="line">    <span class="keyword">if</span> (provider == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 看这里 嘿嘿嘿</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Unknown URL "</span> + url);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">long</span> startTime = SystemClock.uptimeMillis();</span><br><span class="line">        Uri createdRow = provider.insert(mPackageName, url, values);</span><br><span class="line">        <span class="keyword">long</span> durationMillis = SystemClock.uptimeMillis() - startTime;</span><br><span class="line">        maybeLogUpdateToEventLog(durationMillis, url, <span class="string">"insert"</span>, <span class="keyword">null</span> <span class="comment">/* where */</span>);</span><br><span class="line">        <span class="keyword">return</span> createdRow;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;</span><br><span class="line">        <span class="comment">// Arbitrary and not worth documenting, as Activity</span></span><br><span class="line">        <span class="comment">// Manager will kill this process shortly anyway.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        releaseProvider(provider);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>原因是系统的DownloadManager Service被关闭了, 遇见这种问题, 可以有两种解决方法<br>1 是通过产品角度去告知用户,让用户去系统里找到相应的开关 打开下载服务,<br>2 是catch 住这个IllegalArgumentException 然后不再使用downloadmanager 而是自己去手写下载, 就可以解决.</p>
-<h3 id="SecurityException"><a href="#SecurityException" class="headerlink" title="SecurityException"></a>SecurityException</h3><p>这三行代码在某些机器上会爆出SecurityException，原因是Context.getExternalFilesDir得到的地址 和Environment.getExternalStorageDirectory() 不一致.<br>具体崩溃代码可以去看<a href="https://android.googlesource.com/platform/packages/providers/DownloadProvider/+/android-4.3.1_r1/src/com/android/providers/downloads/DownloadProvider.java" target="_blank" rel="noopener">源码</a> 的713行.<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">checkFileUriDestination</span><span class="params">(ContentValues values)</span> </span>&#123;</span><br><span class="line">    String fileUri = values.getAsString(Downloads.Impl.COLUMN_FILE_NAME_HINT);</span><br><span class="line">    <span class="keyword">if</span> (fileUri == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</span><br><span class="line">                <span class="string">"DESTINATION_FILE_URI must include a file URI under COLUMN_FILE_NAME_HINT"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    Uri uri = Uri.parse(fileUri);</span><br><span class="line">    String scheme = uri.getScheme();</span><br><span class="line">    <span class="keyword">if</span> (scheme == <span class="keyword">null</span> || !scheme.equals(<span class="string">"file"</span>)) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Not a file URI: "</span> + uri);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">final</span> String path = uri.getPath();</span><br><span class="line">    <span class="keyword">if</span> (path == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Invalid file URI: "</span> + uri);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">final</span> String canonicalPath = <span class="keyword">new</span> File(path).getCanonicalPath();</span><br><span class="line">        <span class="keyword">final</span> String externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();</span><br><span class="line">        <span class="keyword">if</span> (!canonicalPath.startsWith(externalPath)) &#123;</span><br><span class="line">            <span class="comment">// 看这里,嘿嘿嘿</span></span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"Destination must be on external storage: "</span> + uri);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> SecurityException(<span class="string">"Problem resolving path: "</span> + uri);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>出现这种bug 我们的解决方案 是自己去拼1个存储地址..<br>所以这三行代码的最终使用是这样的:<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">DownloadManager.Request request = <span class="keyword">new</span> DownloadManager.Request(Uri.parse(你的APK下载地址));</span><br><span class="line">request.setDestinationUri(你的app 本地存储URI));</span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">long</span> mDownloadId = instance.mSystemDownloadManager.enqueue(request);</span><br><span class="line"> &#125; <span class="keyword">catch</span> (SecurityException e) &#123;</span><br><span class="line">        File f = Environment.getExternalStorageDirectory();</span><br><span class="line">        f = <span class="keyword">new</span> File(f, <span class="string">"Android"</span>);</span><br><span class="line">        f = <span class="keyword">new</span> File(f, <span class="string">"data"</span>);</span><br><span class="line">        f = <span class="keyword">new</span> File(f, mContext.getPackageName());</span><br><span class="line">        f = <span class="keyword">new</span> File(f, <span class="string">"files"</span>);</span><br><span class="line">        f = <span class="keyword">new</span> File(f, Environment.DIRECTORY_DOWNLOADS);</span><br><span class="line">        <span class="keyword">if</span> (!f.exists()) &#123;</span><br><span class="line">            f.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        request.setDestinationUri(f));</span><br><span class="line">        instance.mDownloadId = instance.mSystemDownloadManager.enqueue(request);</span><br><span class="line"> &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</span><br><span class="line">     <span class="comment">// 自己去写把 要么弹toast告诉用户他傻逼, 要么自己去手写下载</span></span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure></p>
+            <ol>
+<li>下载 mysql 源安装包</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -LO http://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>安装 mysql 源</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum localinstall mysql57-community-release-el7-11.noarch.rpm</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装 mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>一顿按 y 就可以了.</p>
+<ol start="4">
+<li><p>启动mysql</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 安装服务</span><br><span class="line">[root@localhost share]# sudo systemctl enable mysqld</span><br><span class="line">// 启动服务</span><br><span class="line">[root@localhost share]# sudo systemctl start mysqld</span><br><span class="line">// 查看服务状态</span><br><span class="line">[root@localhost share]# sudo systemctl status mysqld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改 root 默认密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">MySQL 5.7 默认密码 在 /var/log/mysqld.log 文件中, 下面这个指令可以拿到默认指令.</span><br><span class="line">grep 'temporary password' /var/log/mysqld.log</span><br><span class="line">[Note] A temporary password is generated for root@localhost: **********</span><br><span class="line">登录 MySQL 并修改密码</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">Enter password: </span><br><span class="line">mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY '你自己的密码';</span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">6. 修改数据库默认字符</span><br><span class="line">```sql</span><br><span class="line"><span class="keyword">SHOW</span> <span class="keyword">VARIABLES</span> <span class="keyword">LIKE</span> <span class="string">'character%'</span>;</span><br><span class="line">+<span class="comment">--------------------------+----------------------------+</span></span><br><span class="line">| Variable_name            | Value                      |</span><br><span class="line">+<span class="comment">--------------------------+----------------------------+</span></span><br><span class="line">| character_set_client     | utf8                       |</span><br><span class="line">| character_set_connection | utf8                       |</span><br><span class="line">| character_set_database   | latin1                     |</span><br><span class="line">| character_set_filesystem | binary                     |</span><br><span class="line">| character_set_results    | utf8                       |</span><br><span class="line">| character_set_server     | latin1                     |</span><br><span class="line">| character_set_system     | utf8                       |</span><br><span class="line">| character_sets_dir       | /usr/share/mysql/charsets/ |</span><br><span class="line">+<span class="comment">--------------------------+----------------------------+</span></span><br></pre></td></tr></table></figure>
+<p> 这是我的 mysql 安装以后默认的格式，一般我们实际工作中都是用 utf8mb4 格式.这里可以通过修改 /etc/my.conf 进行修改<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/my.cnf</span><br><span class="line">之后 插入以下的语句 即可修改</span><br><span class="line">[client]</span><br><span class="line">default-character-set = utf8mb4</span><br><span class="line"></span><br><span class="line">[mysql]</span><br><span class="line">default-character-set = utf8mb4</span><br><span class="line"></span><br><span class="line">[mysqld]</span><br><span class="line">character_set_server=utf8mb4</span><br></pre></td></tr></table></figure></p>
+<ol start="7">
+<li>允许远程访问<br>默认情况下 root 账号是不允许远端访问的<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; mysql&gt; select host,user  from user;</span><br><span class="line">+<span class="comment">-----------+---------------+</span></span><br><span class="line">| host      | user          |</span><br><span class="line">+<span class="comment">-----------+---------------+</span></span><br><span class="line">| localhost | mysql.session |</span><br><span class="line">| localhost | mysql.sys     |</span><br><span class="line">| localhost | root          |</span><br><span class="line">+<span class="comment">-----------+---------------+</span></span><br><span class="line">3 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>执行以下命令<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; update user set host = '%' where user = 'root';</span><br><span class="line">Query OK, 1 row affected (0.00 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br></pre></td></tr></table></figure></p>
+<p>执行完之后 systemctl restart mysqld 重启服务 即可.</p>
 
         
         </div>
@@ -234,7 +257,7 @@ ga('send', 'pageview');
 
 </div>
 
-    <a data-url="http://saberpowermo.github.io/2017/03/17/downloadbug/" data-id="cjszwgkws000188kpbjluzlvf" class="article-share-link"><i class="fa fa-share"></i>Share</a>
+    <a data-url="http://saberpowermo.github.io/2019/03/08/centos-mysql/" data-id="cjszwgkwm000088kp6tgrjsxg" class="article-share-link"><i class="fa fa-share"></i>Share</a>
 <script>
     (function ($) {
         // Prevent duplicate binding
@@ -302,7 +325,7 @@ ga('send', 'pageview');
 
             
     
-        <a href="/2017/03/17/downloadbug/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2017/03/17/downloadbug/">Comments</a>
+        <a href="/2019/03/08/centos-mysql/#comments" class="article-comment-link disqus-comment-count" data-disqus-url="/2019/03/08/centos-mysql/">Comments</a>
     
 
         </footer>
@@ -311,19 +334,10 @@ ga('send', 'pageview');
         
 <nav id="article-nav">
     
-        <a href="/2017/05/01/viewsavastate/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
-            <div class="article-nav-title">
-                
-                    正确的保存View状态.
-                
-            </div>
-        </a>
     
-    
-        <a href="/2017/02/24/video_codec/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2018/07/11/nginx_go_server/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">Older</strong>
-            <div class="article-nav-title">音视频编码基础技术.</div>
+            <div class="article-nav-title">nginx &amp;&amp; 定向本地静态资源 &amp;&amp; 反代 golang 服务 </div>
         </a>
     
 </nav>
@@ -520,7 +534,7 @@ ga('send', 'pageview');
     var disqus_shortname = 'saberpowermo';
     
     
-    var disqus_url = 'http://saberpowermo.github.io/2017/03/17/downloadbug/';
+    var disqus_url = 'http://saberpowermo.github.io/2019/03/08/centos-mysql/';
     
     (function() {
     var dsq = document.createElement('script');
